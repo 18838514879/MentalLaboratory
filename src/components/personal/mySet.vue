@@ -20,16 +20,16 @@
                  <!--</p>-->
                <!--</li>-->
                <li class="clearfix" >
-                   <input class="set_le" type="text"  v-model="name"  value="" :disabled="disabled1" placeholder="请输入您的昵称">
-                    <button class="save" v-if="show1" @click="baocun1">保存</button>
+                   <input class="set_le" type="text" @click="updateSaveIdx('1')"  v-model="name"  value="" :disabled="saveIdx==2 || saveIdx==3?'disabled':false" placeholder="请输入您的昵称">
+                    <button class="save" v-if="saveIdx==1" @click="baocun1">保存</button>
                </li>
                <li class="clearfix">
-                   <input class="set_le" type="text" v-model="city"  value="" :disabled="disabled2" placeholder="请输入您所在城市">
-                    <button class="save" v-if="show2" @click="baocun2">保存</button>
+                   <input class="set_le" type="text" @click="updateSaveIdx('2')" v-model="city"  value="" :disabled="saveIdx==1 || saveIdx==3?'disabled':false" placeholder="请输入您所在城市">
+                    <button class="save" v-if="saveIdx==2" @click="baocun2">保存</button>
                    </li>
                <li class="clearfix">
-                   <input class="set_le" type="text" maxlength="11" v-model="phone"  value="" :disabled="disabled3"  placeholder="请输入您的手机号">
-                    <button class="save" v-if="show3" @click="baocun3">保存</button>
+                   <input class="set_le" type="text" maxlength="11" v-model="phone" @click="updateSaveIdx('3')"  value="" :disabled="saveIdx==2 || saveIdx==1?'disabled':false"  placeholder="请输入您的手机号">
+                    <button class="save" v-if="saveIdx==3" @click="baocun3">保存</button>
                    </li>
            </ul>
            <ul class="set_btn">
@@ -56,6 +56,8 @@ import { Actionsheet } from "mint-ui";
 export default {
   data() {
     return {
+      saveIdx:"-1",///判断保存按钮的显示隐藏
+
       userImg:'',//个人用户头像
       userName:'',//个人用户名
       userTelephone:'',//个人用户手机号
@@ -254,10 +256,12 @@ export default {
     getLibrary: function() {
       console.log("打开相册");
     },
-
+    updateSaveIdx:function (idx) {//修改按钮状态
+      this.saveIdx=idx;
+    },
     baocun1: function() {
         console.log(this.name)
-       if(this.name == undefined || null){
+       if(this.name == "" ||  this.name ==null){
             this.show1 = true;
             this.disabled2 = true;
             this.disabled3 = true;
@@ -267,6 +271,7 @@ export default {
           });
             return;
         }
+
 
       console.log("created"),
       this.axios({
@@ -295,10 +300,12 @@ export default {
             message: '保存成功',
             position: 'bottom'
           });
-          this.show1 = false;
-          this.disabled1 = false;
-          this.disabled2 = false;
-          this.disabled3 = false;
+          this.saveIdx=="-1";//初始化保存显示按钮
+
+//          this.show1 = false;
+//          this.disabled1 = false;
+//          this.disabled2 = false;
+//          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -349,10 +356,12 @@ export default {
             message: '保存成功',
             position: 'bottom'
           });
-          this.show1 = false;
-          this.disabled1 = false;
-          this.disabled2 = false;
-          this.disabled3 = false;
+
+          this.saveIdx=="-1";//初始化保存显示按钮
+//          this.show1 = false;
+//          this.disabled1 = false;
+//          this.disabled2 = false;
+//          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -412,10 +421,11 @@ export default {
               message: '保存成功',
               position: 'bottom'
             });
-            this.show3 = false;
-            this.disabled1 = false;
-            this.disabled2 = false;
-            this.disabled3 = false;
+          this.saveIdx=="-1";//初始化保存显示按钮
+//            this.show3 = false;
+//            this.disabled1 = false;
+//            this.disabled2 = false;
+//            this.disabled3 = false;
           } else{
           this.$Toast({
             message: res.data.msg,
@@ -567,6 +577,8 @@ export default {
       });
 
     },//修改用户头像
+
+
    },
 
 
