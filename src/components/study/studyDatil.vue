@@ -65,7 +65,7 @@ export default {
             {
             method:"get",
             url:this.$baseurl +"/api/data/getDataInfo",
-            params:{dataId:1},
+            params:{dataId:this.$route.query.dataId},
             }) .then( res => {
               if(res.data.code=="401"){
                 this.$Toast({
@@ -98,6 +98,7 @@ export default {
          });
     },
   methods: {
+      //购买附加内容
       addContent(){
            console.log('created');
             this.axios(
@@ -106,7 +107,7 @@ export default {
             url:this.$baseurl +"/api/data/payContent",
             headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
             params:{
-                dataId:'1',
+                dataId:this.$route.query.dataId,
                 },
             }) .then( res => {
               if(res.data.code=="401"){
