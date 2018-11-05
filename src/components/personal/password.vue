@@ -190,7 +190,7 @@ export default {
             this.axios({
                 method:"post",
                 url:this.$baseurl + "/api/member/saveMemberInfo",
-                headers:{"Content-Type": "application/x-www-form-urlencoded"},
+                headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
                 params:{
                   phone:this.phone,
                   password:this.password

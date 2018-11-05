@@ -24,7 +24,7 @@
             </ul>  -->
             <div :class="tops?'atop':'btop'" style="position: fixed;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
                 <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
-                  <div class="new_small  clearfix" v-for="(ranking,index) in rankings" :key="index"  @click="studyDatils(ranking.points)">
+                  <div class="new_small  clearfix" v-for="(ranking,index) in rankings" :key="index"  @click="studyDatils(ranking.points,ranking.id)">
                     <div class="le_new"><img class="new_datu" :src="ranking.imgUrl" alt=""></div>
                     <div class="ri_new">
                       <p class="new_text">{{ranking.title}}</p>
@@ -192,7 +192,6 @@ export default {
               position: 'bottom'
             });
           }
-
         })
         .catch(err => {
           console.log(err);
@@ -232,8 +231,7 @@ export default {
      this.show2 = false;
     },
 
-
-    studyDatils(points) {
+    studyDatils(points,dataId) {
       if (points != null) {
         const tknr =
           '<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
@@ -246,7 +244,7 @@ export default {
             if (action == "confirm") {
               //确认的回调
               console.log(1);
-              this.$router.push({ path: "/studyDatil?statu=1" });
+              this.$router.push({ path: "/studyDatil?statu=1"+"&dataId="+dataId});
             }
           })
           .catch(err => {
