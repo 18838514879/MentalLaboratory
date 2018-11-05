@@ -45,11 +45,16 @@
 export default {
   data() {
     return {
-      mgs:'申请兑换',
-      names:'张三',
-      ID:'421125299601012030',
-      bank:'621126678987654567',
-      opening:'中国银行霍营支行',
+      // mgs:'申请兑换',
+      // names:'张三',
+      // ID:'421125299601012030',
+      // bank:'621126678987654567',
+      // opening:'中国银行霍营支行',
+       mgs:'',
+      names:'',
+      ID:'',
+      bank:'',
+      opening:'',
     };
   },
   mounted () {
@@ -78,8 +83,8 @@ export default {
                 return;
             }
              this.axios({
-                  method:"get",
-                  url:this.$baseurl + "/api/member/getMemberInfo",
+                  method:"post",
+                  url:this.$baseurl + "/api/member/payPrize",
                   headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
                     params:{
                         token:localStorage.getItem('token'),
@@ -104,10 +109,6 @@ export default {
                  this.$router.push("/login")
                }else if(res.data.code=="0"){
                  console.log(res);
-                 this.names=res.data.member.name;
-                 this.ID=res.data.member.idno;
-                 this.bank=res.data.member.cardNumber;
-                 this.opening=res.data.member.openingbank;
                  if(res.data.code==0){
                    this.$Toast({
                      message: '兑换成功！',

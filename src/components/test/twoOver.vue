@@ -13,8 +13,8 @@
             <p class="per_for">您战胜了2762人（新纪录）</p>
             <p class="per_five">您获得了3000点积分 </p> -->
             <p class="per_one">
-                <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                参与人数：{{peopleCount}}人
+                <!-- <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                参与人数：{{peopleCount}}人 -->
             </p>
             <p class="per_two">
                 <img src="../../assets/qian.png" alt="">
@@ -33,7 +33,7 @@ export default{
       return {
          mgs: '标题',
          points:'0',
-         peopleCount:'999',
+        //  peopleCount:'999',
       }
     },
   mounted () {

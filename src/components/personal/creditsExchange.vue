@@ -4,14 +4,15 @@
         <ul class="coupon">
             <li class="clearfix" v-for="ranking in rankings" :key="ranking.id">
                 <div class="coupon_img">
-                    <img :src="src" alt="">
+                    <img v-if="!src" src="../../../static/images/coupon.png" alt="">
+                    <img v-if="src" :src="src" alt="">
                 </div>
                 <div class="text_coupon">
                         <span class="top">{{ranking.amount}}元优惠券</span><br>
                         <span class="btn">满{{ranking.points}}积分使用</span>
                 </div>
                 <div class="Immediately">
-                        <button class="Immediately_text" @click="appli(ranking.id)">立即领取</button>
+                        <button class="Immediately_text" @click="appli(ranking.id,points)">立即领取</button>
                 </div>
             </li>
             <!-- <li class="clearfix"><div class="coupon_img"><img src="../../../static/images/coupon.png" alt=""></div><div class="text_coupon"><span class="top">100元优惠券</span><br><span class="btn">满5000元使用</span></div><div class="Immediately"><img src="../../../static/images/Immediately.png" alt=""><span class="Immediately_text">立即领取</span></div></li>
@@ -38,14 +39,15 @@ export default {
     data() {
         return {
             mgs:'积分兑换',
-            src:'../static/images/coupon.png',
+            src:'',
            usedIntegral:'',
+           points:'',
             rankings: [
                         //   {id:1, discount:"100元优惠券",used:'满5000元使用', },
                         //   {id:2, discount:"100元优惠券",used:'满5000元使用', },
                         //   {id:3, discount:"100元优惠券",used:'满5000元使用', },
                         //   {id:4, discount:"100元优惠券",used:'满5000元使用', },
-            ]
+            ],
         };
     },
     mounted () {
@@ -80,7 +82,7 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
-                this.rankings=res.data.data.list
+                this.rankings=res.data.data.list;
               }else{
                 this.$Toast({
                   message: res.data.msg,
@@ -92,7 +94,8 @@ export default {
               console.log(err);
          });
     },
-        appli (prizeId) {
+  
+        appli (prizeId,points) {
             const tknr = '<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该奖品吗？</div>'
             MessageBox.confirm('', {
             message: tknr,
@@ -101,15 +104,16 @@ export default {
             }).then(action => {
             if (action == 'confirm') {     //确认的回调
             //    console.log(1);
-                if(this.usedIntegral>this.rankings.points){
-                     this.$Toast({
-                        message: '兑换成功',
-                        position: 'bottom'
-                      });
+
+                if(this.usedIntegral>=points){
+                    //  this.$Toast({
+                    //     message: '兑换成功',
+                    //     position: 'bottom'
+                    //   });
                     this.$router.push({path: '/application?prizeId='+prizeId})
                 }else{
                     this.$Toast({
-                        message: '兑换失败',
+                        message: '积分不足，无法兑换',
                         position: 'bottom'
                       });
                 }
@@ -119,7 +123,8 @@ export default {
             //    console.log(2);
             }
             });
-        }
+        },
+
     }
 };
 </script>

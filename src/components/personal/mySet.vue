@@ -2,8 +2,8 @@
      <div class="mine">
         <div class="header clearfix"><a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
            <ul class="set_top">
-               <li class="set_img clearfix" @click="cs" id="upload">
-                 <a href="javascript:void(0);" class="imageup" ></a>
+               <li class="set_img clearfix">
+                 <a href="javascript:void(0);" class="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
                  <div class="set_le" v-if="!userImg"><img :src="imgUrl" alt=""></div>
                  <div class="set_le" v-if="userImg"><img :src="userImg" alt=""></div>
                  <div class="set_fr" ><img src="../../../static/images/m_return.png" alt="">
@@ -20,16 +20,16 @@
                  <!--</p>-->
                <!--</li>-->
                <li class="clearfix" >
-                   <input class="set_le" type="text"  v-model="name"  value="" :disabled="disabled1" placeholder="请输入您的昵称">
-                    <button class="save" v-if="show1" @click="baocun1">保存</button>
+                   <input class="set_le" type="text" @click="updateSaveIdx('1')"  v-model="name"  value="" :disabled="saveIdx==2 || saveIdx==3?'disabled':false" placeholder="请输入您的昵称">
+                    <button class="save" v-if="saveIdx==1" @click="baocun1">保存</button>
                </li>
                <li class="clearfix">
-                   <input class="set_le" type="text" v-model="city"  value="" :disabled="disabled2" placeholder="请输入您所在城市">
-                    <button class="save" v-if="show2" @click="baocun2">保存</button>
+                   <input class="set_le" type="text" @click="updateSaveIdx('2')" v-model="city"  value="" :disabled="saveIdx==1 || saveIdx==3?'disabled':false" placeholder="请输入您所在城市">
+                    <button class="save" v-if="saveIdx==2" @click="baocun2">保存</button>
                    </li>
                <li class="clearfix">
-                   <input class="set_le" type="text" maxlength="11" v-model="phone"  value="" :disabled="disabled3"  placeholder="请输入您的手机号">
-                    <button class="save" v-if="show3" @click="baocun3">保存</button>
+                   <input class="set_le" type="text" maxlength="11" v-model="phone" @click="updateSaveIdx('3')"  value="" :disabled="saveIdx==2 || saveIdx==1?'disabled':false"  placeholder="请输入您的手机号">
+                    <button class="save" v-if="saveIdx==3" @click="baocun3">保存</button>
                    </li>
            </ul>
            <ul class="set_btn">
@@ -52,18 +52,22 @@
 </template>
 <script>
 import { Actionsheet } from "mint-ui";
-import { upload } from "../../../static/js/ajaxupload.js";
 
 export default {
   data() {
     return {
+      saveIdx:"-1",///判断保存按钮的显示隐藏
+
       userImg:'',//个人用户头像
       userName:'',//个人用户名
       userTelephone:'',//个人用户手机号
+
+//      imgUrl:'',
       loadUrl:'uploadImg/uploadSpecImg.htm',
       show:true,
       loading:false,//上传图片加载
       headImg:'',//用户头像
+
       mgs: "我的设置",
       show1: false,
       show2: false,
@@ -167,11 +171,11 @@ export default {
           overwrite: true
         }, function(e) {
           that.updateImgStart();//图片开始上传了
-          var task = plus.uploader.createUpload(that.$baseurl + "/api/member/upload", {
+          var task = plus.uploader.createUpload(this.$baseurl +"/api/member/upload", {
             method: "post"
           }, function(t, sta) {
             console.log(JSON.stringify(t))
-            alert(JSON.stringify(t))
+            // alert(JSON.stringify(t))
             if(sta == 200) {
               that.imgUrl=JSON.parse(t.responseText).url;
               that.updateImgEnd();
@@ -180,6 +184,7 @@ export default {
           task.addFile(e.target, {});
           task.start();
         }, function(err) {
+          //  alert(JSON.stringify(err))
           console.error("压缩失败：" + err.message);
         });
       }, function(err) {});
@@ -201,7 +206,7 @@ export default {
             quality: 20,
             overwrite: true
           }, function(e) {
-            var task = plus.uploader.createUpload(that.$baseimgurl, {
+            var task = plus.uploader.createUpload(this.$baseurl +"/api/member/upload", {
               method: "post"
             }, function(t, sta) {
               if(sta == 200) {
@@ -246,40 +251,18 @@ export default {
     actionSheet: function() {
       this.sheetVisible = true;
     },
-    cs:function(){
-$(function () {
-new AjaxUpload('#upload', {
-    action: "http://192.168.1.69:8081/framework-api/api/member/upload",
-    name: 'file',
-    autoSubmit:true,
-    responseType:"json",
-    onSubmit:function(file, extension){
-        if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
-            alert('只支持jpg、png、gif格式的图片！');
-            return false;
-        }
-    },
-    onComplete : function(file, r){
-      console.log("ajaxupload");
-        if(r.code == 0){
-            alert("上传成功");
-        }else{
-            alert(r.msg);
-        }
-    }
-});
-});
-    },
     getCamera: function() {
       console.log("打开照相机");
     },
     getLibrary: function() {
       console.log("打开相册");
     },
-
+    updateSaveIdx:function (idx) {//修改按钮状态
+      this.saveIdx=idx;
+    },
     baocun1: function() {
         console.log(this.name)
-       if(this.name == undefined || null){
+       if(this.name == "" ||  this.name ==null){
             this.show1 = true;
             this.disabled2 = true;
             this.disabled3 = true;
@@ -289,6 +272,7 @@ new AjaxUpload('#upload', {
           });
             return;
         }
+
 
       console.log("created"),
       this.axios({
@@ -317,10 +301,12 @@ new AjaxUpload('#upload', {
             message: '保存成功',
             position: 'bottom'
           });
-          this.show1 = false;
-          this.disabled1 = false;
-          this.disabled2 = false;
-          this.disabled3 = false;
+          this.saveIdx="-1";//初始化保存显示按钮
+
+//          this.show1 = false;
+//          this.disabled1 = false;
+//          this.disabled2 = false;
+//          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -371,10 +357,12 @@ new AjaxUpload('#upload', {
             message: '保存成功',
             position: 'bottom'
           });
-          this.show2 = false;
-          this.disabled1 = false;
-          this.disabled2 = false;
-          this.disabled3 = false;
+
+          this.saveIdx="-1";//初始化保存显示按钮
+//          this.show1 = false;
+//          this.disabled1 = false;
+//          this.disabled2 = false;
+//          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -434,10 +422,11 @@ new AjaxUpload('#upload', {
               message: '保存成功',
               position: 'bottom'
             });
-            this.show3 = false;
-            this.disabled1 = false;
-            this.disabled2 = false;
-            this.disabled3 = false;
+          this.saveIdx="-1";//初始化保存显示按钮
+//            this.show3 = false;
+//            this.disabled1 = false;
+//            this.disabled2 = false;
+//            this.disabled3 = false;
           } else{
           this.$Toast({
             message: res.data.msg,
@@ -544,7 +533,7 @@ new AjaxUpload('#upload', {
       this.reviseImg();
     },
     reviseImg:function(){
-      alert(this.headImg)
+    
       var that=this;
       this.axios({
         method:"post",
@@ -556,17 +545,17 @@ new AjaxUpload('#upload', {
       }).then((res)=>{
         console.log(res)
         if(res.data.code=="401"){
-          that.$Toast({
+          this.$Toast({
             message: '登录已经过期',
             position: 'bottom'
           });
-          that.$router.push("/login")
+          this.$router.push("/login")
         }else if(res.data.code=="402"){
-          that.$Toast({
+          this.$Toast({
             message: '您还未登录',
             position: 'bottom'
           });
-          that.$router.push("/login")
+          this.$router.push("/login")
         }else if(res.data.code=="0"){
           console.log(res);
             that.$Toast({
@@ -579,7 +568,7 @@ new AjaxUpload('#upload', {
           this.disabled2 = false;
           this.disabled3 = false;
         }else{
-          that.$Toast({
+          this.$Toast({
             message: res.data.msg,
             position: 'bottom'
           });
@@ -589,6 +578,8 @@ new AjaxUpload('#upload', {
       });
 
     },//修改用户头像
+
+
    },
 
 
@@ -628,7 +619,7 @@ new AjaxUpload('#upload', {
       line-height: 1.5rem;
       margin-right: 0.3rem;
     }
-    
+   
     .img2{
       display: block;
       width: 0.15rem;
@@ -637,7 +628,7 @@ new AjaxUpload('#upload', {
       margin-top: 0.64rem;
       margin-right: 0.29rem;
     }
-  /*}*/
+
 
 
 .button_opcity {

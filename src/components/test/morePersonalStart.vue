@@ -14,12 +14,12 @@
             {{ title }}
         </p>
         <div class="btn" v-if="myAnswer==-1">
-          <div class="bth_zhu bth_bai"  v-for="(item1,idx) in list1" :key="item1.id" @click="dati(item1.id)">{{ item1.timu }}</div>
+          <div class="bth_zhu bth_bai"  v-for="(item1) in list1" :key="item1.id" @click="dati(item1.id)">{{ item1.timu }}</div>
             <!--<div class="bth_lv bth_zhu" @click="DianOver()">祈使句</div>-->
             <!--<div class="bth_bai bth_zhu" @click="tank()">疑问句</div>-->
         </div>
         <div class="btn" v-if="myAnswer!=-1">
-          <div class="bth_zhu bth_bai"  v-for="(item1,idx) in list1" :key="item1.id" :class="answer==item1.id?'bth_lv':myAnswer==item1.id?'bth_Rd' :''">{{ item1.timu }}</div>
+          <div class="bth_zhu bth_bai"  v-for="(item1) in list1" :key="item1.id" :class="answer==item1.id?'bth_lv':myAnswer==item1.id?'bth_Rd' :''">{{ item1.timu }}</div>
         </div>
 
       <div class="footerBtn">
