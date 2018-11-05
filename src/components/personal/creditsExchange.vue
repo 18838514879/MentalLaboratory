@@ -38,7 +38,7 @@ export default {
     data() {
         return {
             mgs:'积分兑换',
-            src:'../../../static/images/coupon.png',
+            src:'../static/images/coupon.png',
            usedIntegral:'',
             rankings: [
                         //   {id:1, discount:"100元优惠券",used:'满5000元使用', },

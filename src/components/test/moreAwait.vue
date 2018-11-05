@@ -177,8 +177,14 @@ export default{
            this.$router.push("/login")
          }else if(res.data.code=="0"){
            console.log(res.data.data);
-           this.points = res.data.data.points
-           this.people = res.data.data.peopleCount
+           this.points = res.data.data.points;
+           this.people = res.data.data.peopleCount;
+            if(res.data.data.points == null){
+            this.points = 0;
+          }
+          if(res.data.data.peopleCount == null){
+            this.people = 0;
+          }
 
            // 倒计时
            // 获取开始时间

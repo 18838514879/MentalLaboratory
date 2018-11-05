@@ -39,11 +39,11 @@ export default {
       return {
         isTrue:false,
         mgs:'手机注册',
-        logoUrl:'../../../static/images/l_logo.png',
+        logoUrl:'../static/images/l_logo.png',
         phone:'',
         password:'',
         authCode:'',
-        src:'../../../static/images/notread.png',
+        src:'../static/images/notread.png',
         show:true,
         count:'',
       };

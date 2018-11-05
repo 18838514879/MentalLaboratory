@@ -47,7 +47,7 @@ export default {
       mine: "我的",
       name: "王紫烟",
       integral: "1254",
-      src: "../../../static/images/portrait.png"
+      src: "../static/images/portrait.png"
     };
   },
   components: { Footerone },
@@ -94,6 +94,7 @@ export default {
           console.log(res);
           this.name = res.data.member.nickname;
           this.src = res.data.member.imgUrl;
+          this.integral = res.data.member.pointsTrue;
           if(res.data.member.pointsTrue == null){
             this.integral = 0;
           }

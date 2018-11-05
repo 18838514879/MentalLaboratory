@@ -5,9 +5,9 @@
             <div class="head_b">
             <div class="test_head"></div>
             <ul class="test_datil clearfix">
-              <li class="top_one" @click="myIntegral()"><img src="../../../static/images/test_top1.png" alt=""><div class="test_text"><span class="test_num">1254</span><br><span class="text_test">实验积分</span></div></li>
-              <li @click="myAchievement()"><img src="../../../static/images/test_top2.jpg" alt=""><div class="test_text"><span class="test_num">629</span><br><span class="text_test">实验成就</span></div></li>
-              <li @click="myRanking()"><img src="../../../static/images/test_top3.jpg" alt=""><div class="test_text"><span class="test_num">23</span><br><span class="text_test">名次排行</span></div></li>
+              <li class="top_one" @click="myIntegral()"><img src="../../../static/images/test_top1.png" alt=""><div class="test_text"><span class="text_test">实验积分</span></div></li>
+              <li @click="myAchievement()"><img src="../../../static/images/test_top2.jpg" alt=""><div class="test_text"><span class="text_test">实验成就</span></div></li>
+              <li @click="myRanking()"><img src="../../../static/images/test_top3.jpg" alt=""><div class="test_text"><span class="text_test">名次排行</span></div></li>
             </ul>
             <div class="white"><img :src="img" alt=""></div>
           </div>
@@ -293,14 +293,13 @@ export default{
             }
             .test_text{
                 float: left;
-                .test_num{
-                    font-size: 0.3rem;
-                    color: #2083d1;
-                    font-weight:700;
-                    // margin-bottom: 0.18rem;
-                }
                 .text_test{
                     color:#9c9c9c;
+                    display: block;
+                    padding-top: 10px;
+                    box-sizing: border-box;
+                    -webkit-box-sizing: border-box;
+
                 }
 
             }

@@ -101,6 +101,12 @@ export default {
           console.log(res.data);
           this.points = res.data.data.points;
           this.people = res.data.data.peopleCount;
+          if(res.data.data.points == null){
+            this.points = 0;
+          }
+          if(res.data.data.peopleCount == null){
+            this.people = 0;
+          }
         }else{
           this.$Toast({
             message: res.data.msg,

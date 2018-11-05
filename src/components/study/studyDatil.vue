@@ -16,7 +16,7 @@
         </div>
         <div v-if="statu==1">
             <div class="addContent"  @click="addContent()">附加内容链接</div>
-            <div v-html="contentPlus">{{contentPlus}}</div>
+            <div class="addContent1" v-html="contentPlus">{{data}}</div>
         </div>
 
         <div class="details_footer clearfix">
@@ -53,6 +53,7 @@ export default {
         content:'',
         contentPlus:'',
         statu:'0',
+        data:'',
     }
   },
   components: {
@@ -61,12 +62,11 @@ export default {
    created () {
        this.statu=this.$route.query.statu
        console.log('created');
-            this.axios(
-            {
+            this.axios({
             method:"get",
             url:this.$baseurl +"/api/data/getDataInfo",
             params:{dataId:this.$route.query.dataId},
-            }) .then( res => {
+            }).then( res => {
               if(res.data.code=="401"){
                 this.$Toast({
                   message: '登录已经过期',
@@ -91,8 +91,6 @@ export default {
                   position: 'bottom'
                 });
               }
-
-
             }).catch( err => {
               console.log(err);
          });
@@ -124,7 +122,10 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
-                // this.contentPlus=res.data.info.contentPlus;
+                this.contentPlus=res.data.data;
+                if(res.data.data == null){
+                     this.contentPlus="";
+                }
               }else{
                 this.$Toast({
                   message: res.data.msg,
@@ -163,6 +164,19 @@ export default {
             font-size: .24rem;
             text-align: center;
         }
+    .addContent1{
+            width: 7.02rem;
+            font-family: SourceHanSansCN-Regular;
+            font-size: .24rem;
+            font-weight: normal;
+            font-stretch: normal;
+            line-height: .44rem;
+            letter-spacing: 0px;
+            color: #666666;
+            margin: 0 auto;
+            text-indent: 2em;
+            margin-bottom: .65rem;
+    }
     // 遮罩
     .zhezhao{
         height: 100%;

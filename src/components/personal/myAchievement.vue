@@ -24,7 +24,7 @@ export default {
   data() {
     return {
         mgs:'我的成就',
-        src:'../../../static/images/achievement_1.png',
+        src:'../static/images/achievement_1.png',
         achieve_datil:'规则明细',
         	rankings: [
 

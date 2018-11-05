@@ -2,8 +2,8 @@
      <div class="mine">
         <div class="header clearfix"><a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
            <ul class="set_top">
-               <li class="set_img clearfix">
-                 <a href="javascript:void(0);" class="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
+               <li class="set_img clearfix" @click="cs" id="upload">
+                 <a href="javascript:void(0);" class="imageup" ></a>
                  <div class="set_le" v-if="!userImg"><img :src="imgUrl" alt=""></div>
                  <div class="set_le" v-if="userImg"><img :src="userImg" alt=""></div>
                  <div class="set_fr" ><img src="../../../static/images/m_return.png" alt="">
@@ -52,6 +52,7 @@
 </template>
 <script>
 import { Actionsheet } from "mint-ui";
+import { upload } from "../../../static/js/ajaxupload.js";
 
 export default {
   data() {
@@ -59,13 +60,10 @@ export default {
       userImg:'',//个人用户头像
       userName:'',//个人用户名
       userTelephone:'',//个人用户手机号
-
-//      imgUrl:'',
       loadUrl:'uploadImg/uploadSpecImg.htm',
       show:true,
       loading:false,//上传图片加载
       headImg:'',//用户头像
-
       mgs: "我的设置",
       show1: false,
       show2: false,
@@ -169,7 +167,7 @@ export default {
           overwrite: true
         }, function(e) {
           that.updateImgStart();//图片开始上传了
-          var task = plus.uploader.createUpload(that.$baseimgurl, {
+          var task = plus.uploader.createUpload(that.$baseurl + "/api/member/upload", {
             method: "post"
           }, function(t, sta) {
             console.log(JSON.stringify(t))
@@ -247,6 +245,30 @@ export default {
   methods: {
     actionSheet: function() {
       this.sheetVisible = true;
+    },
+    cs:function(){
+$(function () {
+new AjaxUpload('#upload', {
+    action: "http://192.168.1.69:8081/framework-api/api/member/upload",
+    name: 'file',
+    autoSubmit:true,
+    responseType:"json",
+    onSubmit:function(file, extension){
+        if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))){
+            alert('只支持jpg、png、gif格式的图片！');
+            return false;
+        }
+    },
+    onComplete : function(file, r){
+      console.log("ajaxupload");
+        if(r.code == 0){
+            alert("上传成功");
+        }else{
+            alert(r.msg);
+        }
+    }
+});
+});
     },
     getCamera: function() {
       console.log("打开照相机");
@@ -349,7 +371,7 @@ export default {
             message: '保存成功',
             position: 'bottom'
           });
-          this.show1 = false;
+          this.show2 = false;
           this.disabled1 = false;
           this.disabled2 = false;
           this.disabled3 = false;
@@ -534,17 +556,17 @@ export default {
       }).then((res)=>{
         console.log(res)
         if(res.data.code=="401"){
-          this.$Toast({
+          that.$Toast({
             message: '登录已经过期',
             position: 'bottom'
           });
-          this.$router.push("/login")
+          that.$router.push("/login")
         }else if(res.data.code=="402"){
-          this.$Toast({
+          that.$Toast({
             message: '您还未登录',
             position: 'bottom'
           });
-          this.$router.push("/login")
+          that.$router.push("/login")
         }else if(res.data.code=="0"){
           console.log(res);
             that.$Toast({
@@ -557,7 +579,7 @@ export default {
           this.disabled2 = false;
           this.disabled3 = false;
         }else{
-          this.$Toast({
+          that.$Toast({
             message: res.data.msg,
             position: 'bottom'
           });
@@ -606,9 +628,7 @@ export default {
       line-height: 1.5rem;
       margin-right: 0.3rem;
     }
-    .span3{
-      //    margin-left: 45%;
-    }
+    
     .img2{
       display: block;
       width: 0.15rem;

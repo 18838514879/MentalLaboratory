@@ -7,8 +7,8 @@
             </div>
             <div class="white clearfix"><img src="../../../static/images/portrait.png" alt=""></div>
             <p class="per_one">
-                <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                参与人数：{{people}}人
+                <!-- <span><i class="fa fa-user" aria-hidden="true"></i></span>
+                参与人数：{{people}}人 -->
             </p>
             <p class="per_two">
                 <img src="../../assets/qian.png" alt="">
@@ -27,7 +27,7 @@ export default{
    data () {
       return {
          points:'',
-         people:'999',
+        //  people:'999',
       }
     },
   components:{
@@ -68,7 +68,14 @@ export default{
             this.$router.push("/login")
           }else if(res.data.code=="0"){
             console.log(res.data);
-            this.points = res.data.data.points
+            this.points = res.data.data.points;
+            //  this.people = res.data.data.peopleCount;
+              if(res.data.data.points == null){
+            this.points = 0;
+          }
+        //   if(res.data.data.peopleCount == null){
+        //     this.people = 0;
+        //   }
           }else{
             this.$Toast({
               message: res.data.msg,
@@ -141,7 +148,7 @@ export default{
       font-size: 0.38rem;
       color:#2083d1;
        text-align: center;
-       margin-top: 0.38rem;
+       margin-top: 2.38rem;
       img{
           width: 0.45rem;
           height: 0.45rem;

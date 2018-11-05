@@ -16,6 +16,7 @@ import creditsExchange from '@/components/personal/creditsExchange'
 import opinion from '@/components/personal/opinion'
 import application from '@/components/personal/application'
 import password from '@/components/personal/password'
+import findPassword from '@/components/personal/findPassword'
 import solo from '@/components/personal/SoLo'
 import ranking from '@/components/personal/Ranking'
 import sumit from '@/components/personal/Sumit'
@@ -139,6 +140,11 @@ export default new Router({
       path: '/password',
       name: 'password',
       component: password
+    },
+    {
+      path: '/findPassword',
+      name: 'findPassword',
+      component: findPassword
     },
     // 答题
     {

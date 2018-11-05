@@ -304,7 +304,7 @@ var that=this; //作用域问题
 
         },
         phoneRegistered: function(phone) {
-            this.$router.push({path:'/password?phone='+ phone})
+            this.$router.push({path:'/findPassword?phone='+ phone})
         },
         phoneRegisteredd () {
             this.$router.push({path: '/register'})

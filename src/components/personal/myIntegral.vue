@@ -22,8 +22,8 @@ export default {
     return {
          mgs:'我的积分',
          all:'100',
-         usable:'20',
-         used:'80',
+         usable:'80',
+         used:'20',
     };
   },
 
@@ -53,7 +53,6 @@ export default {
           this.$router.push("/login")
         }else if(res.data.code=="0"){
           console.log(res);
-          this.text=res.data.aboutUsconsole.log(res);
           this.all=res.data.data.points;
           this.used=res.data.data.pointsFalse;
           this.usable=res.data.data.pointsTrue;
