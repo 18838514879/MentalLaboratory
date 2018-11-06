@@ -34,7 +34,7 @@ export default {
         }
     },
     mounted:function () {
-var that=this; //作用域问题
+            var that=this; //作用域问题
             var isok=0;
             // console.log(this.$route.path);
             var auths=null;   //登录通道
@@ -170,13 +170,7 @@ var that=this; //作用域问题
                     position: 'bottom'
                 });
             }
-
-
             document.title = '登录';
-
-
-
-
 
         this.jiekou();
     },
@@ -241,7 +235,7 @@ var that=this; //作用域问题
                 });
                 return;
             }
-            var phone=/^1[345678]\d{9}$/;
+            var phone=/^1[3456789]\d{9}$/;
             if(!phone.test(this.phone)){
                 this.$Toast({
                     message: '手机号格式错误',

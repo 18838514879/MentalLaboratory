@@ -1,7 +1,6 @@
 <template>
     <div class="mine">
     <div class="header">{{mgs}}</div>
-      <!-- <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"> -->
        <div style="position: fixed;top:0rem;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
         <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
         <div class="count_new">

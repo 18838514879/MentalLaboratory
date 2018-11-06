@@ -62,7 +62,6 @@ export default {
       userName:'',//个人用户名
       userTelephone:'',//个人用户手机号
 
-//      imgUrl:'',
       loadUrl:'uploadImg/uploadSpecImg.htm',
       show:true,
       loading:false,//上传图片加载
@@ -135,16 +134,16 @@ export default {
   },
   mounted:function(){
 
-
     var that=this;
+    that.myImg();
     function plusReady(){
-      sessionStorage.setItem("camereIsok",'1');
-      // 弹出系统选择按钮框
-      if(sessionStorage.getItem("camereIsok")==0){
-        return;
-      }else {
-        sessionStorage.setItem("camereIsok",'0');
-        mui("body").on("tap",".imageup",function(){
+      // sessionStorage.setItem("camereIsok",'1');
+      // // 弹出系统选择按钮框
+      // if(sessionStorage.getItem("camereIsok")==0){
+      //   return;
+      // }else {
+      //   sessionStorage.setItem("camereIsok",'0');
+        mui("body").on("click",".imageup",function(){
           //page.imgUp();
           var m=this;
           plus.nativeUI.actionSheet({cancel:"取消",buttons:[
@@ -157,7 +156,7 @@ export default {
             }
           });
         })
-      }
+      // }
     }
 
     //发送照片
@@ -171,7 +170,7 @@ export default {
           overwrite: true
         }, function(e) {
           that.updateImgStart();//图片开始上传了
-          var task = plus.uploader.createUpload(this.$baseurl +"/api/member/upload", {
+          var task = plus.uploader.createUpload(that.$baseurl +"/api/member/upload", {
             method: "post"
           }, function(t, sta) {
             console.log(JSON.stringify(t))
@@ -204,9 +203,9 @@ export default {
             src: localUrl,
             dst: "_doc/chat/camera/" + localUrl,
             quality: 20,
-            overwrite: true
+            overwrite: true    
           }, function(e) {
-            var task = plus.uploader.createUpload(this.$baseurl +"/api/member/upload", {
+            var task = plus.uploader.createUpload(that.$baseurl +"/api/member/upload", {
               method: "post"
             }, function(t, sta) {
               if(sta == 200) {
@@ -260,6 +259,46 @@ export default {
     updateSaveIdx:function (idx) {//修改按钮状态
       this.saveIdx=idx;
     },
+    //获取图像接口
+      myImg () {
+            this.axios({
+          method:"get",
+           url:this.$baseurl + "/api/member/getMemberInfo",
+           headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+            params:{
+                   phone:this.$route.query.phone,
+                  }
+       }).then((res)=>{
+        if(res.data.code=="401"){
+          this.$Toast({
+            message: '登录已经过期',
+            position: 'bottom'
+          });
+          this.$router.push("/login")
+        }else if(res.data.code=="402"){
+          this.$Toast({
+            message: '您还未登录',
+            position: 'bottom'
+          });
+          this.$router.push("/login")
+        }else if(res.data.code=="0"){
+          console.log(res);
+          this.imgUrl = res.data.member.imgUrl;
+          if(res.data.member.pointsTrue == null){
+            this.integral = 0;
+          }
+        }else{
+          this.$Toast({
+            message: res.data.msg,
+            position: 'bottom'
+          });
+        }
+
+       }).catch(err => {
+         console.log(err);
+       });
+
+        },
     baocun1: function() {
         console.log(this.name)
        if(this.name == "" ||  this.name ==null){

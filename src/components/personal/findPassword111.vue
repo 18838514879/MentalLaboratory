@@ -10,6 +10,12 @@
             <div class="applice_ri"><input class="input_ri" type="text" maxlength="11" v-model="phone" :disabled="disabled" placeholder=""></div>
           </li>
            <li class="clearfix">
+            <div class="applice_le">验证码</div>
+            <div class="applice_ri"><input class="input_ri lastinput" type="text" v-model="authCode" placeholder="请输入验证码"></div>
+            <button id="yanzhe" class="auth" @click="getCode()">获取验证码</button>
+            <button v-show="!show" class="count">{{count}} s</button>
+          </li>
+          <li class="clearfix">
             <div class="applice_le">新密码</div>
             <div class="applice_ri"><input class="input_ri" type="password" maxlength="12" v-model="password" placeholder="请输入密码"></div>
           </li>
@@ -17,17 +23,11 @@
             <div class="applice_le">确认密码</div>
             <div class="applice_ri"><input class="input_ri" type="password" maxlength="12" v-model="againPassword" placeholder="再次输入密码"></div>
           </li>
-           <li class="clearfix">
-            <div class="applice_le">验证码</div>
-            <div class="applice_ri"><input class="input_ri lastinput" type="text" v-model="authCode" placeholder="请输入验证码"></div>
-            <button id="yanzhe" class="auth" @click="getCode()">获取验证码</button>
-            <button v-show="!show" class="count">{{count}} s</button>
-          </li>
-           <li class="clearfix ">
+        <!-- <li class="clearfix ">
           <img class="change" v-if="isOk" src="../../../static/images/select_read.png" alt="" @click="changeImg()">
              <img class="change" v-if="!isOk" src="../../../static/images/select_notread.png" alt="" @click="changeImg()">
           <span class="read">我已阅读并接受<span class="test">《心理实验室》</span>用户条款</span>
-       </li>
+       </li> -->
         </ul>
        <button class="sure" @click="sure()">确定</button>
     </div>
@@ -43,14 +43,15 @@ export default {
             disabled:true,
             count:'',
             auth:null,
-            mgs:'密码修改',
+            mgs:'忘记密码',
             phone:"",
             password:'',
             againPassword:'',
             code:'',
             logo:'',
             authCode:'',
-            src:'../static/images/select_notread.png'
+            src:'../static/images/select_notread.png',
+            flag:'',
         };
     },
     watch:{
@@ -86,55 +87,10 @@ export default {
         })
     },
 
-          // 验证码
+          // 验证码 倒计时
             getCode () {
-
-                 if(this.phone == ''){
-                this.$Toast({
-                    message: '手机号不能为空',
-                    position: 'bottom'
-                });
-                return;
-
-            }
-            var phone=/^1[3456789]\d{9}$/;
-            if(!phone.test(this.phone)){
-                this.$Toast({
-                    message: '手机号格式错误',
-                    position: 'bottom'
-                });
-                return;
-            }
-            if(this.password == ''){
-                this.$Toast({
-                    message: '密码不能为空',
-                    position: 'bottom'
-                });
-                return;
-            }
-            var password=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
-            if(!password.test(this.password)||password.length<6||password.length>12){
-                this.$Toast({
-                    message: '密码必须为6-12位的数字和字母的组合',
-                    position: 'bottom'
-                });
-                return;
-            }
-            if(this.againPassword == ''){
-                this.$Toast({
-                    message: '确认密码不能为空',
-                    position: 'bottom'
-                });
-                return;
-            }
-            if(this.againPassword != this.password){
-                    this.$Toast({
-                    message: '确认密码和新密码不一致',
-                    position: 'bottom'
-                });
-                return;
-            }
-
+               
+            
                //验证码倒数
                 const TIME_COUNT = 60;
                 if (!this.timer) {
@@ -150,75 +106,105 @@ export default {
                     }
                 }, 1000)
                 };
-
-                // 验证码接口
+               
+            },
+            // 获取 验证码接口
+            yanzheng: function () {
                 this.axios({
                     method:"post",
                     url:this.$baseurl + "/api/register/getMessageByPw",
                     params:{
                         phone:this.phone,
-                    }
+                    },
                     }) .then( res => {
                         console.log(res.data);
+                        if(res.data.code=="0"){
+                            // this.$Toast({
+                            //     message: '验证码发送成功',
+                            //     position: 'bottom'
+                            // });
+                            this.yzphone();
+                        }else{
+                             this.$Toast({
+                                message: res.data.msg,
+                                position: 'bottom'
+                            });    
+                        }
+                        
+                    }).catch( err => {
+                      console.log(err);
+                 });
+            },
+            yzphone: function () {
+               
+                 this.axios({
+                    method:"post",
+                    url:this.$baseurl + "/api/register/findPw",
+                    params:{
+                        phone:this.phone,
+                        codes:this.authCode,
+                    },
+                    }) .then( res => {                 
+                            console.log(res.data);
+                            if(res.data.code = "1"){
+                                this.yanzheng();
+                            }else if(res.data.code = "0"){
+                                this.$Toast({
+                                    message: '手机号未注册',
+                                    position: 'bottom'
+                                });
+                            }     
                     }).catch( err => {
                       console.log(err);
                  });
             },
         // 修改用户密码
         sure: function () {
-            if(this.authCode == ''){
-                this.$Toast({
-                    message: '验证码不能为空',
-                    position: 'bottom'
-                });
-                return;
-            }
-
-          if(!this.isOk){
-            this.$Toast({
-              message: '请选中已阅读',
-              position: 'bottom'
-            });
-            return false
-          }
-//            var img1 = "../static/images/select_read.png"
-//            if(this.src != img1){
-//
-//            }
+            if(this.password == ''){
+                    this.$Toast({
+                        message: '密码不能为空',
+                        position: 'bottom'
+                    });
+                    return;
+                }
+                var password=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+                if(!password.test(this.password)||password.length<6||password.length>12){
+                    this.$Toast({
+                        message: '密码必须为6-12位的数字和字母的组合',
+                        position: 'bottom'
+                    });
+                    return;
+                }
+                if(this.againPassword == ''){
+                    this.$Toast({
+                        message: '确认密码不能为空',
+                        position: 'bottom'
+                    });
+                    return;
+                }
+                if(this.againPassword != this.password){
+                        this.$Toast({
+                        message: '确认密码和新密码不一致',
+                        position: 'bottom'
+                    });
+                    return;
+                }
 
             // 用户修改信息接口
             this.axios({
                 method:"post",
-                url:this.$baseurl + "/api/member/saveMemberInfo",
-                headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+                url:this.$baseurl + "/api/register/updatePw",
                 params:{
                   phone:this.phone,
-                  password:this.password
-                }
+                  pw:this.password,
+                  codes:this.authCode,
+                  flag:this.flag,
+                },
                 }).then((res)=>{
-              if(res.data.code=="401"){
-                this.$Toast({
-                  message: '登录已经过期',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="402"){
-                this.$Toast({
-                  message: '您还未登录',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="0"){
-                console.log(res);
-                MessageBox('提示', '保存成功');
-              }else{
-                this.$Toast({
-                  message: res.data.msg,
-                  position: 'bottom'
-                });
-              }
-
-
+                if(res.data.code=="0"){
+                    console.log(res);
+                    MessageBox('提示', '修改成功');
+                }
                 }).catch(err => {
                     console.log(err);
                 });

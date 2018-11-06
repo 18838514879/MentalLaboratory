@@ -7,9 +7,15 @@
          <ul class="applice">
           <li class="clearfix">
             <div class="applice_le">手机号</div>
-            <div class="applice_ri"><input class="input_ri" type="text" maxlength="11" v-model="phone" :disabled="disabled" placeholder=""></div>
+            <div class="applice_ri"><input class="input_ri" type="text" maxlength="11" v-model="phone"  placeholder="请输入手机号"></div>
           </li>
            <li class="clearfix">
+            <div class="applice_le">验证码</div>
+            <div class="applice_ri"><input class="input_ri lastinput" type="text" v-model="authCode" placeholder="请输入验证码"></div>
+            <button id="yanzhe" class="auth" @click="getCode()">获取验证码</button>
+            <button v-show="!show" class="count">{{count}} s</button>
+          </li>
+          <li class="clearfix">
             <div class="applice_le">新密码</div>
             <div class="applice_ri"><input class="input_ri" type="password" maxlength="12" v-model="password" placeholder="请输入密码"></div>
           </li>
@@ -17,17 +23,11 @@
             <div class="applice_le">确认密码</div>
             <div class="applice_ri"><input class="input_ri" type="password" maxlength="12" v-model="againPassword" placeholder="再次输入密码"></div>
           </li>
-           <li class="clearfix">
-            <div class="applice_le">验证码</div>
-            <div class="applice_ri"><input class="input_ri lastinput" type="text" v-model="authCode" placeholder="请输入验证码"></div>
-            <button id="yanzhe" class="auth" @click="yzphone()">获取验证码</button>
-            <button v-show="!show" class="count">{{count}} s</button>
-          </li>
-           <li class="clearfix ">
+        <!-- <li class="clearfix ">
           <img class="change" v-if="isOk" src="../../../static/images/select_read.png" alt="" @click="changeImg()">
              <img class="change" v-if="!isOk" src="../../../static/images/select_notread.png" alt="" @click="changeImg()">
           <span class="read">我已阅读并接受<span class="test">《心理实验室》</span>用户条款</span>
-       </li>
+       </li> -->
         </ul>
        <button class="sure" @click="sure()">确定</button>
     </div>
@@ -40,7 +40,6 @@ export default {
           isOk:false,
             show:true,
             shows:true,
-            disabled:true,
             count:'',
             auth:null,
             mgs:'忘记密码',
@@ -50,7 +49,8 @@ export default {
             code:'',
             logo:'',
             authCode:'',
-            src:'../static/images/select_notread.png'
+            src:'../static/images/select_notread.png',
+            flag:'',
         };
     },
     watch:{
@@ -66,16 +66,13 @@ export default {
     },
 
    mounted () {
-      if(this.$route.query.phone){
-        this.phone=this.$route.query.phone;
-      }
        this.logoJiekou();
    },
 
     methods: {
-    //获取logo接口
+             //获取logo接口
         logoJiekou () {
-        this.axios.get(this.$baseurl + '/api/config/getConfig',
+            this.axios.get(this.$baseurl + '/api/config/getConfig',
         {
             params: {
                 param:'logoUrl'
@@ -87,8 +84,9 @@ export default {
     },
 
           // 验证码 倒计时
-            getCode () {
-            
+        getCode () {
+            this.hqyzm();
+
                //验证码倒数
                 const TIME_COUNT = 60;
                 if (!this.timer) {
@@ -103,11 +101,27 @@ export default {
                     this.timer = null;
                     }
                 }, 1000)
-                };
-               
+                };              
             },
+
             // 获取 验证码接口
-            yanzheng: function () {
+        hqyzm: function () {
+             
+            if(this.phone == ''){
+                this.$Toast({
+                    message: '手机号不能为空',
+                    position: 'bottom'
+                });
+                return;
+            }
+            var phone=/^1[3456789]\d{9}$/;
+            if(!phone.test(this.phone)){
+                this.$Toast({
+                    message: '手机号格式错误',
+                    position: 'bottom'
+                });
+                return;
+            }
                 this.axios({
                     method:"post",
                     url:this.$baseurl + "/api/register/getMessageByPw",
@@ -117,7 +131,6 @@ export default {
                     }) .then( res => {
                         console.log(res.data);
                         if(res.data.code=="0"){
-                            this.getCode()
                             this.$Toast({
                                 message: '验证码发送成功',
                                 position: 'bottom'
@@ -132,22 +145,35 @@ export default {
                     }).catch( err => {
                       console.log(err);
                  });
-                // this.axios({
-                //     method:"post",
-                //     url:this.$baseurl + "/api/register/findPw",
-                //     params:{
-                //         phone:this.phone,
-                //         codes:this.authCode,
-                //     },
-                //     }) .then( res => {
-                //         console.log(res.data);
-                //         this.getCode()
-                //     }).catch( err => {
-                //       console.log(err);
-                //  });
             },
-            yzphone: function () {
-                if(this.password == ''){
+
+       
+        // 修改用户密码
+        sure: function () {
+
+            if(this.phone == ''){
+                this.$Toast({
+                    message: '手机号不能为空',
+                    position: 'bottom'
+                });
+                return;
+            }
+            var phone=/^1[3456789]\d{9}$/;
+            if(!phone.test(this.phone)){
+                this.$Toast({
+                    message: '手机号格式错误',
+                    position: 'bottom'
+                });
+                return;
+            }
+            if(this.authCode == ''){
+                    this.$Toast({
+                        message: '验证码不能为空',
+                        position: 'bottom'
+                    });
+                    return;
+                }
+            if(this.password == ''){
                     this.$Toast({
                         message: '密码不能为空',
                         position: 'bottom'
@@ -176,54 +202,15 @@ export default {
                     });
                     return;
                 }
-                 this.axios({
-                    method:"post",
-                    url:this.$baseurl + "/api/register/findPw",
-                    params:{
-                        phone:this.phone,
-                        codes:this.authCode,
-                    },
-                    }) .then( res => {                 
-                            console.log(res.data);
-                            if(res.data.code = "1"){
-                                this.yanzheng();
-                            }else if(res.data.code = "0"){
-                                this.$Toast({
-                                    message: '手机号未注册',
-                                    position: 'bottom'
-                                });
-                            }     
-                    }).catch( err => {
-                      console.log(err);
-                 });
-            },
-        // 修改用户密码
-        sure: function () {
-            if(this.authCode == ''){
-                this.$Toast({
-                    message: '验证码不能为空',
-                    position: 'bottom'
-                });
-                return;
-            }
-
-          if(!this.isOk){
-            this.$Toast({
-              message: '请选中已阅读',
-              position: 'bottom'
-            });
-            return false
-          }
 
             // 用户修改信息接口
             this.axios({
                 method:"post",
-                url:this.$baseurl + "/api/register/updatePw",
+                url:this.$baseurl + "/api/register/updatePassword",
                 params:{
                   phone:this.phone,
                   pw:this.password,
                   codes:this.authCode,
-                  flag:flag,
                 },
                 }).then((res)=>{
                 if(res.data.code=="0"){
@@ -256,19 +243,6 @@ export default {
             back () {
                 this.$router.go(-1);
             } ,
-            // 用户协议确认
-            changeImg () {
-          this.isOk=!this.isOk;
-//                var img = "../static/images/select_notread.png"
-//                if(this.src == img){
-//                this.src = "../static/images/select_read.png"
-//                }else{
-//                this.src = "../static/images/select_notread.png"
-//
-//                }
-
-            },
-
         },
     }
 
@@ -358,9 +332,6 @@ export default {
              width: 100%;
              height: 100%;
              border-bottom: 1px solid #f3f3f3;
-        }
-        .lastinput{
-           border-bottom:none;
         }
         .input_ri::-webkit-input-placeholder{
               color:#a3a3a3;
