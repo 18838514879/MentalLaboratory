@@ -54,7 +54,7 @@ export default{
         headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
         params:{
           token:localStorage.getItem('token'),
-          subjectReviewId: localStorage.getItem("subjectReviewId"),
+          subjectReviewId: sessionStorage.getItem("subjectReviewId"),
         }
       }).then((res)=>{
         if(res.data.code=="401"){

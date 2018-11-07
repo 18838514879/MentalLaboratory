@@ -159,8 +159,8 @@ export default{
        this.axios.get(this.$baseurl + "/api/answer/getModeInfo",{
             headers:{"token":"2b90ae3a28c74fe5b944afbe8bae2c86","Content-Type": "application/x-www-form-urlencoded"},
             params: {
-                modeId: 2,
-                paperId: this.$route.query.paperId
+                modeId:this.$route.query.modeId,
+                paperId: this.$route.query.paperId,
             }
        }).then( res => {
          if(res.data.code=="401"){

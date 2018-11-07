@@ -143,9 +143,8 @@ export default {
       //   return;
       // }else {
       //   sessionStorage.setItem("camereIsok",'0');
-        mui("body").on("click",".imageup",function(){
-          //page.imgUp();
-          var m=this;
+      function aa(){
+         var m=this;
           plus.nativeUI.actionSheet({cancel:"取消",buttons:[
             {title:"拍照"},
             {title:"从相册中选择"}
@@ -155,7 +154,21 @@ export default {
               case 2:clickGallery();break;
             }
           });
-        })
+       }
+       mui("body").on("click",".imageup",aa)
+        // mui("body").on("click",".imageup",function(){
+        //   //page.imgUp();
+        //   var m=this;
+        //   plus.nativeUI.actionSheet({cancel:"取消",buttons:[
+        //     {title:"拍照"},
+        //     {title:"从相册中选择"}
+        //   ]}, function(e){//1 是拍照  2 从相册中选择
+        //     switch(e.index){
+        //       case 1:clickCamera();break;
+        //       case 2:clickGallery();break;
+        //     }
+        //   });
+        // })
       // }
     }
 
@@ -694,6 +707,7 @@ export default {
   width: 100%;
   height: 100%;
   background-color: #e9e9e9;
+  position: relative;
   .header {
     height: 0.88rem;
     line-height: 0.88rem;
@@ -797,10 +811,12 @@ export default {
     background-color: #ff8043;
     color: #fff;
     border-radius: 20px;
-    position: fixed;
-    left: 50%;
-    margin-left: -3rem;
-    bottom: 0.2rem;
+    position: absolute;
+    top:7rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
     font-size:.36rem;
   }
 }

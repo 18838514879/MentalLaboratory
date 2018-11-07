@@ -45,16 +45,16 @@
 export default {
   data() {
     return {
-      // mgs:'申请兑换',
-      // names:'张三',
-      // ID:'421125299601012030',
-      // bank:'621126678987654567',
-      // opening:'中国银行霍营支行',
-       mgs:'',
-      names:'',
-      ID:'',
-      bank:'',
-      opening:'',
+      mgs:'申请兑换',
+      names:'张三',
+      ID:'421125299601012030',
+      bank:'621126678987654567',
+      opening:'中国银行霍营支行',
+      //  mgs:'',
+      // names:'',
+      // ID:'',
+      // bank:'',
+      // opening:'',
     };
   },
   mounted () {

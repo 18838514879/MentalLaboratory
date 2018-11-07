@@ -1,14 +1,15 @@
 <template>
-    <div class="mine" :style="{backgroundImage: 'url(' + backGroundImg + ')', backgroundSize:'100% 100%','background-repeat':'no-repeat'}">
+    <!-- <div class="mine" :style="{backgroundImage: 'url(' + backGroundImg + ')', backgroundSize:'100% 100%','background-repeat':'no-repeat'}"> -->
+    <div class="mine">  
         <div class="header clearfix">
             <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
             <span style="margin-right:.45rem;">{{mgs}}</span>
         </div>
         <div class="top">
-            <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg">
+            <!-- <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg"> -->
             <!--<p class="top_num" >20/78人</p>-->
             <!--<hr class="top_hr">-->
-            <img src="../../../static/images/morepersonal.png" alt="" class="top_img_png">
+            <img :src="src" alt="" class="top_img_png">
         </div>
         <p class="mine_text">
             {{ title }}
@@ -53,7 +54,7 @@ import { MessageBox } from 'mint-ui';
 export default{
    data () {
       return {
-        backGroundImg:"",
+        // backGroundImg:"",
         mgs: '标题',
         title: '',
         page:1,
@@ -66,7 +67,8 @@ export default{
         staticShow:false,
         tileId:0,
         staticList:[],
-        isNext:false
+        isNext:false,
+        src:'',
       }
     },
   methods: {
@@ -148,17 +150,14 @@ export default{
             console.log(res.data);
             this.title = res.data.data.title;
             this.subjectId = res.data.data.subjectId;
-//          this.subjectReviewId = res.data.data.subjectReviewId;
-
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
             if(sessionStorage.getItem("modeId")==3){
-              this.backGroundImg=res.data.data.remark;
+              this.src=res.data.data.remark;
             }else{
-              this.backGroundImg="";
+              this.src="";
             }
 
-//          this.backGroundImg="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1541087880509&di=576da270588fce786ca9eee85bd9a40e&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fc9fcc3cec3fdfc036aea1c9bde3f8794a4c22607.jpg"
             res=res.data;
             this.stringToArray1(this.list1,res.data.optionA,"1")
             this.stringToArray1(this.list1,res.data.optionB,"2")
@@ -223,9 +222,9 @@ export default{
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
             if(sessionStorage.getItem("modeId")==3){
-              this.backGroundImg=res.data.data.remark;
+              this.src=res.data.data.remark;
             }else{
-              this.backGroundImg="";
+              this.src="";
             }
 
 
@@ -252,9 +251,6 @@ export default{
               position: 'bottom'
             });
           }
-
-
-
 
       }).catch(err => {
         console.log(err);
@@ -290,7 +286,6 @@ export default{
             that.staticShow = true;
             this.staticList=[];
 
-//          var allPeople=Number(res.data.data.optionA)+Number(res.data.data.optionB)+Number(res.data.data.optionC)+Number(res.data.data.optionD)+Number(res.data.data.optionE);
 
             var allPeople=Number(res.data.data.optionA==null?0:res.data.data.optionA)+Number(res.data.data.optionB==null?0:res.data.data.optionB)+Number(res.data.data.optionC==null?0:res.data.data.optionC)+Number(res.data.data.optionD==null?0:res.data.data.optionD)+Number(res.data.data.optionE==null?0:res.data.data.optionE);
             this.stringToArray(this.staticList,res.data.data.optionA,"optionA",allPeople);
@@ -344,14 +339,15 @@ export default{
   .mine {
     width: 100%;
     height: 100%;
-    /*background-color: #ffffff;*/
 
     .top{
       width: 100%;
       height: 3.86rem;
-      /*background-color: #fff;*/
       padding-left: 0.24rem;
+      padding-right: 0.24rem;
       margin-top:.19rem;
+      box-sizing:border-box;
+      -webkit-box-sizing: border-box;
     }
     .header{
       height: 0.88rem;

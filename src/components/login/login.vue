@@ -15,7 +15,7 @@
             <span class="go_regist"  @click="phoneRegisteredd()">手机注册</span>
             <i class="go_forgot" @click="phoneRegistered(phone)">忘记密码</i>
         </div>
-        <div class="login" @click="login()">手机号登录</div>
+        <button class="login" @click="login()">手机号登录</button>
         <div class="wx_login" id="weixin" v-show="false">微信登录 </div>
         <div class="myMap"></div>
     </div>
@@ -311,6 +311,7 @@ export default {
     .main{
         width: 100%;
         padding-top: 2rem;
+        position: relative;
         img{
             display: block;
             width: 2.13rem;
@@ -386,15 +387,18 @@ export default {
         }
 
         .login{
-            width: 6rem;
-            height: 0.9rem;
-            background: #ff8042;
-            margin: 0 auto;
-            font-size: 0.36rem;
-            color: white;
-            line-height: 0.9rem;
-            text-align: center;
-            border-radius: 0.45rem;
+           width: 6rem;
+            height: 0.8rem;
+            background-color: #ff8043;
+            color: #fff;
+            border-radius: 20px;
+            position: absolute;
+            top:11rem;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            font-size:.36rem;
         }
         .wx_login{
             width: 6rem;

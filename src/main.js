@@ -42,8 +42,7 @@ Vue.use(VueRouter);
 
 Vue.prototype.$baseimgurl="http://xinlishiyanshi.hg.jergavin.com/sys/oss/upload";
 Vue.prototype.$baseurl="http://xlsys.nansa.nat300.top";
-// Vue.prototype.$baseurl="http://192.168.1.69:8081/framework-api";
-// Vue.prototype.$baseurl="http://192.168.1.109:8081/framework-api";
+// Vue.prototype.$baseurl="http://192.168.1.108:8081/framework-api";
 
 
 window.Toast= Toast;

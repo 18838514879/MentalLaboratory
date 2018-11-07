@@ -35,7 +35,7 @@ export default{
     },
     methods: {
         testss () {
-            this.$router.push({path: '/Solo'})
+            this.$router.push({path: '/Solo?modeId='+1})
         },
         Sumit () {
             this.$router.push({path: '/Sumit'})

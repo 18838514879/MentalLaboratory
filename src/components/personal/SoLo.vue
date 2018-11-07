@@ -15,10 +15,10 @@
                     {{ item.paperTypesName }}
                 </span>
                 <span class="footer-list-li">
-                    题数：{{ item.points }}
+                    题数：{{ item.paperNumbers }}
                 </span>
                 <span class="footer-list-li">
-                    奖励：{{ item.status }}
+                    奖励：{{ item.points }}
                 </span>
                 </div>
             </li>
@@ -71,6 +71,7 @@
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 this.items = res.data.data.list.list;
+               
 
               }else{
                 this.$Toast({

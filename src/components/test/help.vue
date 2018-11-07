@@ -27,10 +27,10 @@
     },
 
     created () {
-        this.axios.get(this.$baseurl + '/api/answer/getHelp/1',
+        this.axios.get(this.$baseurl + '/api/answer/getHelp/'+this.$route.query.modeId,
         {
             params: {
-                modeId: "1"
+                modeId: this.$route.query.modeId,
             }
         }).then( res => {
           if(res.data.code=="401"){

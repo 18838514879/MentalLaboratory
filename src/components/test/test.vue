@@ -10,18 +10,20 @@
               <li @click="myRanking()"><img src="../../../static/images/test_top3.jpg" alt=""><div class="test_text"><span class="text_test">名次排行</span></div></li>
             </ul>
             <div class="white"><img :src="img" alt=""></div>
-          </div>
-            <div class="answer_w" v-for="(list,idx) in lists" :key="list.id" v-show="idx < 3 == show0">
-            <div class="answer clearfix" >
-              <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)">
-              <div class="answer_text">
-                <p class="text_one" @click="tiaozhuan(idx,list.remark)">{{list.title}}<span class="dot"></span><span class="blue">答题</span></p>
-                <p class="text_two">百科知识单人问答，知识竞赛</p>
-                <button @click="help()">帮助</button>
-              </div>
             </div>
-            <div class="guding" v-if="(idx ==0 || idx ==1)==false">距离开始：{{ time }}</div>
-            <div class="guding" v-if="idx == 1 == true">进行中...</div>
+            <div class="mid_test">
+                <div class="answer_w" v-for="(list,idx) in lists" :key="list.id" v-show="idx < 3 == show0">
+                    <div class="answer clearfix" >
+                        <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <div class="answer_text">
+                            <p class="text_one" @click="tiaozhuan(idx,list.remark)">{{list.title}}<span class="dot"></span><span class="blue">答题</span></p>
+                            <p class="text_two">百科知识单人问答，知识竞赛</p>
+                            <button @click="help(idx)">帮助</button>
+                        </div>
+                    </div>
+                    <div class="guding" v-if="(idx ==0 || idx ==1)==false">距离开始：{{ time }}</div>
+                    <div class="guding" v-if="idx == 1 == true">进行中...</div>
+            </div>
           </div>
         </div>
         <Foottest></Foottest>
@@ -70,15 +72,15 @@ export default{
     	    return;
         }
 
-
     		if(idx == 0){//单人答题页面
     			this.$router.push({path:'/Solo?modeId='+1})
     		}
     		if(idx == 1){// 多人页面
     			this.$router.push({path: '/moreAwait?modeId='+2})
     		}
-    		if(idx == 2){// 多人困难页面
-          this.$router.push({path: '/moreAwait?modeId='+3});
+            if(idx == 2){// 多人困难页面
+            
+        //   this.$router.push({path: '/moreAwait?modeId='+3});
 
           if(this.$route.path=="/test"){
             if(this.dtjxz == 1){
@@ -154,8 +156,17 @@ export default{
         },
 
         // 帮助页面
-        help () {
-            this.$router.push({path: '/help'})
+        help (idx) {
+            // this.$router.push({path: '/help'})
+            	if(idx == 0){//单人答题页面
+    			this.$router.push({path:'/help?modeId='+1})
+    		}
+    		if(idx == 1){// 多人页面
+    			this.$router.push({path: '/help?modeId='+2})
+    		}
+    		if(idx == 2){// 多人困难页面
+          this.$router.push({path: '/help?modeId='+3});
+    		}
         },
         // 积分页面
         myIntegral () {
@@ -259,7 +270,9 @@ export default{
     right: 0;
     z-index: 2;
       }
-    .head_b {
+ 
+     .main{
+         .head_b {
       width: 100%;
       background-color: #fff;
       position: relative;
@@ -330,12 +343,15 @@ export default{
         float: left;
       }
     }
-
     }
-
-  .answer_w{
+  .mid_test{
+      padding-top:0.88rem;
+      padding-bottom: .88rem;
+      box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin-bottom: .15rem;
+       .answer_w{
        position: relative;
-       top:0.88rem;
       .answer{
         margin-top: 0.15rem;
         width: 100%;
@@ -394,6 +410,7 @@ export default{
         }
 
     }
+    }
      .guding{
             width: 100%;
             height: 0.5rem;
@@ -406,6 +423,7 @@ export default{
             font-size: 0.22rem;
             text-align: center;
         }
+  }
 
   }
 }
