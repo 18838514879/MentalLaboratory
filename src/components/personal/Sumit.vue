@@ -9,7 +9,7 @@
         {{ item.msges }}
       </div>
       <div class="text-form12" >
-        <div v-for="item1 in item.items" :key="item1.id"  :class="item.isYourAnser=='-1'?'':item.anwer==item1.id?'green':item.isYourAnser==item1.id?'red':''">
+        <div v-for="item1 in item.items" :key="item1.id"  :class="item.isYourAnser=='-1'?'':item.isYourAnser==item1.id?'green':''">
           {{ item1.text }}
         </div>
       </div>
@@ -30,7 +30,7 @@
     data() {
       return {
         msg: "标题",
-        page: 1, //当前题码   目前假数据最多5题
+        page: 1, //当前题码   
         numbers: 1,
         isNext:false,
         next:'',

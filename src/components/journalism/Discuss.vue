@@ -1,54 +1,91 @@
 <template>
-    <div class="discuss">
-        <div class="header clearfix">
-            <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
-            {{mgs}}
-        </div>
-        <div class="kongbai"></div>
-        <p class="discuss_time"><span>发布时间：</span><span>2018-10-19</span></p>
-        <hr class="discuss_hr">
-        <p class="discuss_text"> 
-            帮助，指以出钱、出力或出主意的方式相助别人。
-            因为人是群居动物,自己付出劳动的同时还需要得到别人的帮助,所以帮助别人就是帮助自己。
-            所以助人为乐就是在帮助周围的人,最后周围的人就会帮助自己,所以说帮助别人就是在帮助自己。
-            语出宋宗泽《乞回銮疏》之十四：“凡勤王人，例遭斥逐，未尝有所犒赏，未尝有所帮助。
-        </p>
-        <textarea class="discuss_tex" placeholder="请输入内容"></textarea>
+    <div class="mine">
+       <div class="header clearfix"><a><img  @click="back()" src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
+       <div class="box">
+           <textarea name="content" class="magess" v-model="contents" placeholder="写下您对此评论的看法" id="content"></textarea>
+           <div class="text_num">0/500</div>
+          <button @click="submit()">提交</button>
+       </div>
+
+
     </div>
 </template>
-
 <script>
+
 export default {
   data() {
     return {
-        mgs: '新闻标题'
-    }
+          mgs:'新闻评论回复',
+          contents:'',
+          phones:'',
+    };
   },
-  components: {
+  
+        watch:{
+            //  phones: function() {
+            // this.phones = this.phones.replace(/\D/g, "");
+            // }
+        },
+       methods: {
+            back () {
+                history.back();
+            },
+            submit () {
+            var that=this;
+            console.log('created');
+            var thisCommentId = sessionStorage.getItem('cld_id');
+            this.axios({
+                method:"post",
+                url:this.$baseurl + "/api/news/saveComment",
+                headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+                    params:{
+                            token: localStorage.getItem("token"),
+                            commentId:thisCommentId,
+                            newsId: that.$route.query.newsId,
+                            memberId:that.$route.query.memberId,
+                            content:this.contents,
+                        }
+            }).then( res => {
+              if(res.data.code=="401"){
+                this.$Toast({
+                  message: '登录已经过期',
+                  position: 'bottom'
+                });
+                this.$router.push("/login")
+              }else if(res.data.code=="402"){
+                this.$Toast({
+                  message: '您还未登录',
+                  position: 'bottom'
+                });
+                this.$router.push("/login")
+              }else if(res.data.code=="0"){
+                console.log(res);
+                this.$router.go(-1);
+              }else{
+                this.$Toast({
+                  message: res.data.msg,
+                  position: 'bottom'
+                });
+              }
+                        }).catch( err => {
+                            console.log(err);
+                        })
 
-  },
-  methods: {
-      back () {
-          this.$router.go(-1);
-      }
-      
-  }
-}
+                }
+             }
+       }
+
+
 </script>
-
-<style scoped lang="scss">
-    .discuss{
-        background-color: #ffffff;
-    }
-    .kongbai{
-        width: 100%;
-        height: .29rem;
-        background-color: #e9e9e9;
-    }
-    .header{
+<style lang="scss" scoped>
+.mine{
+    width: 100%;
+    height: 100%;
+    background-color: #e9e9e9;
+      .header{
         height: 0.88rem;
         line-height: 0.88rem;
-        font-size:0.4rem;
+        font-size:0.36rem;
         background-color: #2083d1;
         color:#fff;
         text-align: center;
@@ -60,51 +97,61 @@ export default {
             padding-left: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
-            
         }
+
     }
-    .discuss_time{
-        font-family: SourceHanSansCN-Light;
-        font-size: .24rem;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: .21rem;
-        letter-spacing: 0px;
-        color: #2083d1;
-        margin-left:.24rem;
-        margin-top: .33rem;
-        background-color: #ffffff;
-    }
-    .discuss_hr{
-        width: 7.03rem;
-        height: 1px;
-        background-color: #dadada;
-        margin: 0 auto;
-        margin-top: .29rem;
-        margin-bottom: .40rem;
-    }
-    .discuss_text{
-        width: 7.02rem;
-        font-family: SourceHanSansCN-Regular;
-        font-size: .24rem;
-        font-weight: normal;
-        font-stretch: normal;
-        line-height: .44rem;
-        letter-spacing: 0px;
-        color: #666666;
-        margin: 0 auto;
-        background-color: #ffffff;
-        text-indent: .5rem;
-    }
-    .discuss_tex{
-        width: 7.00rem;
-        height: 2.95rem;
-        margin-left: .23rem;
-        margin-top: .50rem;
-        background-color: #ffffff;
-        box-shadow: 0px 3px 2px 0px 
-            rgba(0, 0, 0, 0.05);
-        border-radius: 3px;
-        border: solid 2px #efefef;
-    }
+        .box{
+            padding-top: 0.3rem;
+            padding-left: 0.24rem;
+            padding-right: 0.24rem;
+            box-sizing: border-box;
+          -webkit-box-sizing: border-box;
+           font-size: 0.32rem;
+           color:#9c9c9c;
+            position: relative;
+             .magess{
+             width: 100%;
+             height: 3.86rem;
+             border-radius: 10px;
+             background-color: #fff;
+             outline: none;
+             padding-top: 0.3rem;
+             padding-left: 0.3rem;
+             box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            color: #9c9c9c;
+            }
+            .text_num{
+                position: absolute;
+                right: 0.5rem;
+                bottom: 1.4rem;
+            }
+            .tel{
+                margin-top: 0.16rem;
+                width: 100%;
+                height: 0.9rem;
+                border-radius: 5px;
+                background-color: #fff;
+                outline: none;
+                 padding-left: 0.3rem;
+                 box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+            }
+            .tel::-webkit-input-placeholder{
+                color: #9c9c9c;
+                }
+                button{
+                    width: 6rem;
+                    height: 0.8rem;
+                    background-color: #2083d1;
+                    color:#fff;
+                    border-radius: 20px;
+                    position: fixed;
+                    left: 50%;
+                    margin-left: -3rem;
+                    bottom: 0.2rem;
+                }
+        }
+}
+
 </style>

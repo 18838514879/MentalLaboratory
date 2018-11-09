@@ -27,7 +27,7 @@ export default {
       allload:0,
       allLength:1,
       page:'1',//当前
-      limit:5,
+      limit:10,
       bottom:0,
       mgs:'新闻室',
       lists: [
@@ -52,6 +52,10 @@ export default {
         this.axios({
           method:"get",
           url:this.$baseurl + "/api/news/getNewsList",
+          headers: {
+            token: localStorage.getItem("token"),
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
           params:{
             page:this.page,
             limit: this.limit,

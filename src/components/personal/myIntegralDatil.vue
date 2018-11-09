@@ -52,7 +52,7 @@ export default {
          allload:0,
          allLength:1,
          page:'1',//当前
-         limit:5,
+         limit:10,
          bottom:0,
 		      	rankings: [
 		      		// {id:1, createTime:"2018-03-04", pointsFrom:"分享朋友圈", pointsNumber: "+30"},

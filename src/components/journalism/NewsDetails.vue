@@ -12,7 +12,8 @@
            {{ contents }}
         </p>
         <div class="details_footer clearfix">
-            <textarea class="details_tex" @click="postCommen()"></textarea>
+            <!-- <textarea class="details_tex" @click="postCommen()"></textarea> -->
+            <label @click="postCommen()" for="neirong" class="details_tex" style="display:block;"></label>
             <div class="details_img clearfix">
             <img  @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
             <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
@@ -20,8 +21,11 @@
             </div>
         </div>
         <div class="div_div">
-            <textarea class="discuss_tex" placeholder="请输入内容" v-if="show" v-model="content1"></textarea>
+            <!-- <label for="neirong">sasaasd</label> -->
+            <!-- <textarea class="discuss_tex" placeholder="请输入内容" v-if="show" v-model="content1" id="neirong"></textarea> -->
+            <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
             <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
+
         </div>
 
         <div class="detai_footer" v-if="shows">
@@ -41,8 +45,8 @@ export default {
         return {
             mgs: '新闻标题',
             titles: '评论',
-            createTimes: '2018-09-09',
-            contents: 'hhhhhhhhhhhhhhhhhhhhhhh',
+            createTimes: '',
+            contents: '',
             show: false,
             shows:false,
             content1:'',
@@ -54,6 +58,7 @@ export default {
             this.axios.get(this.$baseurl + '/api/news/getNewsInfo',
             {
                 params: {
+                    token: localStorage.getItem("token"),
                     newsId:this.$route.query.newsId
                 }
             }).then( res => {
@@ -92,8 +97,8 @@ export default {
         },
         postCommen () {
             // 跳转
-            // this.$router.push({path:'/Discuss'})
-            this.show = !this.show
+            this.show = !this.show;
+            document.getElementsByClassName('div_div')[0].style.cssText="opacity: 1;"
         },
         fenxiang () {
             this.shows = !this.shows;
@@ -104,14 +109,14 @@ export default {
         discuss () {
             // 新闻评论接口
            console.log('created');
-            this.axios(
-            {
+            this.axios({
             method:"post",
             url:this.$baseurl + "/api/news/saveComment",
             headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
               params:{
                     newsId: this.$route.query.newsId,
                     memberId:this.$route.query.newsId,
+                    commentId:"0",
                     content:this.content1,
               }
             }) .then( res => {
@@ -129,7 +134,9 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
+               
                 this.$router.push({path:'/comments?newsId='+this.$route.query.newsId+'&memberId='+this.$route.query.newsId});
+               
               }else{
                 this.$Toast({
                   message: res.data.msg,
@@ -149,11 +156,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    // .div_div{
-    //     height: 4rem;
-    //     width: 100%;
-    //     background: red;
-    // }
+    .div_div{
+        opacity: 0;
+    }
     // 遮罩
     .zhezhao{
         height: 100%;

@@ -8,17 +8,17 @@
         <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949">
         <div class="comments_list">
             <ul>
-                <li class="comments_list_li" v-for="(item,idx) in items" :key="item.id">
+                <li class="comments_list_li" v-for="item in items" :key="item.id">
                     <!-- <li class="comments_list_li" v-for="item in listMe(list)" :key="item.id"> -->
 
                     <div class="list_buttom">
-                        <img :src="item.imgUrl" alt="">
+                        <img :src="item.memberUrl" alt="">
                         <span class="list_top_name">
                             <p class="list_top_name_age" v-if="item.memberName">{{ item.memberName }}</p>
                             <p class="list_top_name_age" v-else>匿名</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
                         </span>
-                        <span class="list_top_hui" @click="reply(item.id,idx)">
+                        <span class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">
                             <span><i class="fa fa-commenting" aria-hidden="true"></i></span>
                             <!-- 回复信息 -->
                             查看所有评论
@@ -27,8 +27,9 @@
                     <div class="comments_text">
                         {{ item.content }}
                     </div>
-                    <div class="comments_text_hui" style="font-size:.34rem">
-                        <p style="text-align: right;font-size: .3rem;" @click="huifu(item.id)">去回复</p>
+                    <div class="comments_text_hui clearfix" style="font-size:.34rem">
+                        <p style="float: right;font-size: .3rem;" @click="huifu(item.id,item.newsId,item.memberId)">去回复</p>
+                         <p style="float: right;"><i class="fa fa-commenting" aria-hidden="true"></i></p>
                         <!-- <p>
                             <span class="comments_text_hui_one">回复</span>
                             <span class="comments_text_hui_two">？？？</span>
@@ -50,52 +51,56 @@
       return {
         mgs:'评论',
         img: '',
-        content:'',
         items: [
             // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
         ],
         allload:0,
         allLength:1,
         page:'1',//当前
-        limit:5,
         bottom:0,
+        pageSize:10,
       }
     },
     mounted(){
+          this.page=1;
           this.jiekou();
     },
     methods: {
 
 
-        huifu (obj) {
+        huifu (obj,newsId,memberId) {
             sessionStorage.setItem('cld_id',obj)
-            this.$router.push({ path: "/opinion" });
+            this.$router.push({ path: "/Discuss?newsId="+this.$route.query.newsId+"&memberId="+memberId});
         },
         back () {
             this.$router.go(-1);
         },
-        reply (memberId,commentId) {
+        reply (memberId,commentId,content) {
             this.$router.push({path:'/reply?newsId='+this.$route.query.newsId+'&memberId='+memberId+'&commentId='+commentId});
             // 评论回复接口
-            this.$cfAjax1('post', '/api/news/saveComment',
-                    'token', localStorage.getItem('token'),
-                    "newsId", this.$route.query.newsId,
-                    "memberId",this.$route.query.id,
-                    "content", "content",
-                    function (res) {
-                        console.log(res);
-            });
+            // this.$cfAjax1('post', '/api/news/saveComment',
+            //         'token', localStorage.getItem('token'),
+            //         "newsId", this.$route.query.newsId,
+            //         "memberId",memberId,
+            //         "commentId",commentId,
+            //         "content", content,
+            //         function (res) {
+            //             console.log(res);
+            // });
         },
 
-         jiekou () {
+   
+
+    jiekou () {
         // 获取此新闻评论接口
-        this.axios.get(this.$baseurl + '/api/news/getCommentList',
-        {
+        this.axios.get(this.$baseurl + '/api/news/getCommentList', {
+            headers: {token: localStorage.getItem("token"),"Content-Type": "application/x-www-form-urlencoded"},
             params: {
+                token: localStorage.getItem("token"),
                 newsId: this.$route.query.newsId,
                 page:this.page,
-                limit: this.limit,
-        	}
+                pageSize: this.pageSize,
+            }
         }).then( res => {
           if(res.data.code=="401"){
             this.$Toast({
@@ -113,13 +118,12 @@
             console.log(res);
             console.log(res);
             // this.items = res.data.page;
-
             if(this.page==1){
               this.items=[];
               this.bottom=2;
               this.allLength = res.data.page.totalCount;
             }
-            if(this.page*this.limit>=this.allLength){
+            if(this.page*this.pageSize>=this.allLength){
               this.allload=1;
             }else{
               this.allload=0;
@@ -127,6 +131,7 @@
             for (let i = 0; i < res.data.page.list.length; i++) {
               this.items.push(res.data.page.list[i]);
             }
+             console.log(this.bottom+"===============")
           }else{
             this.$Toast({
               message: res.data.msg,

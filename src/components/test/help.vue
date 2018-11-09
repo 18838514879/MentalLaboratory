@@ -30,6 +30,7 @@
         this.axios.get(this.$baseurl + '/api/answer/getHelp/'+this.$route.query.modeId,
         {
             params: {
+                token: localStorage.getItem("token"),
                 modeId: this.$route.query.modeId,
             }
         }).then( res => {

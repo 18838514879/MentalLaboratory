@@ -10,7 +10,7 @@
             <ul>
                 <li class="comments_list_li" v-for="item in items" :key="item.id">
                     <div class="list_buttom">
-                        <img :src="item.imgUrl" alt="">
+                        <img :src="item.memberUrl" alt="">
                         <span class="list_top_name">
                             <p class="list_top_name_age">{{ item.memberName }}</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
@@ -44,13 +44,12 @@
  export default {
     data () {
       return {
-        mgs:'回复',
+        mgs:'所有的回复',
         allload:0,
         allLength:1,
         page:'1',//当前
-        limit:5,
+        pageSize:10,
         bottom:0,
-        content:'',
         items: [
             // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
         ],
@@ -72,11 +71,11 @@
         this.axios.get(this.$baseurl + '/api/news/getCommentList',
         {
             params: {
+                token: localStorage.getItem("token"),
                 newsId: this.$route.query.newsId,
                 page:this.page,
-                limit: this.limit,
+                pageSize: this.pageSize,
                 commentId:this.$route.query.commentId,
-                // commentId:commentId,
         	}
         }).then( res => {
           if(res.data.code=="401"){
@@ -98,7 +97,7 @@
               this.bottom=2;
               this.allLength = res.data.page.totalCount;
             }
-            if(this.page*this.limit>=this.allLength){
+            if(this.page*this.pageSize>=this.allLength){
               this.allload=1;
             }else{
               this.allload=0;

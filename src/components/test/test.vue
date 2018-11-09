@@ -67,28 +67,32 @@ export default{
     },
     methods: {
     	tiaozhuan (idx,remark) {
-    	  if(remark==1){
-          this.$Toast("您已经答过题了")
-    	    return;
-        }
+    	//    if(remark==1){
+        //         this.$Toast("您已经答过题了")
+        //         return;
+        //     };
 
-    		if(idx == 0){//单人答题页面
-    			this.$router.push({path:'/Solo?modeId='+1})
-    		}
-    		if(idx == 1){// 多人页面
-    			this.$router.push({path: '/moreAwait?modeId='+2})
-    		}
+            if(idx == 0){//单人答题页面
+                this.$router.push({path:'/Solo?modeId='+1})
+            }
+            if(idx == 1){// 多人页面
+                this.$router.push({path: '/moreAwait?modeId='+2})
+            }
             if(idx == 2){// 多人困难页面
             
         //   this.$router.push({path: '/moreAwait?modeId='+3});
 
-          if(this.$route.path=="/test"){
-            if(this.dtjxz == 1){
-              this.$router.push({path: '/moreAwait?modeId='+3});
+                if(this.$route.path=="/test"){
+                    if(this.dtjxz == 1){
+                        if(remark != "1"){
+                            this.$router.push({path: '/moreAwait?modeId='+3});
+                        }else{
+                            this.$Toast("您已经答过题了,请明天再来")
+                        }
+                    }
+                    return false;
+                }
             }
-            return false;
-          }
-    		}
     	},
     	getImg(){
     		// 用户头像接口
@@ -113,9 +117,10 @@ export default{
             this.axios({
                 method:"get",
                 url:this.$baseurl + "/api/answer/getModeList",
-              params:{
-                token:localStorage.getItem('token')
-              }
+                headers:{"token":localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+                params:{
+                    token:localStorage.getItem('token')
+                }
             }).then((res)=>{
               if(res.data.code=="401"){
                 this.$Toast({

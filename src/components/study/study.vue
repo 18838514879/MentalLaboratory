@@ -5,7 +5,7 @@
         <div class="count_new">
             <div class="top_search" v-if="show2">
               <input type="text" placeholder="请输入搜索内容" v-model.trim="title">
-              <img class="search_img" src="../../../static/images/search_img.png" alt="">
+              <img class="search_img" src="../../../static/images/search_img.png" alt="" @click="sousuo()">
             </div>
 
             <ly-tab
@@ -24,7 +24,7 @@
             </ul>  -->
             <div :class="tops?'atop':'btop'" style="position: fixed;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
                 <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
-                  <div class="new_small  clearfix" v-for="(ranking,index) in rankings" :key="index"  @click="studyDatils(ranking.points,ranking.id)">
+                  <div class="new_small  clearfix" v-for="(ranking,index) in rankings" :key="index"  @click="studyDatils(ranking.id)">
                     <div class="le_new"><img class="new_datu" :src="ranking.imgUrl" alt=""></div>
                     <div class="ri_new">
                       <p class="new_text">{{ranking.title}}</p>
@@ -34,7 +34,7 @@
                       </div>
                       <div class="rice_new  clearfix" v-for="(label,lindex) in ranking.labelList" :key="lindex"> {{label.labelName}} </div>
                       <div class="new_btn clearfix">
-                        <div :class="ranking.points!=null?'btn_left':'btn_left isHide'">{{ranking.points}}</div>
+                        <div :class="ranking.points == null || ranking.points == 0 ?'btn_left isHide':'btn_left'">{{ranking.points}}</div>
                         <div class="btn_right">
                           <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_zhuanfa.jpg" alt="">{{ranking.shareCount}}</div>
                         </div>
@@ -65,7 +65,7 @@ export default {
       allload: 0,
       allLength: 1,
       page: "1", //当前
-      limit: 5,
+      limit: 10,
       bottom: 0,
       id:'',
       title:'',
@@ -100,15 +100,20 @@ export default {
       this.allload = 0;
       this.jiekou();
     },
-
+    sousuo(){
+      this.page = 1;
+      this.jiekou();
+    },
+  
     categories () {
           this.axios({
-        method: "get",
-        url: this.$baseurl + "/api/data/getDataTypes",
-        params: {
-                 }
-      })
-        .then(res => {
+          method: "get",
+          url: this.$baseurl + "/api/data/getDataTypes",
+          headers: {
+            token: localStorage.getItem("token"),
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+      }).then(res => {
           if(res.data.code=="401"){
             this.$Toast({
               message: '登录已经过期',
@@ -139,22 +144,27 @@ export default {
             });
           }
 
-        })
-        .catch(err => {
+        }).catch(err => {
           console.log(err);
         });
          },
-
+//获取资料列表接口
     jiekou() {
+
       console.log("created");
       this.axios({
         method: "get",
         url: this.$baseurl + "/api/data/getDataList",
+        headers: {
+            token: localStorage.getItem("token"),
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
         params: {
           page: this.page,
           limit: this.limit,
           types:this.id,
           titles: this.title,
+          labels:"",
         }
       })
         .then(res => {
@@ -185,7 +195,6 @@ export default {
             for (let i = 0; i < res.data.page.list.length; i++) {
               this.rankings.push(res.data.page.list[i]);
             }
-            // console.log(this.bottom + "===============");
           }else{
             this.$Toast({
               message: res.data.msg,
@@ -231,32 +240,9 @@ export default {
      this.show2 = false;
     },
 
-    studyDatils(points,dataId) {
-      if (points != null) {
-        const tknr =
-          '<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
-        MessageBox.confirm("", {
-          message: tknr,
-          confirmButtonText: "确定",
-          cancelButtonText: "取消"
-        })
-          .then(action => {
-            if (action == "confirm") {
-              //确认的回调
-              console.log(1);
-              this.$router.push({ path: "/studyDatil?statu=1"+"&dataId="+dataId});
-            }
-          })
-          .catch(err => {
-            if (err == "cancel") {
-              //取消的回调
-              console.log(2);
-            }
-          });
-      } else {
-        this.$router.push({ path: "/studyDatil?statu=0" });
-      }
-    }
+    studyDatils(dataId){
+      this.$router.push({ path: "/studyDatil?dataId="+dataId});
+    },
   },
   filters: {
     formatDate: function(value) {
@@ -415,6 +401,10 @@ export default {
           color: #2083d1;
           .new_write {
             float: left;
+            width: 1.6rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
           .new_time {
             float: right;

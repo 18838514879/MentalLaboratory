@@ -157,7 +157,7 @@ export default{
        });
         // 获取参与人数和积分接口
        this.axios.get(this.$baseurl + "/api/answer/getModeInfo",{
-            headers:{"token":"2b90ae3a28c74fe5b944afbe8bae2c86","Content-Type": "application/x-www-form-urlencoded"},
+            headers:{"token":localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
             params: {
                 modeId:this.$route.query.modeId,
                 paperId: this.$route.query.paperId,

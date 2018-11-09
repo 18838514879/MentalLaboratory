@@ -5,7 +5,7 @@
             {{mgs}}
         </div>
         <ul class="solo-list">
-            <li v-for="item in items" :key="item.id" class="solo-list-li" @click="soloGo(item.id)">
+            <li v-for="item in items" :key="item.id" class="solo-list-li" @click="soloGo(item.id,item.remark)">
                 <span class="item-icon">
                     <i class="fa fa-folder" aria-hidden="true"></i>
 			    </span>
@@ -45,8 +45,12 @@
             back () {
                 this.$router.push({path:'/test'});
             },
-            soloGo (paperId) {
+            soloGo (paperId,remark) {
+                if(remark != "1"){
                 this.$router.push({path:'/StartAnswers?paperId='+paperId+ '&modeId='+this.$route.query.modeId})
+                }else{
+                     this.$Toast("您已经答过题了,请答下套题");
+                }
             },
             jiekou () {
                  console.log('created');
@@ -54,6 +58,7 @@
             {
             method:"get",
             url:this.$baseurl +"/api/answer/getPaperList",
+            headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
             params:{
                 },
             }) .then( res => {

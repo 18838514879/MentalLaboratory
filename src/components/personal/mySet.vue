@@ -3,22 +3,12 @@
         <div class="header clearfix"><a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
            <ul class="set_top">
                <li class="set_img clearfix">
-                 <a href="javascript:void(0);" class="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
-                 <div class="set_le" v-if="!userImg"><img :src="imgUrl" alt=""></div>
-                 <div class="set_le" v-if="userImg"><img :src="userImg" alt=""></div>
-                 <div class="set_fr" ><img src="../../../static/images/m_return.png" alt="">
-
-                 </div>
-           </li>
-               <!--<li>-->
-                 <!--<p class="p1" style="position: relative;">-->
-                   <!--<span class="span1">用户头像</span>-->
-                   <!--<a href="javascript:void(0);" class="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>-->
-                   <!--&lt;!&ndash;<img class="img2"  src="../../assets/gaojiaxiang/youjiantou.png" alt="">&ndash;&gt;-->
-                   <!--<img v-if="loading==false" class="img1" :src=userImg alt="">-->
-                   <!--&lt;!&ndash;<img v-if="loading" src="../../assets/loading.gif" alt="" class="imgloading">&ndash;&gt;-->
-                 <!--</p>-->
-               <!--</li>-->
+                 <a href="javascript:void(0);" id="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
+                 <div class="set_le"><img :src="imgUrl" alt=""></div>
+                 <!-- <div class="set_le" v-if="userImg"><img :src="userImg" alt=""></div> -->
+                 <div class="set_fr" ><img src="../../../static/images/m_return.png" alt=""></div>
+               </li>
+              
                <li class="clearfix" >
                    <input class="set_le" type="text" @click="updateSaveIdx('1')"  v-model="name"  value="" :disabled="saveIdx==2 || saveIdx==3?'disabled':false" placeholder="请输入您的昵称">
                     <button class="save" v-if="saveIdx==1" @click="baocun1">保存</button>
@@ -58,9 +48,9 @@ export default {
     return {
       saveIdx:"-1",///判断保存按钮的显示隐藏
 
-      userImg:'',//个人用户头像
-      userName:'',//个人用户名
-      userTelephone:'',//个人用户手机号
+      // userImg:'',//个人用户头像
+      // userName:'',//个人用户名
+      // userTelephone:'',//个人用户手机号
 
       loadUrl:'uploadImg/uploadSpecImg.htm',
       show:true,
@@ -79,63 +69,17 @@ export default {
       city: "",
       imgUrl:'../static/images/portrait.png',
       data: [
-        {
-          name: "拍照",
-
-          method: this.getCamera // 调用methods中的函数
-        },
-        {
-          name: "从相册中选择",
-          method: this.getLibrary // 调用methods中的函数
-        }
+       
       ],
-      //   action sheet 默认不显示，为false。操作sheetVisible可以控制显示与隐藏
       sheetVisible: false
     };
   },
 
-    //用户信息接口
-    created() {
-    console.log("created"),
-      this.axios({
-          method:"get",
-           url:this.$baseurl + "/api/member/getMemberInfo",
-           headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
-       }).then((res)=>{
-        console.log(res)
-        if(res.data.code=="401"){
-          this.$Toast({
-            message: '登录已经过期',
-            position: 'bottom'
-          });
-          this.$router.push("/login")
-        }else if(res.data.code=="402"){
-          this.$Toast({
-            message: '您还未登录',
-            position: 'bottom'
-          });
-          this.$router.push("/login")
-        }else if(res.data.code=="0"){
-          console.log(res);
-          this.phone = res.data.member.phone;
-          this.name = res.data.member.nickname;
-          this.city = res.data.member.area;
-        }else{
-          this.$Toast({
-            message: res.data.msg,
-            position: 'bottom'
-          });
-        }
-
-       }).catch(err => {
-         console.log(err);
-       });
-
-  },
+   
   mounted:function(){
 
     var that=this;
-    that.myImg();
+    that.urseInfo();
     function plusReady(){
       // sessionStorage.setItem("camereIsok",'1');
       // // 弹出系统选择按钮框
@@ -145,7 +89,7 @@ export default {
       //   sessionStorage.setItem("camereIsok",'0');
       function aa(){
          var m=this;
-          plus.nativeUI.actionSheet({cancel:"取消",buttons:[
+          camere = plus.nativeUI.actionSheet({cancel:"取消",buttons:[
             {title:"拍照"},
             {title:"从相册中选择"}
           ]}, function(e){//1 是拍照  2 从相册中选择
@@ -155,8 +99,9 @@ export default {
             }
           });
        }
-       mui("body").on("click",".imageup",aa)
-        // mui("body").on("click",".imageup",function(){
+        mui("body").off("tap","#imageup",aa)
+        mui("body").on("tap","#imageup",aa)
+        // mui("body").on("click","#imageup",function(){
         //   //page.imgUp();
         //   var m=this;
         //   plus.nativeUI.actionSheet({cancel:"取消",buttons:[
@@ -245,6 +190,7 @@ export default {
     }else{
       document.addEventListener("plusready",plusReady,false);
     }
+    
   },
   watch: {
     name: function() {
@@ -255,33 +201,19 @@ export default {
     },
     phone: function() {
       this.changePhone();
-      // this.phone = this.phone.replace(/\D/g, "");
     }
   },
 
   methods: {
-    actionSheet: function() {
-      this.sheetVisible = true;
-    },
-    getCamera: function() {
-      console.log("打开照相机");
-    },
-    getLibrary: function() {
-      console.log("打开相册");
-    },
-    updateSaveIdx:function (idx) {//修改按钮状态
-      this.saveIdx=idx;
-    },
-    //获取图像接口
-      myImg () {
-            this.axios({
+     //用户信息接口
+    urseInfo() {
+      console.log("created"),
+      this.axios({
           method:"get",
            url:this.$baseurl + "/api/member/getMemberInfo",
            headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
-            params:{
-                   phone:this.$route.query.phone,
-                  }
        }).then((res)=>{
+        console.log(res)
         if(res.data.code=="401"){
           this.$Toast({
             message: '登录已经过期',
@@ -297,9 +229,9 @@ export default {
         }else if(res.data.code=="0"){
           console.log(res);
           this.imgUrl = res.data.member.imgUrl;
-          if(res.data.member.pointsTrue == null){
-            this.integral = 0;
-          }
+          this.phone = res.data.member.phone;
+          this.name = res.data.member.nickname;
+          this.city = res.data.member.area;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -311,7 +243,26 @@ export default {
          console.log(err);
        });
 
-        },
+  },
+    actionSheet: function() {
+      this.sheetVisible = true;
+    },
+    cameraChoice:function(){
+          plus.nativeUI.actionSheet({cancel:"取消",buttons:[
+            {title:"拍照"},
+            {title:"从相册中选择"}
+          ]}, function(e){//1 是拍照  2 从相册中选择
+            switch(e.index){
+              case 1:clickCamera();break;
+              case 2:clickGallery();break;
+            }
+          });
+    },
+  
+    updateSaveIdx:function (idx) {//修改按钮状态
+      this.saveIdx=idx;
+    },
+  
     baocun1: function() {
         console.log(this.name)
        if(this.name == "" ||  this.name ==null){
@@ -355,10 +306,6 @@ export default {
           });
           this.saveIdx="-1";//初始化保存显示按钮
 
-//          this.show1 = false;
-//          this.disabled1 = false;
-//          this.disabled2 = false;
-//          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -411,10 +358,7 @@ export default {
           });
 
           this.saveIdx="-1";//初始化保存显示按钮
-//          this.show1 = false;
-//          this.disabled1 = false;
-//          this.disabled2 = false;
-//          this.disabled3 = false;
+
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -475,10 +419,7 @@ export default {
               position: 'bottom'
             });
           this.saveIdx="-1";//初始化保存显示按钮
-//            this.show3 = false;
-//            this.disabled1 = false;
-//            this.disabled2 = false;
-//            this.disabled3 = false;
+
           } else{
           this.$Toast({
             message: res.data.msg,
@@ -584,9 +525,8 @@ export default {
       this.headImg = this.imgUrl;
       this.reviseImg();
     },
-    reviseImg:function(){
-    
-      var that=this;
+    reviseImg:function(){//头像修改
+    var that = this;
       this.axios({
         method:"post",
         url:this.$baseurl + "/api/member/saveMemberInfo",
@@ -614,7 +554,8 @@ export default {
               message: '用户头像修改成功',
               position: 'bottom'
             });
-            that.userImg =  that.headImg;
+            that.imgUrl =  that.headImg;
+            alert(that.imgUrl)
           this.show1 = false;
           this.disabled1 = false;
           this.disabled2 = false;

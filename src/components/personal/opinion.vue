@@ -25,13 +25,13 @@ export default {
 
         },
         watch:{
-            //  phones: function() {
-            // this.phones = this.phones.replace(/\D/g, "");
-            // }
+             phones: function() {
+            this.phones = this.phones.replace(/\D/g, "");
+            }
         },
        methods: {
             back () {
-                history.back();
+                this.$router.go(-1);
             },
             submit () {
             var that=this;
@@ -50,18 +50,14 @@ export default {
                 });
                 return;
             };
-              this.$Toast({
-                    message: '提交成功',
-                    position: 'bottom'
-                });
             console.log('created');
-            var thisCommentId = sessionStorage.getItem('cld_id');
-            this.axios({
+                this.axios({
                 method:"post",
                 url:this.$baseurl + "/api/member/saveOpinion",
                 headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
                     params:{
-                            commentId:thisCommentId,
+                            content:this.contents,
+                            phone:this.phones,
                         }
             }).then( res => {
               if(res.data.code=="401"){
@@ -78,7 +74,10 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
-                this.$router.go(-1);
+                 this.$Toast({
+                    message: '提交成功',
+                    position: 'bottom'
+                });
               }else{
                 this.$Toast({
                   message: res.data.msg,
@@ -86,9 +85,9 @@ export default {
                 });
               }
 
-                        }).catch( err => {
-                            console.log(err);
-                        })
+            }).catch( err => {
+                console.log(err);
+            })
 
                 }
              }

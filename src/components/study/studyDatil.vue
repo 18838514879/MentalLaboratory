@@ -4,31 +4,34 @@
             <a href="#" @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
             {{mgs}}
         </div>
-        <div class="kongbai"></div>
-        <div class="content">
-        <p class="top_title">{{title}}</p>
-        <span class="discuss_hr"></span>
-        <div class="clearfix">
-        <p class="discuss_write">作者：{{author}}</p>
-        <p class="discuss_time">发布时间：{{createTime}}</p>
-        </div>
-        <p class="discuss_text" v-html="content"> {{content}}</p>
-        </div>
-        <div v-if="statu==1">
-            <div class="addContent"  @click="addContent()">附加内容链接</div>
-            <div class="addContent1" v-html="contentPlus">{{data}}</div>
-        </div>
+       <div class="mid_styleList">
+            <div class="kongbai"></div>
+            <div class="content">
+                <p class="top_title">{{title}}</p>
+                <span class="discuss_hr"></span>
+                <div class="clearfix">
+                <p class="discuss_write">作者：{{author}}</p>
+                <p class="discuss_time">发布时间：{{createTime}}</p>
+                </div>
+                <div class="discuss_text" v-html="content"> {{content}}</div>
+            </div>
+        <!-- <div v-if="statu==1"> -->
+            <div>
+                <div v-if="show2" class="addContent"  @click="addContent()">附加内容链接</div>
+                <div class="addContent1" v-html="contentPluss">{{data}}</div>
+            </div>
+       </div>
 
         <div class="details_footer clearfix">
-            <textarea class="details_tex" @click="textarea()"></textarea>
+            <!-- <textarea class="details_tex" @click="textarea()"></textarea> -->
             <div class="details_img clearfix">
             <img @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
             <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
             <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
-        <textarea class="discuss_tex_tex" placeholder="请输入内容" v-if="show"></textarea>
-        <div class="discuss_fasong" v-if="show" @click="fasong()">发送</div>
+        <!-- <textarea class="discuss_tex_tex" placeholder="请输入内容" v-if="show"></textarea> -->
+        <!-- <div class="discuss_fasong" v-if="show" @click="fasong()">发送</div> -->
         <div class="detai_footer" v-if="shows">
           <ul class="detai_clearfix">
             <li @click="fenxiang()">微信</li>
@@ -41,6 +44,7 @@
 </template>
 
 <script>
+import { MessageBox } from "mint-ui";
 export default {
   data() {
     return {
@@ -51,56 +55,70 @@ export default {
         author:'',
         createTime:'',
         content:'',
-        contentPlus:'',
-        statu:'0',
+        contentPluss:'',
+        // statu:'0',
         data:'',
+        show2:false,
     }
   },
-  components: {
-
+  components: {},
+  mounted (){
+     this.listDatil();
   },
-   created () {
-       this.statu=this.$route.query.statu
-       console.log('created');
-            this.axios({
-            method:"get",
-            url:this.$baseurl +"/api/data/getDataInfo",
-            params:{dataId:this.$route.query.dataId},
-            }).then( res => {
-              if(res.data.code=="401"){
-                this.$Toast({
-                  message: '登录已经过期',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="402"){
-                this.$Toast({
-                  message: '您还未登录',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="0"){
-                console.log(res);
-                this.title=res.data.info.title;
-                this.author=res.data.info.author;
-                this.createTime=res.data.info.createTime;
-                this.content=res.data.info.content;
-              }else{
-                this.$Toast({
-                  message: res.data.msg,
-                  position: 'bottom'
-                });
-              }
-            }).catch( err => {
-              console.log(err);
-         });
-    },
+  
   methods: {
+   //免费详情页面
+       listDatil () {
+            // this.statu=this.$route.query.statu
+            console.log('created');
+            this.axios({
+                method:"get",
+                url:this.$baseurl +"/api/data/getDataInfo",
+                headers: {
+                    token: localStorage.getItem("token"),
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                params:{dataId:this.$route.query.dataId},
+                }).then( res => {
+                if(res.data.code=="401"){
+                    this.$Toast({
+                    message: '登录已经过期',
+                    position: 'bottom'
+                    });
+                    this.$router.push("/login")
+                }else if(res.data.code=="402"){
+                    this.$Toast({
+                    message: '您还未登录',
+                    position: 'bottom'
+                    });
+                    this.$router.push("/login")
+                }else if(res.data.code=="0"){
+                    console.log(res);
+                    if(res.data.info.contentPlus != ""){
+                        this.contentPluss= res.data.info.contentPlus;
+                        this.title=res.data.info.title;
+                        this.author=res.data.info.author;
+                        this.createTime=res.data.info.createTime;
+                        this.content=res.data.info.content;
+                        if(res.data.info.points > "0"){
+                        this.show2=true;
+                        }
+                    }
+                   
+                }else{
+                    this.$Toast({
+                    message: res.data.msg,
+                    position: 'bottom'
+                    });
+                }
+                }).catch( err => {
+                  console.log(err);
+             });
+    },
       //购买附加内容
       addContent(){
            console.log('created');
-            this.axios(
-            {
+            this.axios({
             method:"get",
             url:this.$baseurl +"/api/data/payContent",
             headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
@@ -122,18 +140,34 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
-                this.contentPlus=res.data.data;
-                if(res.data.data == null){
-                     this.contentPlus="";
-                }
+                
+                const tknr ='<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
+                 MessageBox.confirm("", {
+                    message: tknr,
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消"
+                }).then(action => {
+                    if (action == "confirm") {
+                        //确认的回调
+                        console.log(1);
+                        this.contentPluss=res.data.data;
+
+                        if(res.data.data == null){
+                            this.contentPluss="";
+                        }
+                    }
+                }).catch(err => {
+                    if (err == "cancel") {
+                    //取消的回调
+                    console.log(2);
+                    }
+          });
               }else{
                 this.$Toast({
                   message: res.data.msg,
                   position: 'bottom'
                 });
               }
-
-
             }).catch( err => {
               console.log(err);
          });
@@ -141,18 +175,16 @@ export default {
       back () {
           history.back();
       },
-      textarea () {
-          this.show = !this.show;
-      },
-      fasong () {
-          this.show = !this.show;
-      },
+    //   textarea () {
+    //       this.show = !this.show;
+    //   },
+    //   fasong () {
+    //       this.show = !this.show;
+    //   },
       fenxiang () {
           this.shows = !this.shows;
       },
-      discuss () {
-        //   this.$router.push({path:'/comments'});
-      }
+      
   }
 }
 </script>
@@ -160,9 +192,12 @@ export default {
 <style scoped lang="scss">
 
     .addContent{
-            color:#169bd5;
-            font-size: .24rem;
-            text-align: center;
+        color:#169bd5;
+        font-size: .24rem;
+        text-align: center;
+        padding-bottom: .24rem;
+        box-sizing:border-box;
+        -webkit-box-sizing: border-box;
         }
     .addContent1{
             width: 7.02rem;
@@ -175,8 +210,9 @@ export default {
             color: #666666;
             margin: 0 auto;
             text-indent: 2em;
-            margin-bottom: .65rem;
+            margin-bottom: .65rem;  
     }
+   
     // 遮罩
     .zhezhao{
         height: 100%;
@@ -265,12 +301,15 @@ export default {
 
         }
     }
-    .kongbai{
+    .mid_styleList{
+        margin-bottom: 1.88rem;
+        background-color: #fff;
+        .kongbai{
         width:100%;
         height:.35rem;
         background-color:#e9e9e9;
         padding-top: 0.88rem;
-    }
+        }
       .content{
         width: 100%;
         padding-top:.32rem;
@@ -334,6 +373,8 @@ export default {
         margin-bottom:.65rem;
     }
     }
+    }
+    
      .details_footer{
         width: 100%;
         height: .98rem;

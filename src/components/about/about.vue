@@ -48,6 +48,10 @@ export default {
       console.log('created');
         this.axios.get(this.$baseurl + '/api/config/getConfig',
         	{
+            headers: {
+                token: localStorage.getItem("token"),
+                "Content-Type": "application/x-www-form-urlencoded"
+                },
         		params: {
         			param: 'aboutUs'
         		}

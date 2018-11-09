@@ -64,6 +64,10 @@ export default {
             {
             method:"get",
             url:this.$baseurl + "/api/member/getPrizeList",
+            headers: {
+                token: localStorage.getItem("token"),
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
             params:{
                usedIntegral :localStorage.getItem('usedIntegral'),
             }
