@@ -4,7 +4,7 @@
            <ul class="set_top">
                <li class="set_img clearfix">
                  <a href="javascript:void(0);" id="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
-                 <div class="set_le" v-if="loading"><img :src="imgUrl" alt=""></div>
+                 <div class="set_le"><img :src="imgUrl" alt=""></div>
                  <!-- <div class="set_le" v-if="userImg"><img :src="userImg" alt=""></div> -->
                  <div class="set_fr" ><img src="../../../static/images/m_return.png" alt=""></div>
                </li>
@@ -67,7 +67,7 @@ export default {
       phone:'',
       name: "",
       city: "",
-      imgUrl:'',
+      imgUrl:'../static/images/portrait.png',
       data: [
        
       ],
@@ -77,10 +77,8 @@ export default {
 
    
   mounted:function(){
+
     var that=this;
-
-   
-
     that.urseInfo();
     function plusReady(){
       // sessionStorage.setItem("camereIsok",'1');
@@ -551,19 +549,18 @@ export default {
           });
           this.$router.push("/login")
         }else if(res.data.code=="0"){
-          //var timetamp4 = Number(new Date()) ; 
-          //that.imgUrl =  that.headImg+"?"+timetamp4;
-          //$("#memberImg").attr("src",res.data.url);
-          this.imgUrl = res.data.url;
-          
-          // that.$set(that.imgUrl, that.headImg); 
           console.log(res);
             that.$Toast({
               message: '用户头像修改成功',
               position: 'bottom'
-            })
-            //  that.urseInfo();
-              this.show1 = false;
+            });
+            that.imgUrl =  that.headImg;
+            window.location.reload();
+            // alert(that.imgUrl)
+          this.show1 = false;
+          this.disabled1 = false;
+          this.disabled2 = false;
+          this.disabled3 = false;
         }else{
           this.$Toast({
             message: res.data.msg,
