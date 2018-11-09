@@ -32,7 +32,7 @@
           <ul class="detai_clearfix clearfix">
             <li @click="fenxiang()">微信</li>
             <li @click="fenxiang()">朋友圈</li>
-            <li @click="fenxiang()">QQ</li>
+            <!-- <li @click="fenxiang()">QQ</li> -->
           </ul>
         </div>
         <div class="zhezhao" v-if="show"></div>

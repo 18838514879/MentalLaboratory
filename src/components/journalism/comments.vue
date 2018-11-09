@@ -11,25 +11,20 @@
                 <li class="comments_list_li" v-for="item in items" :key="item.id">
                     <!-- <li class="comments_list_li" v-for="item in listMe(list)" :key="item.id"> -->
 
-                    <div class="list_buttom">
+                    <div class="list_buttom clearfix">
                         <img :src="item.memberUrl" alt="">
                         <span class="list_top_name">
                             <p class="list_top_name_age" v-if="item.memberName">{{ item.memberName }}</p>
                             <p class="list_top_name_age" v-else>匿名</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
                         </span>
-                        <span class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">
-                            <span><i class="fa fa-commenting" aria-hidden="true"></i></span>
-                            <!-- 回复信息 -->
-                            查看所有评论
-                        </span>
+                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">查看所有回复评论</div>
+                        <div class="list_tupian"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>                      
                     </div>
-                    <div class="comments_text">
-                        {{ item.content }}
-                    </div>
+                    <div class="comments_text">{{ item.content }}</div>
                     <div class="comments_text_hui clearfix" style="font-size:.34rem">
-                        <p style="float: right;font-size: .3rem;" @click="huifu(item.id,item.newsId,item.memberId)">去回复</p>
-                         <p style="float: right;"><i class="fa fa-commenting" aria-hidden="true"></i></p>
+                        <div  class="list_top_hui" style="font-size:0.25rem;color:#000;" @click="huifu(item.id,item.newsId,item.memberId)">去回复</div>
+                        <div class="list_tupian" style="margin-top:0.36rem;"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>
                         <!-- <p>
                             <span class="comments_text_hui_one">回复</span>
                             <span class="comments_text_hui_two">？？？</span>
@@ -255,6 +250,18 @@
         float: right;
         margin-top: .4rem;
     }
+    .list_tupian{
+        display: block;
+        width: .3rem;
+        height: .3rem;
+        float: right;
+        margin-right: .1rem;
+        margin-top: .25rem;
+    }
+    .list_tupian .tupian_img{
+             width: 100%;
+             height: 100%;
+         }
     .list_buttom{
         font-size: .34rem;
         color: #333333;
@@ -276,8 +283,12 @@
         font-size: .34rem;
         line-height: .47rem;
         color: #333333;
-        margin-left: .8rem;
-        margin-top:.38rem;
+        padding: .24rem;
+        box-sizing:border-box;
+      -webkit-box-sizing: border-box;
+        word-wrap: break-word;
+        word-break: normal;
+        
     }
     .comments_text_hui_one{
         color: #7d7d7d;

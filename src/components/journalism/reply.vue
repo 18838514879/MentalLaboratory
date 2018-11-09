@@ -255,8 +255,11 @@
         font-size: .34rem;
         line-height: .47rem;
         color: #333333;
-        margin-left: .8rem;
-        margin-top:.38rem;
+         padding: .24rem;
+        box-sizing:border-box;
+      -webkit-box-sizing: border-box;
+        word-wrap: break-word;
+        word-break: normal;
     }
     .comments_text_hui_one{
         color: #7d7d7d;

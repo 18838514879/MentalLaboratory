@@ -17,7 +17,11 @@
             </div>
         <!-- <div v-if="statu==1"> -->
             <div>
-                <div v-if="show2" class="addContent"  @click="addContent()">附加内容链接</div>
+                <div v-if="show2" class="addContent">
+                    <p v-if="show3" @click="addContent()">附加内容链接</p>
+                    <p v-if="!show3">附加内容链接</p>
+                </div>
+                <!-- <div v-if="!show2" class="addContent" >附加内容链接</div> -->
                 <div class="addContent1" v-html="contentPluss">{{data}}</div>
             </div>
        </div>
@@ -25,7 +29,7 @@
         <div class="details_footer clearfix">
             <!-- <textarea class="details_tex" @click="textarea()"></textarea> -->
             <div class="details_img clearfix">
-            <img @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
+            <!-- <img @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt=""> -->
             <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
             <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
@@ -36,7 +40,7 @@
           <ul class="detai_clearfix">
             <li @click="fenxiang()">微信</li>
             <li @click="fenxiang()">朋友圈</li>
-            <li @click="fenxiang()">QQ</li>
+            <!-- <li @click="fenxiang()">QQ</li> -->
           </ul>
         </div>
         <div class="zhezhao" v-if="show"></div>
@@ -51,6 +55,7 @@ export default {
         mgs: '研究室',
         show:false,
         shows:false,
+        show3:true,
         title:'',
         author:'',
         createTime:'',
@@ -94,16 +99,21 @@ export default {
                     this.$router.push("/login")
                 }else if(res.data.code=="0"){
                     console.log(res);
-                    if(res.data.info.contentPlus != ""){
-                        this.contentPluss= res.data.info.contentPlus;
-                        this.title=res.data.info.title;
-                        this.author=res.data.info.author;
-                        this.createTime=res.data.info.createTime;
-                        this.content=res.data.info.content;
-                        if(res.data.info.points > "0"){
+                     this.title=res.data.info.title;
+                     this.author=res.data.info.author;
+                     this.createTime=res.data.info.createTime;
+                     this.content=res.data.info.content;
+                     if(res.data.info.points > "0"){
                         this.show2=true;
                         }
-                    }
+                    if(res.data.info.contentPlus != "" && res.data.info.contentPlus != null){
+
+                        this.contentPluss= res.data.info.contentPlus; 
+                         this.show3=false;
+                    } else{
+                        this.show3=true;
+                    } 
+                    
                    
                 }else{
                     this.$Toast({
@@ -140,6 +150,7 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
+
                 
                 const tknr ='<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
                  MessageBox.confirm("", {
@@ -150,6 +161,7 @@ export default {
                     if (action == "confirm") {
                         //确认的回调
                         console.log(1);
+                        this.show3=false;
                         this.contentPluss=res.data.data;
 
                         if(res.data.data == null){
