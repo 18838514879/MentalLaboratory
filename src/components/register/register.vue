@@ -1,9 +1,9 @@
 <template>
     <div class="main">
        <div class="header clearfix">
-         <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
-         {{mgs}}
-      </div>
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
+        </div>
         <div class="login_img"><img class="xinli" :src="logoUrl" alt=""></div>
         <ul class="login_ipt">
             <li class="phone">
@@ -39,11 +39,11 @@ export default {
       return {
         isTrue:false,
         mgs:'手机注册',
-        logoUrl:'../static/images/l_logo.png',
+        logoUrl:'',
         phone:'',
         password:'',
         authCode:'',
-        src:'../static/images/notread.png',
+        src:'',
         show:true,
         count:'',
       };
@@ -279,14 +279,20 @@ export default {
         background-color: #2083d1;
         color:#fff;
         text-align: center;
-        a{
-            display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+       .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
         }
 
     }
@@ -440,10 +446,12 @@ export default {
       height: 0.9rem;
       background-color: #ff8043;
       border-radius: 20px;
-      position: fixed;
-      left: 50%;
-      margin-left: -3rem;
-      bottom: 1.7rem;
+      position: absolute;
+      left: 0;
+      right:0;
+      bottom:0;
+      top:12rem;
+      margin: auto;
       color:#fff;
   }
 }

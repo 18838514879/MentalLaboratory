@@ -1,6 +1,9 @@
 <template>
      <div class="mine">
-        <div class="header clearfix"><a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
+        <div class="header clearfix">
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
+        </div>
            <ul class="set_top">
                <li class="set_img clearfix">
                  <a href="javascript:void(0);" id="imageup" style="position: absolute;display:block;width: 100%;height: 100%;"></a>
@@ -67,7 +70,7 @@ export default {
       phone:'',
       name: "",
       city: "",
-      imgUrl:'../static/images/portrait.png',
+      imgUrl:'',
       data: [
        
       ],
@@ -662,15 +665,21 @@ export default {
     top:0;
     right: 0;
     left: 0;
-    a {
-      display: block;
-      width: 0.4rem;
-      height: 0.5rem;
-      float: left;
-      padding-left: 0.25rem;
-      box-sizing: border-box;
-      -webkit-box-sizing: border-box;
-    }
+    .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
+            float: left;
+            padding-left: 0.25rem;
+            padding-top: 0.25rem;
+            box-sizing:border-box;
+            -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
+        }
   }
   .set_top {
     margin-top: 1.08rem;

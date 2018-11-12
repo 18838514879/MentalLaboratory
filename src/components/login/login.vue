@@ -27,8 +27,8 @@ export default {
         return {
             password:'',
             phone:'',
-            inputType:'password',
-            logoUrl:'../static/images/l_logo.png',
+            // inputType:'password',
+            logoUrl:'',
             isok:-1,
             active:'',
         }

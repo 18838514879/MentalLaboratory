@@ -45,9 +45,9 @@ export default {
   data() {
     return {
       mine: "我的",
-      name: "王紫烟",
-      integral: "1254",
-      src: "../static/images/portrait.png"
+      name: "",
+      integral: "",
+      src: ""
     };
   },
   components: { Footerone },

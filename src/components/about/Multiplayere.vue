@@ -1,8 +1,9 @@
 <template>
 	<div class="multiplayer">
     	<div class="head_t">
-          <span @click="goBack()" class="span11"><img src="../../../static/images/h_return.png" alt=""></span>
-          <span style="margin-right: .45rem;">{{msg}}</span>
+          <div @click="goBack()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
+          <!-- <span style="margin-right: .45rem;">{{msg}}</span> -->
+          {{msg}}
       </div>
     <div v-for="item in subject" :key="item.id" style="margin-top:0.88rem;">
       <div class="text">
@@ -362,12 +363,18 @@ export default {
 }
 .span11 {
   display: block;
-  width: 0.4rem;
-  height: 0.5rem;
+  width: 0.5rem;
+  height: 0.88rem;
   float: left;
   padding-left: 0.25rem;
+  padding-top: .25rem;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
+}
+.headImg{
+  display: block;
+  width: .18rem;
+  height: .25rem;
 }
 .multiplayer-footer p {
   font-family: SourceHanSansCN-Regular;

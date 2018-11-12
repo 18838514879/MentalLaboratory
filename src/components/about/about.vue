@@ -1,10 +1,8 @@
 <template>
     <div class="mine">
-        <div class="header clearfix">
-            <a class="router_link" @click="back()">
-                <img src="../../../static/images/h_return.png" alt="">
-            </a>
-            {{msg}}
+         <div class="header clearfix">
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
         </div>
         <div class="conter">
             {{text}}
@@ -39,7 +37,7 @@
 export default {
   data () {
      return {
-       msg:'关于我们',
+       mgs:'关于我们',
        text:'',
 
      }
@@ -111,15 +109,30 @@ export default {
         top:0;
         right: 0;
         left: 0;
-        .router_link{
-            display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+        .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
         }
+        // .router_link{
+        //     display: block;
+        //     width: 0.4rem;
+        //     height: 0.5rem;
+        //     float: left;
+        //     padding-left: 0.25rem;
+        //     box-sizing:border-box;
+        //     -webkit-box-sizing: border-box;
+        // }
 
     }
     .conter{

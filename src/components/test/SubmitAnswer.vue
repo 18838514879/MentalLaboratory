@@ -1,8 +1,9 @@
 <template>
     <div class="mine">
-    <div class="header clearfix"><a href=""><img src="../../../static/images/h_return.png" alt=""></a>
-        <span>{{mgs}}</span>
-    </div>
+        <div class="header clearfix">
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
+        </div>
         <div class="top">
             <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg">
             <img src="../../../static/images/morepersonal.png" alt="" class="top_img_png">
@@ -45,14 +46,20 @@ export default{
         background-color: #2083d1;
         color:#fff;
         text-align: center;
-        a{
-            display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+        .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
         }
 
     }

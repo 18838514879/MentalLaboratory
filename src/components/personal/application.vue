@@ -1,8 +1,8 @@
 <template>
     <div class="mine">
-       <div class="header clearfix">
-         <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
-         {{mgs}}
+      <div class="header clearfix">
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
         </div>
         <ul class="applice">
           <li class="clearfix">
@@ -46,15 +46,14 @@ export default {
   data() {
     return {
       mgs:'申请兑换',
-      names:'张三',
-      ID:'421125299601012030',
-      bank:'621126678987654567',
-      opening:'中国银行霍营支行',
-      //  mgs:'',
-      // names:'',
-      // ID:'',
-      // bank:'',
-      // opening:'',
+      // names:'张三',
+      // ID:'421125299601012030',
+      // bank:'621126678987654567',
+      // opening:'中国银行霍营支行',
+      names:'',
+      ID:'',
+      bank:'',
+      opening:'',
     };
   },
   mounted () {
@@ -151,14 +150,20 @@ export default {
         top:0;
         right: 0;
         left: 0;
-        a{
-            display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+       .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
         }
 
     }

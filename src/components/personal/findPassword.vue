@@ -1,6 +1,9 @@
 <template>
     <div class="mine">
-       <div class="header clearfix"><a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>{{mgs}}</div>
+       <div class="header clearfix">
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
+        </div>
         <div class="top_box">
             <img :src="logo" alt="">
         </div>
@@ -49,7 +52,6 @@ export default {
             code:'',
             logo:'',
             authCode:'',
-            src:'../static/images/select_notread.png',
             flag:'',
         };
     },
@@ -280,14 +282,20 @@ export default {
         top:0;
         right: 0;
         left: 0;
-        a{
-            display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+        .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
+
         }
 
     }
@@ -388,10 +396,12 @@ export default {
         background-color: #ea8f46;
         color:#fff;
         border-radius: 20px;
-        position: fixed;
-        left: 50%;
-        margin-left: -3rem;
-        bottom: 0.2rem;
+        position: absolute;
+        left: 0;
+        right:0;
+        bottom: 0;
+        top:7rem;
+        margin: auto;
         font-size: 0.3rem;
 
     }

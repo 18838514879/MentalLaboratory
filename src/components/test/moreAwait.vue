@@ -2,8 +2,8 @@
     <div class="mine">
         <div class="header_more">
             <div class="head_t">
-                <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
-                <span style="margin-right:.45rem;">{{ mgs }}</span>
+                <div @click="back()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
+                  {{ mgs }}
             </div>
             <div class="white clearfix"><img :src="img" alt=""></div>
             <p class="per_one">参与人数：{{ people }}</p>
@@ -247,14 +247,20 @@ export default{
       font-size: 0.4rem;
       color: #fff;
       text-align: center;
-      a{
+      .span11{
             display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+             .headImg{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+              }
         }
     }
     .white {

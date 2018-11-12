@@ -2,8 +2,8 @@
     <!-- <div class="mine" :style="{backgroundImage: 'url(' + backGroundImg + ')', backgroundSize:'100% 100%','background-repeat':'no-repeat'}"> -->
     <div class="mine">  
         <div class="header clearfix">
-            <a @click="back()"><img src="../../../static/images/h_return.png" alt=""></a>
-            <span style="margin-right:.45rem;">{{mgs}}</span>
+            <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
+            {{mgs}}
         </div>
         <div class="top">
             <!-- <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg"> -->
@@ -349,23 +349,33 @@ export default{
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
     }
-    .header{
-      height: 0.88rem;
-      line-height: 0.88rem;
-      font-size:0.36rem;
-      background-color: #2083d1;
-      color:#fff;
-      text-align: center;
-      a{
-        display: block;
-        width: 0.4rem;
-        height: 0.5rem;
-        float: left;
-        padding-left: 0.25rem;
-        box-sizing:border-box;
-        -webkit-box-sizing: border-box;
-      }
+     .header{
+        height: 0.88rem;
+        line-height: 0.88rem;
+        font-size:0.4rem;
+        background-color: #2083d1;
+        color:#fff;
+        text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        .r_back{
+            width: 0.5rem;
+            height: 0.88rem;
+            float: left;
+            padding-left: 0.25rem;
+            padding-top: 0.25rem;
+            box-sizing:border-box;
+            -webkit-box-sizing: border-box;
+            img{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+            }
 
+        }
     }
     .top_img_jpg{
       height: 1.11rem;

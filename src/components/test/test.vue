@@ -35,8 +35,8 @@ export default{
     data () {
         return {
             mgs:'实验室',
-            img: './static/images/portrait.png',
-            src:'./static/images/test_one.png',
+            img: '',
+            src:'',
             startTime: '',
             endTime22: '',
             time : '',

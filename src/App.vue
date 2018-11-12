@@ -6,43 +6,40 @@
 
 <script>
 export default {
-//  mounted:function () {
-//       var that=this;
-//     //初始化  mui   
-//      mui.init({
-//             swipeBack:false //关闭右滑关闭功能
-//         });
-//         mui.plusReady(function() {
-//             wainshow();
-//             var old_back = mui.back;
-//             plus.key.addEventListener('backbutton', function () {
-//                if (that.$route.path == "/mine" || that.$route.path == "/login" || that.$route.path == "/index" || that.$route.path == "/classify" || that.$route.path == "/shopCart") {
-//                      alert(that.$route.path);
-//                    plus.runtime.quit();
-//                }
-//                 if (that.$route.path == "/mine" || that.$route.path == "/login" || that.$route.path == "/index" || that.$route.path == "/classify" || that.$router.push == "/test" || that.$router.push == "/new" || that.$router.push =="/study" || that.$router.push == "/personal") {
-//                         plus.runtime.quit();
-//                 }
-//             }, false);
-//             document.addEventListener("netchange", wainshow, false);
-//             document.addEventListener("drag", function (e) {
-//                 //下拉的时候flg 走阻止
-//             document.getElementsByClassName('mint-tab-container-wrap')[0].style.transform="translate3d(0,0,0)";
-//             }, false);
-//         });
-// //检查网络
-//         function wainshow() {
-//             if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
-//                 mui.toast("网络异常，请检查网络设置！");
-//             }
-//         }
+ mounted:function () {
+      var that=this;
+    //初始化  mui   
+     mui.init({
+            swipeBack:false //关闭右滑关闭功能
+        });
+        mui.plusReady(function() {
+            wainshow();
+            var old_back = mui.back;
+            plus.key.addEventListener('backbutton', function () {
+           
+                if (that.$route.path == "/login" || that.$route.path == "/test" || that.$router.push == "/new" || that.$router.push =="/study" || that.$router.push == "/personal") {
+                        plus.runtime.quit();
+                }
+            }, false);
+            document.addEventListener("netchange", wainshow, false);
+            document.addEventListener("drag", function (e) {
+                //下拉的时候flg 走阻止
+            document.getElementsByClassName('mint-tab-container-wrap')[0].style.transform="translate3d(0,0,0)";
+            }, false);
+        });
+//检查网络
+        function wainshow() {
+            if (plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+                mui.toast("网络异常，请检查网络设置！");
+            }
+        }
 
 
-//      mui('.classify').slider().setStopped(true);
-//      mui('.index').slider().setStopped(true);
-//      mui('.shopCart').slider().setStopped(true);
-//      mui('.mine').slider().setStopped(true);
-//     } ,
+    //  mui('.classify').slider().setStopped(true);
+    //  mui('.index').slider().setStopped(true);
+    //  mui('.shopCart').slider().setStopped(true);
+    //  mui('.mine').slider().setStopped(true);
+    } ,
 }
 </script>
 

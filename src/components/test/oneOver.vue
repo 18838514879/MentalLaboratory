@@ -2,8 +2,9 @@
     <div class="mine">
         <div class="header">
             <div class="head_t">
-                <span @click="testss()" class="span11"><img src="../../../static/images/h_return.png" alt=""></span>
-                <span style="margin-right: .45rem;">标题</span>
+                <div @click="testss()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
+                <!-- <span style="margin-right: .45rem;">标题</span> -->
+                 {{msg}}
             </div>
             <div class="white clearfix"><img src="../../../static/images/portrait.png" alt=""></div>
             <p class="per_one">
@@ -27,6 +28,7 @@ export default{
    data () {
       return {
          points:'',
+          msg:"标题",
         //  people:'999',
       }
     },
@@ -108,12 +110,18 @@ export default{
       text-align: center;
       .span11{
             display: block;
-            width: 0.4rem;
-            height: 0.5rem;
+            width: 0.5rem;
+            height: 0.88rem;
             float: left;
             padding-left: 0.25rem;
+            padding-top: 0.25rem;
             box-sizing:border-box;
             -webkit-box-sizing: border-box;
+             .headImg{
+                display: block;
+                width: .18rem;
+                height: .25rem;
+              }
         }
     }
     .white {
