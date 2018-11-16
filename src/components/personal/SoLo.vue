@@ -32,7 +32,7 @@
 
   		data () {
 		    return {
-                  mgs: '单人模式',
+                  mgs: '',
 		      	items: [
                     // {id:1,status:'11',points:222,paperTypesName:"当时的是",title:'哈哈1'},
                 ],

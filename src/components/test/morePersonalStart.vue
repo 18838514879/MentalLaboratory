@@ -55,7 +55,7 @@ export default{
    data () {
       return {
         // backGroundImg:"",
-        mgs: '标题',
+        mgs: '',
         title: '',
         page:1,
         list1:[],
@@ -112,10 +112,10 @@ export default{
          // 做出正确跳转
 //          that.page++;
           if(that.myAnswer==that.answer){
-            this.$Toast("回答正确")
+            this.$Toast("获得积分")
             this.getStatic()
           }else{
-            this.$Toast("回答错误")
+            this.$Toast("结算积分")
 //            setTimeout(f)
             that.$router.push('/twoOver');
           }

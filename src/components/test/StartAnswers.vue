@@ -9,7 +9,7 @@
           <div class="white clearfix" ><img :src="img" alt=""></div>
           <!-- <div class="white clearfix"><img src="../../../static/images/portrait.png" alt=""></div> -->
             <p class="per_one">参与人数：{{ people }}</p>
-            <p class="per_two">奖励积分:{{ points }}<img src="../../../static/images/gold.png" alt=""></p>
+            <p class="per_two">本轮总积分:{{ points }}<img src="../../../static/images/gold.png" alt=""></p>
         </div>
        <div class="btn">
             <button @click="goStart()">开始答题</button>
@@ -23,7 +23,7 @@ export default {
       img: "",
       points: "",
       people: "",
-      msg:"标题",
+      msg:"",
     };
   },
   components: {},

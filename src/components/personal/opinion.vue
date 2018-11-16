@@ -8,10 +8,8 @@
            <textarea name="content" class="magess" v-model="contents" placeholder="写下您对我们想说的话" id="content"></textarea>
            <div class="text_num">0/500</div>
           <input type="telephone" class="tel" maxlength="11" v-model="phones" placeholder="留下你的电话，以便我们为您更好的解决问题 ">
-          <button @click="submit()">提交</button>
+          <button @click="submit()">提交</button>         
        </div>
-
-
     </div>
 </template>
 <script>

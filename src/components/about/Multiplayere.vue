@@ -30,7 +30,7 @@ export default {
   name: "Multiplayer",
   data() {
     return {
-      msg: "标题",
+      msg: "",
       page: 1, //当前题码   目前假数据最多5题
       numbers: 1,
       isNext:false,

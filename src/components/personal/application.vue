@@ -10,7 +10,7 @@
             <div class="applice_ri"><input type="text" v-model="names" placeholder=""></div>
           </li>
           <li class="clearfix">
-              <div class="applice_le">省份证号</div>
+              <div class="applice_le">身份证号</div>
               <div class="applice_ri"><input type="text" v-model="ID" placeholder=""></div>
           </li>
           <li class="clearfix">
@@ -24,19 +24,13 @@
         </ul>
         <button @click="immediately()">立即领取</button>
         <div class="text_btn">
-            <span class="title">积分兑换注意事项</span>
-        <p class="content">
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          </p>
-          <span class="title">积分兑换注意事项</span>
-        <p class="content">
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字这里是测试的文字
-          这里是测试的文字这里是测试的文字这里是
-          </p>
+            <span class="title">积分兑换注意事项:</span>
+          <div class="content">
+            <p> 一、通常情况下，如果您填写的信息的正确无误，积分兑换奖励将在1周内到账，请耐性等待。</p>
+            <p> 二、如果汇款失败，积分将会自动退回账户中，您可以在新闻室中留意相关信息。</p>
+            <p> 三、我们将会对以上信息将会进行严格审核，以防止一人多号、恶意刷分等情况的出现，最大限度地保障用户公平、安全地获取、使用积分。</p>
+            <p> 四、以上信息不会被用于除积分兑换功能外的用途，我们将严格按照国家相关法律法规对上述信息进行保管。</p>
+          </div>
         </div>
     </div>
 </template>

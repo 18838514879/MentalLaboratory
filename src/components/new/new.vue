@@ -1,21 +1,21 @@
 <template>
     <div class="mine">
-    <div class="header">{{mgs}}</div>
-       <div style="position: fixed;top:0rem;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
-        <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
-        <div class="count_new">
-          <div class="new_small  clearfix" @click="headline(list.id)" v-for="list in lists" :key="list.id">
-            <div class="le_new"><img class="new_datu" :src="list.imgUrl" alt=""></div>
-            <div class="ri_new">
-              <p class="new_text">{{ list.title }}</p>
-              <p class="new_time">{{ list.createTime | formatDate }}</p>
-              <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_bianji.png" alt="">{{ list.clickCount }}</div>
-              <div class="zhuanfa"><img class="new_xiaotu" src="../../../static/images/new_zhuanfa.jpg" alt="">{{ list.shareCount }}</div>
+        <div class="header">{{mgs}}</div>
+        <div style="position: fixed;top:0rem;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
+          <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
+          <div class="count_new">
+            <div class="new_small  clearfix" @click="headline(list.id)" v-for="list in lists" :key="list.id">
+              <div class="le_new"><img class="new_datu" :src="list.imgUrl" alt=""></div>
+              <div class="ri_new">
+                <p class="new_text">{{ list.title }}</p>
+                <p class="new_time">{{ list.createTime | formatDate }}</p>
+                <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_bianji.png" alt="">{{ list.clickCount }}</div>
+                <div class="zhuanfa"><img class="new_xiaotu" src="../../../static/images/new_zhuanfa.jpg" alt="">{{ list.shareCount }}</div>
+              </div>
             </div>
           </div>
+          </scroller>
         </div>
-        </scroller>
-       </div>
         <Footertwo></Footertwo>
     </div>
 </template>
@@ -30,6 +30,7 @@ export default {
       limit:10,
       bottom:0,
       mgs:'新闻室',
+      firstIn:true,
       lists: [
 
       ],
@@ -38,6 +39,8 @@ export default {
   components: {
     Footertwo
   },
+ 
+
   mounted(){
     this.page=1;
     this.jiekou();
@@ -154,7 +157,7 @@ export default {
    .header{
         height: 0.88rem;
         line-height: 0.88rem;
-        font-size:0.4rem;
+        font-size:0.36rem;
         background-color: #2083d1;
         color:#fff;
         text-align: center;

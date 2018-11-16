@@ -15,7 +15,7 @@
             <!-- <textarea class="details_tex" @click="postCommen()"></textarea> -->
             <label @click="postCommen()" for="neirong" class="details_tex" style="display:block;"></label>
             <div class="details_img clearfix">
-            <img  @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
+            <img  @click="discuss1()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
             <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
             <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
@@ -92,8 +92,10 @@ export default {
             })
         },
     methods: {
+        
         back () {
             this.$router.go(-1);
+            // this.$router.back(-1);
         },
         postCommen () {
             // 跳转
@@ -105,6 +107,9 @@ export default {
         },
         fasong () {
           this.show = !this.show;
+        },
+        discuss1 () {
+            this.$router.push({path:'/comments?newsId='+this.$route.query.newsId+'&memberId='+this.$route.query.newsId});
         },
         discuss () {
             // 新闻评论接口

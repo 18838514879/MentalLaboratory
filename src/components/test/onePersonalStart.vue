@@ -27,7 +27,7 @@
 export default{
    data () {
       return {
-         mgs: '标题',
+         mgs: '',
          img: '',
          people:'',
          points: ''

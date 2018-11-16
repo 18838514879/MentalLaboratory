@@ -3,27 +3,26 @@
         <div class="header_more">
             <div class="head_t">
                 <div @click="back()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
-                  {{ mgs }}
+                 <!-- {{mgs}} -->
             </div>
             <div class="white clearfix"><img :src="img" alt=""></div>
             <p class="per_one">参与人数：{{ people }}</p>
-            <p class="per_two">奖励积分:{{ points }}<img src="../../../static/images/gold.png" alt=""></p>
+            <p class="per_two">本轮总积分:{{ points }}<img src="../../../static/images/gold.png" alt=""></p>
         </div>
         <div class="per_five">
-            <p class="from_time">距离开始时间还有：</p>
+            <!-- <p class="from_time">距离开始时间还有：</p> -->
             <!-- <p class="date_time">1小时30分03秒</p> -->
             <p class="date_time" style="font-size: 1rem;">{{ number }}</p>
             <!-- <p class="at_once">“活动马上开始！请勿离开本页面。”</p> -->
         </div>
-       <div class="btn">
+       <!-- <div class="btn">
             <p class="per_thr">说明：</p>
             <p class="per_for">
                 说明是一个汉语词汇，读音为shuō míng，属于动词，意思是解释清楚，讲明解；说明原因。
                 也指解释的话；说明的文字；证明。表达方式——说明：说明是用简明扼要的文字，
                 把事物的形状、性质、特征、成因、关系、功用等解说清楚的表达方式。
             </p>
-            <!-- <button>上期回顾</button> -->
-       </div>
+       </div> -->
         <img class="btn_btn" src="../../../static/images/btn_btn.jpg" alt="">
     </div>
 </template>
@@ -32,7 +31,7 @@
 export default{
    data () {
       return {
-         mgs: '多人困难',
+        //  mgs: '多人困难',
          people: '',
          points: '',
          img: '',

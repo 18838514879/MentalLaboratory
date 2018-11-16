@@ -27,7 +27,7 @@
 export default{
    data () {
       return {   
-         mgs:'实验'
+         mgs:''
       }
     },
   

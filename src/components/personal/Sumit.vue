@@ -29,7 +29,7 @@
     name: "Multiplayer",
     data() {
       return {
-        msg: "标题",
+        msg: "",
         page: 1, //当前题码   
         numbers: 1,
         isNext:false,

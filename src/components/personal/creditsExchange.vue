@@ -23,15 +23,13 @@
             <li class="clearfix"><div class="coupon_img"><img src="../../../static/images/coupon.png" alt=""></div><div class="text_coupon"><span class="top">100元优惠券</span><br><span class="btn">满5000元使用</span></div><div class="Immediately"><img src="../../../static/images/Immediately.png" alt=""><span class="Immediately_text">立即领取</span></div></li> -->
         </ul>
         <div class="action">
-            <p class="title">积分兑换注意事项</p>
-            <p class="content">
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                这里是测试文字这里是测试文字这里是测试文字这里是测试文字这里是测试文字
-                </p>
+            <div class="title">积分兑换注意事项:</div>
+            <div class="content">
+                <p> 一、通常情况下，如果您填写的信息的正确无误，积分兑换奖励将在1周内到账，请耐性等待。</p>
+                <p> 二、如果汇款失败，积分将会自动退回账户中，您可以在新闻室中留意相关信息。</p>
+                <p> 三、我们将会对以上信息将会进行严格审核，以防止一人多号、恶意刷分等情况的出现，最大限度地保障用户公平、安全地获取、使用积分。</p>
+                <p> 四、以上信息不会被用于除积分兑换功能外的用途，我们将严格按照国家相关法律法规对上述信息进行保管。</p>
+            </div>
         </div>
     </div>
 </template>

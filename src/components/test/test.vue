@@ -5,8 +5,8 @@
             <div class="head_b">
             <div class="test_head"></div>
             <ul class="test_datil clearfix">
-              <li class="top_one" @click="myIntegral()"><img src="../../../static/images/test_top1.png" alt=""><div class="test_text"><span class="text_test">实验积分</span></div></li>
-              <li @click="myAchievement()"><img src="../../../static/images/test_top2.jpg" alt=""><div class="test_text"><span class="text_test">实验成就</span></div></li>
+              <li class="top_one" @click="myIntegral()"><img src="../../../static/images/test_top1.png" alt=""><div class="test_text"><span class="text_test">我的积分</span></div></li>
+              <li @click="myAchievement()"><img src="../../../static/images/test_top2.jpg" alt=""><div class="test_text"><span class="text_test">我的成就</span></div></li>
               <li @click="myRanking()"><img src="../../../static/images/test_top3.jpg" alt=""><div class="test_text"><span class="text_test">名次排行</span></div></li>
             </ul>
             <div class="white"><img :src="img" alt=""></div>
@@ -231,7 +231,7 @@ export default{
                 return false;
             }else if (myTimes < 0){//答题结束状态
             	this.dtjxz = 2;
-            	var xnow1 = "今天已结束，请明天12:00再来";
+            	var xnow1 = "本轮活动已结束，请明天再来";
                 this.time = xnow1;
 //              this.show1 = true;
                 return false;

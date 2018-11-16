@@ -127,64 +127,64 @@ export default {
              });
     },
       //购买附加内容
-      addContent(){
-           console.log('created');
-            this.axios({
-            method:"get",
-            url:this.$baseurl +"/api/data/payContent",
-            headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
-            params:{
-                dataId:this.$route.query.dataId,
-                },
-            }) .then( res => {
-              if(res.data.code=="401"){
-                this.$Toast({
-                  message: '登录已经过期',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="402"){
-                this.$Toast({
-                  message: '您还未登录',
-                  position: 'bottom'
-                });
-                this.$router.push("/login")
-              }else if(res.data.code=="0"){
-                console.log(res);
-
-                
-                const tknr ='<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
-                 MessageBox.confirm("", {
-                    message: tknr,
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消"
-                }).then(action => {
-                    if (action == "confirm") {
-                        //确认的回调
-                        console.log(1);
+       addContent(){
+          
+            const tknr ='<div style="text-alige:center;height:1rem;line-height:1rem;">确定兑换该资料吗？</div>';
+            MessageBox.confirm("", {
+                message: tknr,
+                confirmButtonText: "确定",
+                cancelButtonText: "取消"
+            }).then(action => {
+                if (action == "confirm") {
+                    //确认的回调
+                    this.axios({
+                    method:"get",
+                    url:this.$baseurl +"/api/data/payContent",
+                    headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+                    params:{
+                        dataId:this.$route.query.dataId,
+                        },
+                    }) .then( res => {
+                    if(res.data.code=="401"){
+                        this.$Toast({
+                        message: '登录已经过期',
+                        position: 'bottom'
+                        });
+                        this.$router.push("/login")
+                    }else if(res.data.code=="402"){
+                        this.$Toast({
+                        message: '您还未登录',
+                        position: 'bottom'
+                        });
+                        this.$router.push("/login")
+                    }else if(res.data.code=="0"){
+                        console.log(res);
                         this.show3=false;
                         this.contentPluss=res.data.data;
-
                         if(res.data.data == null){
                             this.contentPluss="";
-                        }
+                        } 
+                    }else{
+                        this.$Toast({
+                        message: res.data.msg,
+                        position: 'bottom'
+                        });
                     }
-                }).catch(err => {
-                    if (err == "cancel") {
-                    //取消的回调
-                    console.log(2);
-                    }
-          });
-              }else{
-                this.$Toast({
-                  message: res.data.msg,
-                  position: 'bottom'
-                });
-              }
-            }).catch( err => {
-              console.log(err);
-         });
+                    }).catch( err => {
+                      console.log(err);
+                 });
+                            
+            }
+            }).catch(err => {
+                if (err == "cancel") {
+                //取消的回调
+                console.log(2);
+                }
+        });
+            
       },
+
+   
       back () {
           history.back();
       },

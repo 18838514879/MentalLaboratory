@@ -48,7 +48,6 @@ import reply from '@/components/journalism/reply'
 import ceshi from '@/components/about/ceshi'
 
 
-
 Vue.use(Router)
 
 export default new Router({
@@ -83,7 +82,9 @@ export default new Router({
     {
       path: '/new',
       name: 'new',
-      component: news
+      component: news,
+      
+
     },
 
     {
@@ -221,7 +222,7 @@ export default new Router({
     {
       path: '/Newsdetails',
       name: 'Newsdetails',
-      component: NewsDetails
+      component: NewsDetails,
     },
     // 研究
     {
@@ -276,5 +277,8 @@ export default new Router({
       component: ceshi
     },
     
-  ]
+  ],
+
+ 
+
 })

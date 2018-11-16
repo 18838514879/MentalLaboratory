@@ -15,6 +15,7 @@ import { Indicator } from 'mint-ui';
 import VueTouch from 'vue-touch';
 import LyTab from 'ly-tab';
 import mui from '../static/js/mui';
+import Vuex from 'vuex';
 
 Vue.prototype.mui = mui;
 
@@ -23,6 +24,7 @@ Vue.use(LyTab);
 Vue.use(VueScroller);
 
 Vue.use(VueRouter);
+
 
 
 
@@ -41,8 +43,8 @@ Vue.use(VueRouter);
 
 
 Vue.prototype.$baseimgurl="http://xinlishiyanshi.hg.jergavin.com/sys/oss/upload";
-// Vue.prototype.$baseurl="http://xlsys.nansa.nat300.top";
-Vue.prototype.$baseurl="http://www.asdwsx.com";
+Vue.prototype.$baseurl="http://xlsys.nansa.nat300.top";
+// Vue.prototype.$baseurl="http://www.asdwsx.com";
 
 
 window.Toast= Toast;
@@ -65,6 +67,7 @@ Vue.use(VueTouch, {name: 'v-touch'})
 new Vue({
   el: '#app',
   router,
+//   store,
   components: { App },
   template: '<App/>'
 })
@@ -144,3 +147,4 @@ router.beforeEach(function (to, from, next) {
       next()
   }
 })
+

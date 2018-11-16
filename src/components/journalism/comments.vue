@@ -15,15 +15,15 @@
                         <img :src="item.memberUrl" alt="">
                         <span class="list_top_name">
                             <p class="list_top_name_age" v-if="item.memberName">{{ item.memberName }}</p>
-                            <p class="list_top_name_age" v-else>匿名</p>
+                            <p class="list_top_name_age" v-else>匿名用户</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
                         </span>
-                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">查看所有回复评论</div>
+                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">（二级评论数）条回复</div>
                         <div class="list_tupian"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>                      
                     </div>
                     <div class="comments_text">{{ item.content }}</div>
                     <div class="comments_text_hui clearfix" style="font-size:.34rem">
-                        <div  class="list_top_hui" style="font-size:0.25rem;color:#000;" @click="huifu(item.id,item.newsId,item.memberId)">去回复</div>
+                        <div  class="list_top_hui" style="font-size:0.25rem;color:#000;" @click="huifu(item.id,item.newsId,item.memberId)">回复</div>
                         <div class="list_tupian" style="margin-top:0.36rem;"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>
                         <!-- <p>
                             <span class="comments_text_hui_one">回复</span>

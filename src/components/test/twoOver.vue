@@ -32,7 +32,7 @@
 export default{
    data () {
       return {
-         msg: '标题',
+         msg: '',
          points:'0',
         //  peopleCount:'999',
       }

@@ -13,7 +13,7 @@
             </p>
             <p class="per_two">
                 <img src="../../assets/qian.png" alt="">
-                奖励积分:{{ points }}
+                获得积分:{{ points }}
                 <img src="../../../static/images/gold.png" alt="">
             </p>
         </div>
@@ -28,7 +28,7 @@ export default{
    data () {
       return {
          points:'',
-          msg:"标题",
+          msg:"",
         //  people:'999',
       }
     },
