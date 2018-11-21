@@ -83,8 +83,9 @@ export default new Router({
       path: '/new',
       name: 'new',
       component: news,
-      
-
+      meta: {
+        keepAlive: true
+        },
     },
 
     {
@@ -228,7 +229,10 @@ export default new Router({
     {
       path: '/study',
       name: 'study',
-      component: study
+      component: study,
+      meta: {
+        keepAlive: true
+        },
     },
     {
       path: '/studyDatil',
@@ -278,7 +282,8 @@ export default new Router({
     },
     
   ],
-
- 
+     mode: 'history', 
 
 })
+
+

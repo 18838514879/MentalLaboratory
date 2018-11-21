@@ -251,13 +251,6 @@ export default {
             // 用户协议确认
             changeImg () {
           this.isOk=!this.isOk;
-//                var img = "../static/images/select_notread.png"
-//                if(this.src == img){
-//                this.src = "../static/images/select_read.png"
-//                }else{
-//                this.src = "../static/images/select_notread.png"
-//
-//                }
 
             },
 

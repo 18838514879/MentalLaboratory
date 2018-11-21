@@ -15,7 +15,9 @@ import { Indicator } from 'mint-ui';
 import VueTouch from 'vue-touch';
 import LyTab from 'ly-tab';
 import mui from '../static/js/mui';
-import Vuex from 'vuex';
+// import Vuex from 'vuex';
+
+// Vue.use(Vuex)
 
 Vue.prototype.mui = mui;
 
@@ -148,3 +150,4 @@ router.beforeEach(function (to, from, next) {
   }
 })
 
+  

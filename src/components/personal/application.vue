@@ -19,7 +19,7 @@
           </li>
           <li class="clearfix">
               <div class="applice_le">开户行名称</div>
-              <div class="applice_ri"><input type="text" v-model="opening" class="lastinput" placeholder=""></div>
+              <div class="applice_ri"><input type="text" v-model="opening" class="lastinput" placeholder="招商银行杭州市城西支行"></div>
           </li>
         </ul>
         <button @click="immediately()">立即领取</button>

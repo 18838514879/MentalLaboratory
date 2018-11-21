@@ -4,7 +4,7 @@
             <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
             {{mgs}}
         </div>
-       <div class="conten">
+       <div class="conten" v-html="helps">
            {{helps}}
        </div>
     </div>

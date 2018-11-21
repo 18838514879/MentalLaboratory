@@ -91,11 +91,12 @@ export default {
                 console.log(err);
             })
         },
+   
     methods: {
+       
         
         back () {
-            this.$router.go(-1);
-            // this.$router.back(-1);
+            history.back();
         },
         postCommen () {
             // 跳转

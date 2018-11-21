@@ -16,7 +16,10 @@
                     <div class="answer clearfix" >
                         <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)">
                         <div class="answer_text">
-                            <p class="text_one" @click="tiaozhuan(idx,list.remark)">{{list.title}}<span class="dot"></span><span class="blue">答题</span></p>
+                            <p class="text_one" @click="tiaozhuan(idx,list.remark)">
+                                {{list.title}}
+                                <!-- <span class="dot"></span><span class="blue">答题</span> -->
+                            </p>
                             <p class="text_two">百科知识单人问答，知识竞赛</p>
                             <button @click="help(idx)">帮助</button>
                         </div>

@@ -7,7 +7,7 @@
        <div class="box">
            <textarea name="content" class="magess" v-model="contents" placeholder="写下您对我们想说的话" id="content"></textarea>
            <div class="text_num">0/500</div>
-          <input type="telephone" class="tel" maxlength="11" v-model="phones" placeholder="留下你的电话，以便我们为您更好的解决问题 ">
+          <input type="telephone" class="tel" maxlength="11" v-model="phone" disabled placeholder="留下你的电话，以便我们为您更好的解决问题 ">
           <button @click="submit()">提交</button>         
        </div>
     </div>
@@ -19,32 +19,33 @@ export default {
     return {
           mgs:'意见与反馈',
           contents:'',
-          phones:'',
+          phone:this.$route.query.phone,
     };
   },
   created () {
 
         },
-        watch:{
-             phones: function() {
-            this.phones = this.phones.replace(/\D/g, "");
+watch:{
+        phone: function() {
+            this.phone = this.phone.replace(/\D/g, "");
             }
         },
+
        methods: {
             back () {
                 this.$router.go(-1);
             },
             submit () {
             var that=this;
-             if(this.phones == ''){
+             if(this.phone == ''){
                 this.$Toast({
                     message: '手机号不能为空',
                     position: 'bottom'
                 });
                 return;
             }
-             var phone=/^1[34578]\d{9}$/;
-            if(!phone.test(this.phones)){
+             var phone=/^1[345789]\d{9}$/;
+            if(!phone.test(this.phone)){
                 this.$Toast({
                     message: '手机号格式错误',
                     position: 'bottom'
@@ -58,7 +59,7 @@ export default {
                 headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
                     params:{
                             content:this.contents,
-                            phone:this.phones,
+                            phone:this.phone,
                         }
             }).then( res => {
               if(res.data.code=="401"){
@@ -75,10 +76,12 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
+                
                  this.$Toast({
                     message: '提交成功',
                     position: 'bottom'
                 });
+                 this.$router.push({path: '/personal'})
               }else{
                 this.$Toast({
                   message: res.data.msg,

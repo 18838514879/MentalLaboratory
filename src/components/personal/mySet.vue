@@ -21,8 +21,9 @@
                     <button class="save" v-if="saveIdx==2" @click="baocun2">保存</button>
                    </li>
                <li class="clearfix">
-                   <input class="set_le" type="text" maxlength="11" v-model="phone" @click="updateSaveIdx('3')"  value="" :disabled="saveIdx==2 || saveIdx==1?'disabled':false"  placeholder="请输入您的手机号">
-                    <button class="save" v-if="saveIdx==3" @click="baocun3">保存</button>
+                   <!-- <input class="set_le" type="text" maxlength="11" v-model="phone" @click="updateSaveIdx('3')"  value="" :disabled="saveIdx==2 || saveIdx==1?'disabled':false"  placeholder="请输入您的手机号"> -->
+                    <input class="set_le" type="text" maxlength="11" v-model="phone" disabled placeholder="请输入您的手机号">
+                    <!-- <button class="save" v-if="saveIdx==3" @click="baocun3">保存</button> -->
                    </li>
            </ul>
            <ul class="set_btn">
@@ -50,24 +51,13 @@ export default {
   data() {
     return {
       saveIdx:"-1",///判断保存按钮的显示隐藏
-
-      // userImg:'',//个人用户头像
-      // userName:'',//个人用户名
-      // userTelephone:'',//个人用户手机号
-
       loadUrl:'uploadImg/uploadSpecImg.htm',
       show:true,
       loading:false,//上传图片加载
       headImg:'',//用户头像
-
       mgs: "我的设置",
-      show1: false,
-      show2: false,
-      show3: false,
-      disabled1:false,
-      disabled2:false,
-      disabled3:false,
       phone:'',
+      phones:'',
       name: "",
       city: "",
       imgUrl:'',
@@ -102,22 +92,8 @@ export default {
             }
           });
        }
-        // mui("body").off("tap","#imageup",aa)
         mui("body").on("tap","#imageup",aa)
-        // mui("body").on("click","#imageup",function(){
-        //   //page.imgUp();
-        //   var m=this;
-        //   plus.nativeUI.actionSheet({cancel:"取消",buttons:[
-        //     {title:"拍照"},
-        //     {title:"从相册中选择"}
-        //   ]}, function(e){//1 是拍照  2 从相册中选择
-        //     switch(e.index){
-        //       case 1:clickCamera();break;
-        //       case 2:clickGallery();break;
-        //     }
-        //   });
-        // })
-      // }
+   
     }
 
     //发送照片
@@ -195,18 +171,8 @@ export default {
     }
     
   },
-  watch: {
-    name: function() {
-      this.changeName();
-    },
-    city: function() {
-      this.changeCity();
-    },
-    phone: function() {
-      this.changePhone();
-    }
-  },
-
+  watch: {},
+ 
   methods: {
      //用户信息接口
     urseInfo() {
@@ -232,9 +198,10 @@ export default {
         }else if(res.data.code=="0"){
           console.log(res);
           this.imgUrl = res.data.member.imgUrl;
-          this.phone = res.data.member.phone;
+          this.phones = res.data.member.phone;
           this.name = res.data.member.nickname;
           this.city = res.data.member.area;
+          this.phone = res.data.member.phone.replace(/^(\d{4})\d{4}(\d+)/,"$1****$2");
         }else{
           this.$Toast({
             message: res.data.msg,
@@ -247,6 +214,10 @@ export default {
        });
 
   },
+
+
+
+  
     actionSheet: function() {
       this.sheetVisible = true;
     },
@@ -269,9 +240,6 @@ export default {
     baocun1: function() {
         console.log(this.name)
        if(this.name == "" ||  this.name ==null){
-            this.show1 = true;
-            this.disabled2 = true;
-            this.disabled3 = true;
             this.$Toast({
                 message: '昵称不能为空',
                 position: 'bottom'
@@ -322,9 +290,6 @@ export default {
     baocun2: function() {
 
      if(this.city ==  null){
-            this.show2 = true;
-            this.disabled1 = true;
-            this.disabled3 = true;
             this.$Toast({
                 message: '城市不能为空',
                 position: 'bottom'
@@ -376,9 +341,6 @@ export default {
     baocun3: function() {
 
      if(this.phone == null){
-            this.show3 = true;
-            this.disabled2 = true;
-            this.disabled1 = true;
             this.$Toast({
                 message: '手机号不能为空',
                 position: 'bottom'
@@ -434,56 +396,12 @@ export default {
          console.log(err);
        });
     },
-    changeName: function() {
-
-      var that = this;
-      if (that.name != '') {
-        that.show1 = true;
-        that.disabled2=true
-        that.disabled3=true
-      } else {
-        that.show1 = false;
-        that.disabled2=false;
-        that.disabled3=false;
-        that.disabled1=false;
-      }
-    },
-    changeCity: function() {
-
-      var that = this;
-      if (that.city != '') {
-        that.show2 = true;
-        that.disabled1=true
-        that.disabled3=true
-      } else {
-        that.show2 = false;
-        that.disabled2=false;
-        that.disabled3=false;
-        that.disabled1=false;
-      }
-    },
-     changePhone: function() {
-
-      var that = this;
-       this.phone=this.phone.replace(/\D/g,'');
-       if (that.phone != '') {
-        that.show3 = true;
-        that.disabled2=true
-        that.disabled1=true
-      }
-      else {
-        that.show3 = false;
-        that.disabled2=false;
-        that.disabled3=false;
-        that.disabled1=false;
-
-      }
-    },
+   
     back () {
         this.$router.go(-1);
     },
-    passwordsz (phone) {
-        this.$router.push({path: '/password?phone=' + this.phone})
+    passwordsz (phones) {
+        this.$router.push({path: '/password?phone=' + this.phones})
     },
      exit () {
         console.log("created")

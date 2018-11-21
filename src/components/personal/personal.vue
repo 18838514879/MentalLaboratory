@@ -30,7 +30,7 @@
                    <li class="jifen clearfix"><a  class="clearfix"><img src="../../../static/images/about.png" alt="" class="img_le"><span class="tex_m">关于我们</span><img src="../../../static/images/m_return.png" alt="" class="img_ri"></a></li>
                 </ul>
             </div>
-             <div class="btn" @click="opinion()">
+             <div class="btn" @click="opinion(phone)">
                 <ul>
                    <li class="jifen clearfix"><a  class="clearfix"><img src="../../../static/images/about.png" alt="" class="img_le"><span class="tex_m">意见反馈</span><img src="../../../static/images/m_return.png" alt="" class="img_ri"></a></li>
                 </ul>
@@ -64,8 +64,8 @@ export default {
     about() {
       this.$router.push({ path: "/about" });
     },
-    opinion(){
-       this.$router.push({ path: "/opinion" });
+    opinion(phone){
+       this.$router.push({ path: "/opinion?phone=" + this.phone });
     }
   },
   created() {
@@ -95,6 +95,7 @@ export default {
           this.name = res.data.member.nickname;
           this.src = res.data.member.imgUrl;
           this.integral = res.data.member.pointsTrue;
+          this.phone = res.data.member.phone;
           if(res.data.member.pointsTrue == null){
             this.integral = 0;
           }

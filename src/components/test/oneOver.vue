@@ -43,7 +43,8 @@ export default{
             this.$router.push({path: '/Sumit'})
         },
         back () {
-            this.$router.go(-1);
+            // this.$router.go(-1);
+             this.$router.push({path: '/Solo?modeId='+1})
         }
     },
     created () {

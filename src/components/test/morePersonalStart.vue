@@ -6,34 +6,27 @@
             {{mgs}}
         </div>
         <div class="top">
-            <!-- <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg"> -->
-            <!--<p class="top_num" >20/78人</p>-->
-            <!--<hr class="top_hr">-->
             <img :src="src" alt="" class="top_img_png">
         </div>
-        <p class="mine_text">
-            {{ title }}
-        </p>
+        <div class="mine_text">{{ title }}</div>
         <div class="btn" v-if="myAnswer==-1">
           <div class="bth_zhu bth_bai"  v-for="(item1) in list1" :key="item1.id" @click="dati(item1.id)">{{ item1.timu }}</div>
-            <!--<div class="bth_lv bth_zhu" @click="DianOver()">祈使句</div>-->
-            <!--<div class="bth_bai bth_zhu" @click="tank()">疑问句</div>-->
         </div>
         <div class="btn" v-if="myAnswer!=-1">
           <div class="bth_zhu bth_bai"  v-for="(item1) in list1" :key="item1.id" :class="answer==item1.id?'bth_lv':myAnswer==item1.id?'bth_Rd' :''">{{ item1.timu }}</div>
         </div>
 
-      <div class="footerBtn">
-        <div v-if="page==1" @click="back()">返回</div>
-        <div v-if="page!=1" @click="pre()">上一题</div>
-        <div v-if="isNext==true" @click="next()">下一题</div>
-        <div class="orange" v-if="isNext==false" @click="tijiao()">提交</div>
-      </div>
+        <div class="footerBtn">
+          <div v-if="page==1" @click="back()">返回</div>
+          <div v-if="page!=1" @click="pre()">上一题</div>
+          <div v-if="isNext==true" @click="next()">下一题</div>
+          <div class="orange" v-if="isNext==false" @click="tijiao()">提交</div>
+        </div>
 
       <!--获取答题的统计窗口-->
       <div class="mine1" v-show="staticShow">
         <div class="top1">
-          <img src="../../../static/images/clcok.jpg" alt="" class="top_img_jpg">
+            <img :src="src" alt="" class="top_img_png">
         </div>
         <p class="mine_text1">{{ title }}</p>
         <div class="daanList">
@@ -41,7 +34,6 @@
             <div>{{item.value}}人</div>
             <div class="daanListItemDaAn">
               <div  class="DaAnheight" :style="'height:'+item.proportion*2+'rem'" ></div>
-              <!--<div class="DaAnheight" :data-height="item.proportion"></div>-->
             </div>
             <div class="">{{item.title}}</div>
           </div>
@@ -340,15 +332,6 @@ export default{
     width: 100%;
     height: 100%;
 
-    .top{
-      width: 100%;
-      height: 3.86rem;
-      padding-left: 0.24rem;
-      padding-right: 0.24rem;
-      margin-top:.19rem;
-      box-sizing:border-box;
-      -webkit-box-sizing: border-box;
-    }
      .header{
         height: 0.88rem;
         line-height: 0.88rem;
@@ -377,25 +360,16 @@ export default{
 
         }
     }
-    .top_img_jpg{
-      height: 1.11rem;
-      margin: 0 auto;
-      display: inherit;
-    }
-    .top_num{
-      font-size: .36rem;
-      line-height: .21rem;
-      color: #2083d1;
-    }
-    .top_hr{
-      width: 7.02rem;
-      height: 1px;
-      background-color: #d7d7d7;
-      margin-top: .23rem;
-    }
-    .top_img_png{
-      width: 7.02rem;
-      height: 1.81rem;
+      .top{
+      padding-left: 0.24rem;
+      padding-right: 0.24rem;
+      margin-top:.88rem;
+      text-align: center;
+      box-sizing:border-box;
+      -webkit-box-sizing: border-box;
+      .top_img_png{
+
+      }
     }
     .mine_text{
       width: 7.03rem;
@@ -403,39 +377,39 @@ export default{
       line-height: .49rem;
       color: #282828;
       padding-left: 0.24rem;
-      margin-top: .22rem;
     }
     .btn{
       margin-top: .86rem;
-    }
-    .bth_zhu{
-      overflow: hidden;
-      width: 1.68rem;
-      height: 2.71rem;
-      border-radius: 6px;
-      display: inline-block;
-      font-size: .36rem;
-      text-align: center;
-      line-height: 3.8rem;
-      font-weight: 500;
-    }
-    .bth_lv{
-      overflow: hidden;
-      background-color: #91cb53;
-      color: #ffffff;
-      margin-left: 1.35rem;
-    }
+       .bth_zhu{
+          overflow: hidden;
+          width: 1.68rem;
+          height: 2.71rem;
+          border-radius: 6px;
+          display: inline-block;
+          font-size: .36rem;
+          text-align: center;
+          line-height: 3.8rem;
+          font-weight: 500;
+        }
+      .bth_bai{
+          overflow: hidden;
+          border: solid 1px #91cb53;
+          color:#333333;
+          margin-left: 1.35rem;
+        }
+      .bth_lv{
+          overflow: hidden;
+          background-color: #91cb53;
+          color: #ffffff;
+          margin-left: 1.35rem;
+        }
     .bth_Rd{
-      overflow: hidden;
-      background-color: red;
-      color: #ffffff;
-      margin-left: 1.35rem;
-    }
-    .bth_bai{
-      overflow: hidden;
-      border: solid 1px #91cb53;
-      color:#333333;
-      margin-left: 1.35rem;
+        overflow: hidden;
+        background-color: red;
+        color: #ffffff;
+        margin-left: 1.35rem;
+      }
+  
     }
     .footerBtn{
       font-size: 16px;
@@ -463,7 +437,6 @@ export default{
     }
   }
   .mine1{
-    padding-top: 0.2rem;
     width: 100%;
     height: 100%;
     font-size: 16px;
@@ -473,6 +446,17 @@ export default{
     left: 0;
     right: 0;
     background-color: rgba(255,255,255,1);
+      .top1{
+      width: 100%;
+      padding-left: 0.24rem;
+      padding-right: 0.24rem;
+      text-align: center;
+      box-sizing:border-box;
+      -webkit-box-sizing: border-box;
+      .top_img_png{
+
+      }
+    }
     .mine_text1{
      text-align: center;
       width: 7rem;
@@ -489,15 +473,15 @@ export default{
         width: 1rem;
         text-align: center;
         .daanListItemDaAn{
-          height: 2rem;
-          width: 1rem;
+          width: 1.68rem;
+          height: 2.71rem;
+          border-radius: 6px;
           border: 1px solid #6d6d72;
           position: relative;
           .DaAnheight{
             position: absolute;
             bottom: 0;
             left: 0;
-            /*height: 50%;*/
             right: 0;
             width: 100%;
             background-color: green;

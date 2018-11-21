@@ -91,6 +91,28 @@ export default {
     this.categories();
   },
 
+  beforeRouteEnter(to,from,next){
+  // debugger;
+  if(!sessionStorage.askPositon || from.path == '/'){//当前页面刷新不需要切换位置
+      sessionStorage.askPositon = '';
+      next();
+  }else{
+      next(vm => {
+      if(vm && vm.$refs.my_scroller){//通过vm实例访问this
+            setTimeout(function () {
+                vm.$refs.my_scroller.scrollTo(0, sessionStorage.askPositon, true);
+            },0)//同步转异步操作
+          }
+        })
+    }
+},
+beforeRouteLeave(to,from,next){//记录离开时的位置
+    sessionStorage.askPositon = this.$refs.my_scroller && 
+    this.$refs.my_scroller.getPosition() && 
+    this.$refs.my_scroller.getPosition().top;
+      next()
+},
+
   methods: {
     tabs(item,index) {
       console.log(item.id);

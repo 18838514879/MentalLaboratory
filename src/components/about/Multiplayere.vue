@@ -115,7 +115,8 @@ export default {
   },
   methods: {
     goBack() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+       this.$router.push({path: '/Solo?modeId='+1})
     },
     // 下一题
     goNext() {
