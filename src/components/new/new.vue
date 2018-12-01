@@ -9,7 +9,7 @@
               <div class="ri_new">
                 <p class="new_text">{{ list.title }}</p>
                 <p class="new_time">{{ list.createTime | formatDate }}</p>
-                <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_bianji.png" alt="">{{ list.clickCount }}</div>
+                <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_bianji.png" alt="">{{ list.commentCount }}</div>
                 <div class="zhuanfa"><img class="new_xiaotu" src="../../../static/images/new_zhuanfa.jpg" alt="">{{ list.shareCount }}</div>
               </div>
             </div>

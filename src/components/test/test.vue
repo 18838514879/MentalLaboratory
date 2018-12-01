@@ -89,7 +89,7 @@ export default{
                     if(this.dtjxz == 1){
                         if(remark != "1"){
                             this.$router.push({path: '/moreAwait?modeId='+3});
-                        }else{
+                        }else if(remark == "1"){
                             this.$Toast("您已经答过题了,请明天再来")
                         }
                     }
@@ -106,7 +106,7 @@ export default{
                     params:{
 
                         }
-            }).then((res)=>{
+            }).then(res=>{
                 console.log(res.data);
                 this.img = res.data.data.imgUrl;
             }).catch(err => {

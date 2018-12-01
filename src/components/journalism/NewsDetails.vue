@@ -12,22 +12,17 @@
            {{ contents }}
         </p>
         <div class="details_footer clearfix">
-            <!-- <textarea class="details_tex" @click="postCommen()"></textarea> -->
             <label @click="postCommen()" for="neirong" class="details_tex" style="display:block;"></label>
             <div class="details_img clearfix">
-            <img  @click="discuss1()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
-            <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
-            <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
+                <img  @click="discuss1()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
+                <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
+                <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
         <div class="div_div">
-            <!-- <label for="neirong">sasaasd</label> -->
-            <!-- <textarea class="discuss_tex" placeholder="请输入内容" v-if="show" v-model="content1" id="neirong"></textarea> -->
             <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
             <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
-
         </div>
-
         <div class="detai_footer" v-if="shows">
           <ul class="detai_clearfix clearfix">
             <li @click="fenxiang()">微信</li>

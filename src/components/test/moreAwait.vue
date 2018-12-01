@@ -65,9 +65,9 @@ export default{
       goMore () {
           this.$router.push(
               {path:
-            //   "/morePersonalStart?modeId=" +
-            //     this.$route.query.modeId
-                '/test'
+              "/morePersonalStart?modeId=" +
+                this.$route.query.modeId
+                // '/test'
               })
       },
       back () {

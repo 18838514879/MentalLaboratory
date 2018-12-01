@@ -28,17 +28,19 @@
        </div>
 
         <div class="details_footer clearfix">
-            <!-- <textarea class="details_tex" @click="textarea()"></textarea> -->
+            <label @click="postCommen()" for="neirong" class="details_tex" style="display:block;"></label>
             <div class="details_img clearfix">
-            <!-- <img @click="discuss()" class="img_1" src="../../../static/images/studyDatil_1.png" alt=""> -->
-            <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
-            <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
+                <img  @click="discuss1()" class="img_1" src="../../../static/images/studyDatil_1.png" alt="">
+                <img @click="fenxiang()" class="img_2" src="../../../static/images/studyDatil_2.png" alt="">
+                <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
-        <!-- <textarea class="discuss_tex_tex" placeholder="请输入内容" v-if="show"></textarea> -->
-        <!-- <div class="discuss_fasong" v-if="show" @click="fasong()">发送</div> -->
+        <div class="div_div">
+            <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
+            <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
+        </div>
         <div class="detai_footer" v-if="shows">
-          <ul class="detai_clearfix">
+          <ul class="detai_clearfix clearfix">
             <li @click="fenxiang()">微信</li>
             <li @click="fenxiang()">朋友圈</li>
             <!-- <li @click="fenxiang()">QQ</li> -->
@@ -62,6 +64,7 @@ export default {
         createTime:'',
         content:'',
         contentPluss:'',
+        content1:'',
         // statu:'0',
         data:'',
         show2:false,
@@ -73,6 +76,65 @@ export default {
   },
   
   methods: {
+    postCommen () {
+        // 跳转
+        this.show = !this.show;
+        document.getElementsByClassName('div_div')[0].style.cssText="opacity: 1;"
+    },
+    fenxiang () {
+            this.shows = !this.shows;
+    },
+    fasong () {
+        this.show = !this.show;
+    },
+    discuss1 () {
+        this.$router.push({path:'/commentss?newsId='+this.$route.query.dataId+'&memberId='+this.$route.query.dataId});
+    },
+
+    discuss () {
+    // 资料评论接口
+    console.log('created');
+    this.axios({
+    method:"post",
+    url:this.$baseurl + "/api/data/saveComment",
+    headers:{token:localStorage.getItem('token'),"Content-Type": "application/x-www-form-urlencoded"},
+        params:{
+            newsId: this.$route.query.dataId,
+            memberId:this.$route.query.dataId,
+            commentId:"0",
+            content:this.content1,
+        }
+    }) .then( res => {
+        if(res.data.code=="401"){
+        this.$Toast({
+            message: '登录已经过期',
+            position: 'bottom'
+        });
+        this.$router.push("/login")
+        }else if(res.data.code=="402"){
+        this.$Toast({
+            message: '您还未登录',
+            position: 'bottom'
+        });
+        this.$router.push("/login")
+        }else if(res.data.code=="0"){
+        console.log(res);
+        
+        this.$router.push({path:'/commentss?newsId='+this.$route.query.dataId+'&memberId='+this.$route.query.dataId});
+        
+        }else{
+        this.$Toast({
+            message: res.data.msg,
+            position: 'bottom'
+        });
+        }
+
+
+    }).catch( err => {
+      console.log(err);
+ });
+
+},
    //免费详情页面
        listDatil () {
             // this.statu=this.$route.query.statu
@@ -84,7 +146,9 @@ export default {
                     token: localStorage.getItem("token"),
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                params:{dataId:this.$route.query.dataId},
+                params:{
+                    dataId:this.$route.query.dataId
+                    },
                 }).then( res => {
                 if(res.data.code=="401"){
                     this.$Toast({
@@ -203,7 +267,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+  .div_div{
+        opacity: 0;
+    }
     .addContent{
         color:#169bd5;
         font-size: .24rem;
@@ -272,6 +338,19 @@ export default {
         top: 40%;
         left: 83%;
         z-index: 102;
+    }
+    .discuss_tex{
+        width: 7.00rem;
+        height: 2.95rem;
+        margin-left: .2rem;
+        background-color: #ffffff;
+        box-shadow: 0px 3px 2px 0px
+            rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        border: solid 2px #efefef;
+        position: fixed;
+        top: 15%;
+       z-index: 102;
     }
     // 评论表单
     .discuss_tex_tex{

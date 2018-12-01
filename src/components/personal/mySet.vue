@@ -215,9 +215,6 @@ export default {
 
   },
 
-
-
-  
     actionSheet: function() {
       this.sheetVisible = true;
     },

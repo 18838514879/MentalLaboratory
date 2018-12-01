@@ -1,90 +1,82 @@
 <template>
     <div id="comments">
-       <div class="header clearfix">
+        <div class="header clearfix">
             <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
             {{mgs}}
         </div>
         <div class="comments_huise"></div>
-        <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949">
-        <div class="comments_list">
+        <scroller style="top:0.29rem" :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949">
+        <div class="comments_list" style="margin-top:0.88rem;">
             <ul>
                 <li class="comments_list_li" v-for="item in items" :key="item.id">
-                    <!-- <li class="comments_list_li" v-for="item in listMe(list)" :key="item.id"> -->
-
-                    <div class="list_buttom clearfix">
+                    <div class="list_buttom">
                         <img :src="item.memberUrl" alt="">
-                        <div class="list_top_name">
-                            <p class="list_top_name_age" v-if="item.memberName">{{ item.memberName }}</p>
-                            <p class="list_top_name_age" v-else>匿名用户</p>
+                        <span class="list_top_name">
+                            <p class="list_top_name_age">{{ item.memberName }}</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
-                        </div>
-                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">{{hh}}条回复</div>
-                        <div class="list_tupian"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>                      
+                        </span>
                     </div>
-                    <div class="comments_text">{{ item.content }}</div>
-                    <div class="comments_text_hui clearfix" style="font-size:.34rem">
-                        <div  class="list_top_hui" style="font-size:0.25rem;color:#000;" @click="huifu(item.id,item.newsId,item.memberId)">回复</div>
-                        <div class="list_tupian" style="margin-top:0.36rem;"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>
-                        <!-- <p>
-                            <span class="comments_text_hui_one">回复</span>
-                            <span class="comments_text_hui_two">？？？</span>
-                            <span class="comments_text_hui_trr">？？？</span>
-                        </p>
-                        <div class="comments_text_hui_text">
-                            {{huifude}}
-                        </div> -->
+                    <div class="comments_text">
+                        {{ item.content }}
                     </div>
                 </li>
             </ul>
+            <!-- <h3 class="reply_h3">回复评论</h3> -->
+            <!-- <ul>
+                <li class="comments_list_li" v-for="comment in comments" :key="comment.id">
+                    <div class="list_buttom">
+                        <img :src="comment.imgUrl" alt="">
+                        <span class="list_top_name">
+                            <p class="list_top_name_age">{{ comment.nickName }}</p>
+                            <p class="list_top_name_time">{{ comment.createTime | formatDate}}</p>
+                        </span>
+                    </div>
+                    <div class="comments_text">
+                        {{ comment.content }}
+                    </div>
+                </li>
+            </ul> -->
         </div>
-    </scroller>
+        </scroller>
     </div>
 </template>
 <script>
  export default {
     data () {
       return {
-        mgs:'评论',
-        img: '',
-        hh:10,
-        items: [
-            // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
-        ],
+        mgs:'所有的回复',
         allload:0,
         allLength:1,
         page:'1',//当前
-        bottom:0,
         pageSize:10,
+        bottom:0,
+        items: [
+            // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
+        ],
+        comments: [
+            // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
+        ]
       }
     },
     mounted(){
-          this.page=1;
-          this.jiekou();
+        this.jiekou();
     },
     methods: {
-        huifu (obj,newsId,memberId) {
-            sessionStorage.setItem('cld_id',obj)
-            this.$router.push({ path: "/Discuss?newsId="+this.$route.query.newsId+"&memberId="+memberId});
-        },
         back () {
             this.$router.go(-1);
         },
-        reply (memberId,commentId,content) {
-            this.$router.push({path:'/reply?newsId='+this.$route.query.newsId+'&memberId='+memberId+'&commentId='+commentId});
-        },
 
-   
-
-    jiekou () {
+        jiekou () {
         // 获取此新闻评论接口
-        this.axios.get(this.$baseurl + '/api/news/getCommentList', {
-            headers: {token: localStorage.getItem("token"),"Content-Type": "application/x-www-form-urlencoded"},
+        this.axios.get(this.$baseurl + '/api/data/getCommentList',
+        {
             params: {
                 token: localStorage.getItem("token"),
-                newsId: this.$route.query.newsId,
+                newsId: this.$route.query.dataId,
                 page:this.page,
                 pageSize: this.pageSize,
-            }
+                commentId:this.$route.query.commentId,
+        	}
         }).then( res => {
           if(res.data.code=="401"){
             this.$Toast({
@@ -100,8 +92,6 @@
             this.$router.push("/login")
           }else if(res.data.code=="0"){
             console.log(res);
-            console.log(res);
-            // this.items = res.data.page;
             if(this.page==1){
               this.items=[];
               this.bottom=2;
@@ -115,7 +105,7 @@
             for (let i = 0; i < res.data.page.list.length; i++) {
               this.items.push(res.data.page.list[i]);
             }
-             console.log(this.bottom+"===============")
+            console.log(this.bottom+"===============")
           }else{
             this.$Toast({
               message: res.data.msg,
@@ -123,32 +113,32 @@
             });
           }
 
+
         }).catch( err => {
             console.log(err);
         });
-    },
-
-     refresh(done) {
-      var that = this;
-      setTimeout(() => {
-        done();
-      }, 1500);
-    },
-    infinite(done) {
-      var that = this;
-      if (this.allload) {
-        setTimeout(() => {
-          done(true);
-        }, 1500);
-      }else{
-        setTimeout(() => {
-        that.page++;
-        that.jiekou();
-        setTimeout(() => {
-          done();
-        });
-      }, 1500);
-      }
+        },
+        refresh(done) {
+            var that = this;
+            setTimeout(() => {
+                done();
+            }, 1500);
+            },
+            infinite(done) {
+            var that = this;
+            if (this.allload) {
+                setTimeout(() => {
+                done(true);
+                }, 1500);
+            }else{
+                setTimeout(() => {
+                that.page++;
+                that.jiekou();
+                setTimeout(() => {
+                done();
+                });
+            }, 1500);
+            }
 
     },
     },
@@ -174,7 +164,10 @@
  }
 </script>
 <style lang="scss" scoped>
-    .comments_list_li
+    .reply_h3{
+        font-size:.36rem;
+        color:#333333;
+    }
     #comments{
         background-color: #fff;
     }
@@ -186,9 +179,9 @@
         color:#fff;
         text-align: center;
         position: fixed;
-        top: 0;
-        left: 0;
+        top:0;
         right: 0;
+        left: 0;
         z-index: 1;
         .r_back{
             width: 0.5rem;
@@ -210,21 +203,23 @@
         height: 100%;
         height: .29rem;
         background-color: #e9e9e9;
+        margin-top: 0.88rem;
     }
     .comments_list_li{
-        border-bottom:1px solid #dadada;
+        // border-bottom:1px solid #dadada;
         padding-bottom: .42rem;
-        margin-top: .8rem;
+         box-sizing:border-box;
+        -webkit-box-sizing: border-box;
+
     }
     .comments_list{
         background-color:#ffffff;
         // width:7.02rem;
-        // height: 3.7rem;
-        margin: 0 auto;
         padding-left: 0.24rem;
         padding-right: 0.24rem;
         box-sizing:border-box;
-      -webkit-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+         margin: 0 auto;
     }
     .list_top{
         width: 100%;
@@ -245,18 +240,6 @@
         float: right;
         margin-top: .4rem;
     }
-    .list_tupian{
-        display: block;
-        width: .3rem;
-        height: .3rem;
-        float: right;
-        margin-right: .1rem;
-        margin-top: .25rem;
-    }
-    .list_tupian .tupian_img{
-             width: 100%;
-             height: 100%;
-         }
     .list_buttom{
         font-size: .34rem;
         color: #333333;
@@ -278,12 +261,11 @@
         font-size: .34rem;
         line-height: .47rem;
         color: #333333;
-        padding: .24rem;
+         padding: .24rem;
         box-sizing:border-box;
       -webkit-box-sizing: border-box;
         word-wrap: break-word;
         word-break: normal;
-        
     }
     .comments_text_hui_one{
         color: #7d7d7d;
@@ -308,5 +290,6 @@
         margin-top: .21rem;
         font-size: .34rem;
         color:#7d7d7d;
+
     }
 </style>

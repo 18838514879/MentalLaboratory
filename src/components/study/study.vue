@@ -37,6 +37,7 @@
                         <div :class="ranking.points == null || ranking.points == 0 ?'btn_left isHide':'btn_left'">{{ranking.points}}</div>
                         <div class="btn_right">
                           <div class="bianji"><img class="new_xiaotu" src="../../../static/images/new_zhuanfa.jpg" alt="">{{ranking.shareCount}}</div>
+                          <div class="bianji zhuanfa"><img class="new_xiaotu" src="../../../static/images/new_bianji.png" alt="">{{ ranking.commentCount }}</div>
                         </div>
                       </div>
                     </div>
@@ -459,6 +460,9 @@ beforeRouteLeave(to,from,next){//记录离开时的位置
               height: 0.25rem;
               margin-right: 0.15rem;
             }
+          }
+          .zhuanfa{
+            margin-right: .7rem;
           }
         }
         .btn_left {

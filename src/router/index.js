@@ -32,10 +32,12 @@ import SubmitAnswer from '@/components/test/SubmitAnswer'
 // 新闻
 import comments from '@/components/journalism/comments'
 import discuss from '@/components/journalism/Discuss'
+import discusss from '@/components/journalism/Discusss'
 import NewsDetails from '@/components/journalism/NewsDetails'
 // 研究
 import study from '@/components/study/study'
 import studyDatil from '@/components/study/studyDatil'
+import commentss from '@/components/journalism/commentss'
 // dati
 import morePersonalStart from '@/components/test/morePersonalStart'
 import DianOver from '@/components/test/DianOver'
@@ -44,6 +46,7 @@ import DianOvergm from '@/components/test/DianOvergm'
 import StartAnswers from '@/components/test/StartAnswers'
 import Multiplayere from '@/components/about/Multiplayere'
 import reply from '@/components/journalism/reply'
+import replys from '@/components/journalism/replys'
 // 测试
 import ceshi from '@/components/about/ceshi'
 
@@ -221,6 +224,11 @@ export default new Router({
       component: discuss
     },
     {
+      path: '/discusss',
+      name: 'discusss',
+      component: discusss
+    },
+    {
       path: '/Newsdetails',
       name: 'Newsdetails',
       component: NewsDetails,
@@ -234,10 +242,17 @@ export default new Router({
         keepAlive: true
         },
     },
+    
     {
       path: '/studyDatil',
       name: 'studyDatil',
       component: studyDatil
+    },
+    //研究评论
+    {
+      path: '/commentss',
+      name: 'commentss',
+      component: commentss
     },
     {
       path: '/morePersonalStart',
@@ -274,6 +289,11 @@ export default new Router({
       path: '/reply',
       name: 'reply',
       component: reply
+    },
+    {
+      path: '/replys',
+      name: 'replys',
+      component: replys
     },
     {
       path: '/ceshi',

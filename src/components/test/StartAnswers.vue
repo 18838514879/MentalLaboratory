@@ -29,8 +29,7 @@ export default {
   components: {},
   methods: {
     back() {
-      // this.$router.go(-1);
-       this.$router.push({path: '/Solo?modeId='+1})
+      this.$router.go(-1);
     },
     goStart() {
       this.$router.push({

@@ -64,24 +64,24 @@
     methods: {
         huifu (obj,newsId,memberId) {
             sessionStorage.setItem('cld_id',obj)
-            this.$router.push({ path: "/Discuss?newsId="+this.$route.query.newsId+"&memberId="+memberId});
+            this.$router.push({ path: "/Discusss?newsId="+this.$route.query.dataId+"&memberId="+memberId});
         },
         back () {
             this.$router.go(-1);
         },
         reply (memberId,commentId,content) {
-            this.$router.push({path:'/reply?newsId='+this.$route.query.newsId+'&memberId='+memberId+'&commentId='+commentId});
+            this.$router.push({path:'/replys?newsId='+this.$route.query.dataId+'&memberId='+memberId+'&commentId='+commentId});
         },
 
    
 
     jiekou () {
-        // 获取此新闻评论接口
-        this.axios.get(this.$baseurl + '/api/news/getCommentList', {
+        // 获取此资料评论接口
+        this.axios.get(this.$baseurl + '/api/data/getCommentList', {
             headers: {token: localStorage.getItem("token"),"Content-Type": "application/x-www-form-urlencoded"},
             params: {
                 token: localStorage.getItem("token"),
-                newsId: this.$route.query.newsId,
+                newsId: this.$route.query.dataId,
                 page:this.page,
                 pageSize: this.pageSize,
             }
