@@ -18,21 +18,13 @@
                             <p class="list_top_name_age" v-else>匿名用户</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
                         </div>
-                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">{{hh}}条回复</div>
+                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">{{item.commentCount}}条回复</div>
                         <div class="list_tupian"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>                      
                     </div>
                     <div class="comments_text">{{ item.content }}</div>
                     <div class="comments_text_hui clearfix" style="font-size:.34rem">
                         <div  class="list_top_hui" style="font-size:0.25rem;color:#000;" @click="huifu(item.id,item.newsId,item.memberId)">回复</div>
                         <div class="list_tupian" style="margin-top:0.36rem;"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>
-                        <!-- <p>
-                            <span class="comments_text_hui_one">回复</span>
-                            <span class="comments_text_hui_two">？？？</span>
-                            <span class="comments_text_hui_trr">？？？</span>
-                        </p>
-                        <div class="comments_text_hui_text">
-                            {{huifude}}
-                        </div> -->
                     </div>
                 </li>
             </ul>
@@ -46,7 +38,6 @@
       return {
         mgs:'评论',
         img: '',
-        hh:10,
         items: [
             // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
         ],
@@ -64,24 +55,25 @@
     methods: {
         huifu (obj,newsId,memberId) {
             sessionStorage.setItem('cld_id',obj)
-            this.$router.push({ path: "/Discusss?newsId="+this.$route.query.dataId+"&memberId="+memberId});
+            this.$router.push({ path: "/Discusss?newsId="+this.$route.query.newsId+"&memberId="+memberId});
         },
         back () {
             this.$router.go(-1);
         },
         reply (memberId,commentId,content) {
-            this.$router.push({path:'/replys?newsId='+this.$route.query.dataId+'&memberId='+memberId+'&commentId='+commentId});
+            this.$router.push({path:'/replys?newsId='+this.$route.query.newsId+'&memberId='+memberId+'&commentId='+commentId});
         },
 
    
 
     jiekou () {
         // 获取此资料评论接口
+        console.log(this.$route.query.newsId)
         this.axios.get(this.$baseurl + '/api/data/getCommentList', {
             headers: {token: localStorage.getItem("token"),"Content-Type": "application/x-www-form-urlencoded"},
             params: {
                 token: localStorage.getItem("token"),
-                newsId: this.$route.query.dataId,
+                newsId: this.$route.query.newsId,
                 page:this.page,
                 pageSize: this.pageSize,
             }
@@ -101,6 +93,7 @@
           }else if(res.data.code=="0"){
             console.log(res);
             console.log(res);
+            
             // this.items = res.data.page;
             if(this.page==1){
               this.items=[];

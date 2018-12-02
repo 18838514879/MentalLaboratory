@@ -25,6 +25,7 @@
             <div :class="tops?'atop':'btop'" style="position: fixed;bottom:1rem;left: 0;right: 0;margin: auto;overflow: scroll;">
                 <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
                   <div class="new_small  clearfix" v-for="(ranking,index) in rankings" :key="index"  @click="studyDatils(ranking.id)">
+                    <div class="zhiding" v-if="shows=ranking.isTop==1"><img src="../../../static/images/zhiding.jpg" alt=""></div>
                     <div class="le_new"><img class="new_datu" :src="ranking.imgUrl" alt=""></div>
                     <div class="ri_new">
                       <p class="new_text">{{ranking.title}}</p>
@@ -397,6 +398,13 @@ beforeRouteLeave(to,from,next){//记录离开时的位置
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
       margin-bottom: 0.16rem;
+       .zhiding{
+          width: 0.5rem;
+          height: .5rem;
+          position: absolute;
+          top: 1.2rem;
+          left: 0;
+      }
       .le_new {
         float: left;
         width: 40%;

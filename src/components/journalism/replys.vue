@@ -72,7 +72,7 @@
         {
             params: {
                 token: localStorage.getItem("token"),
-                newsId: this.$route.query.dataId,
+                newsId: this.$route.query.newsId,
                 page:this.page,
                 pageSize: this.pageSize,
                 commentId:this.$route.query.commentId,

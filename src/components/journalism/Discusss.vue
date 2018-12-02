@@ -18,7 +18,7 @@
 export default {
   data() {
     return {
-          mgs:'新闻评论回复',
+          mgs:'研究资料评论回复',
           contents:'',
           phones:'',
     };
@@ -44,7 +44,7 @@ export default {
                     params:{
                             token: localStorage.getItem("token"),
                             commentId:thisCommentId,
-                            newsId: that.$route.query.dataId,
+                            newsId: that.$route.query.newsId,
                             memberId:that.$route.query.memberId,
                             content:this.contents,
                         }

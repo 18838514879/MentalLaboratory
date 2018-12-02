@@ -19,6 +19,7 @@ import password from '@/components/personal/password'
 import findPassword from '@/components/personal/findPassword'
 import solo from '@/components/personal/SoLo'
 import ranking from '@/components/personal/Ranking'
+import jfpaihang from '@/components/personal/jfpaihang'
 import sumit from '@/components/personal/Sumit'
 import DuoOver from '@/components/answer/DuoOver'
 import Shade from '@/components/answer/Shade'
@@ -181,6 +182,11 @@ export default new Router({
       path: '/ranking',
       name: 'ranking',
       component: ranking
+    },
+    {
+      path: '/jfpaihang',
+      name: 'jfpaihang',
+      component: jfpaihang
     },
     {
       path: '/sumit',

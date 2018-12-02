@@ -5,6 +5,7 @@
           <scroller :on-refresh="refresh" :on-infinite="infinite" refresh-layer-color="#4b8bf4" loading-layer-color="#ec4949"  ref="my_scroller">
           <div class="count_new">
             <div class="new_small  clearfix" @click="headline(list.id)" v-for="list in lists" :key="list.id">
+              <div class="zhiding" v-if="shows=list.isTop==1"><img src="../../../static/images/zhiding.jpg" alt=""></div>
               <div class="le_new"><img class="new_datu" :src="list.imgUrl" alt=""></div>
               <div class="ri_new">
                 <p class="new_text">{{ list.title }}</p>
@@ -31,6 +32,7 @@ export default {
       bottom:0,
       mgs:'新闻室',
       firstIn:true,
+      shows:true,
       lists: [],
     };
 
@@ -214,6 +216,14 @@ beforeRouteLeave(to,from,next){//记录离开时的位置
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
       margin-bottom: 0.16rem;
+      position: relative;
+      .zhiding{
+          width: 0.5rem;
+          height: .5rem;
+          position: absolute;
+          top: 0;
+          left: 0;
+      }
       .le_new {
         float: left;
         width: 40%;

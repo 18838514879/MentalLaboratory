@@ -66,7 +66,6 @@ export default{
   methods: {
       back () {
         this.$router.go(-1);
-        // this.$router.push("/test")
       },
        getTimu() {
 
@@ -144,11 +143,12 @@ export default{
             this.subjectId = res.data.data.subjectId;
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
-            if(sessionStorage.getItem("modeId")==3){
-              this.src=res.data.data.remark;
-            }else{
-              this.src="";
-            }
+             this.src=res.data.data.remark;
+            // if(sessionStorage.getItem("modeId")==3){
+            //   this.src=res.data.data.remark;
+            // }else{
+            //   this.src="";
+            // }
 
             res=res.data;
             this.stringToArray1(this.list1,res.data.optionA,"1")
@@ -213,11 +213,12 @@ export default{
             this.title = res.data.data.title;
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
-            if(sessionStorage.getItem("modeId")==3){
-              this.src=res.data.data.remark;
-            }else{
-              this.src="";
-            }
+            this.src=res.data.data.remark;
+            // if(sessionStorage.getItem("modeId")==3){
+            //   this.src=res.data.data.remark;
+            // }else{
+            //   this.src="";
+            // }
 
 
             res=res.data;
@@ -363,13 +364,10 @@ export default{
       .top{
       padding-left: 0.24rem;
       padding-right: 0.24rem;
-      margin-top:.88rem;
+      margin-top:1rem;
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
-      .top_img_png{
-
-      }
     }
     .mine_text{
       width: 7.03rem;
@@ -450,6 +448,7 @@ export default{
       width: 100%;
       padding-left: 0.24rem;
       padding-right: 0.24rem;
+      margin-top: .2rem;
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;

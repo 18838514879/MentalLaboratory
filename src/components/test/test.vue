@@ -186,7 +186,7 @@ export default{
         },
         // 排行页面
         myRanking () {
-            this.$router.push({path: '/Ranking'})
+            this.$router.push({path: '/jfpaihang'})
         },
         // 倒计时
         timeDown () {

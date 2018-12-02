@@ -18,7 +18,7 @@
                             <p class="list_top_name_age" v-else>匿名用户</p>
                             <p class="list_top_name_time">{{ item.createTime | formatDate}}</p>
                         </div>
-                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">{{hh}}条回复</div>
+                        <div class="list_top_hui" @click="reply(item.memberId,item.id,item.content)">{{item.commentCount}}条回复</div>
                         <div class="list_tupian"><img class="tupian_img" src="../../../static/images/messagess.png" alt=""></div>                      
                     </div>
                     <div class="comments_text">{{ item.content }}</div>
@@ -46,7 +46,6 @@
       return {
         mgs:'评论',
         img: '',
-        hh:10,
         items: [
             // {id:1,nickName:'2018',createTime:'2018-02-17',content:'ppp'}
         ],
