@@ -452,9 +452,7 @@ export default{
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
-      .top_img_png{
-
-      }
+   
     }
     .mine_text1{
      text-align: center;

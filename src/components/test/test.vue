@@ -14,7 +14,10 @@
             <div class="mid_test">
                 <div class="answer_w" v-for="(list,idx) in lists" :key="list.id" v-show="idx < 3 == show0">
                     <div class="answer clearfix" >
-                        <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows1=list.id==1" src="../../../static/images/test_one.png" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows2=list.id==2" src="../../../static/images/test_two.png" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows3=list.id==3" src="../../../static/images/test_more.png" alt="" @click="tiaozhuan(idx,list.remark)">
+                          <!-- <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)"> -->
                         <div class="answer_text">
                             <p class="text_one" @click="tiaozhuan(idx,list.remark)">
                                 {{list.title}}
@@ -45,6 +48,9 @@ export default{
             time : '',
             flag : false,
             show0:true,
+            shows1:true,
+            shows2:true,
+            shows3:true,
             dtjxz:2,
             lists:[
 //              {id:1,title:'心理问卷'},
