@@ -6,7 +6,7 @@
         </div>
         <ul class="achievement clearfix">
             <li class="achieve_fir" v-for="ranking in rankings" :key="ranking.id"  @click="achievementName(ranking.id)" >
-                <img :src="src" alt="">
+                <img src="../../../static/images/achievement_1.png" alt="">
                 <p class="achieve_name">{{ranking.title}}</p>
                 <p class="achieve_datil">{{achieve_datil}}</p>
             </li>
@@ -47,6 +47,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({

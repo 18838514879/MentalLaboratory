@@ -2,7 +2,7 @@
     <div class="mine">
         <div class="header">
             <div class="head_t">
-               <div @click="testss()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
+               <div @click="back()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
                 <!-- <span style="margin-right: .45rem;">标题</span> -->
                  {{msg}}
             </div>
@@ -63,6 +63,7 @@ export default{
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import login from '@/components/login/login'
 import register from '@/components/register/register'
+import xieyi from '@/components/register/xieyi'
 import about from '@/components/about/about'
 import personal from '@/components/personal/personal'
 import news from '@/components/new/new'
@@ -71,6 +72,12 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    //协议
+    {
+      path: '/xieyi',
+      name: 'xieyi',
+      component: xieyi
     },
     // 我的
     {
@@ -308,7 +315,6 @@ export default new Router({
     },
     
   ],
-     mode: 'history', 
 
 })
 

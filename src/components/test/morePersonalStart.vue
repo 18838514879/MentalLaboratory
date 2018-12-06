@@ -5,7 +5,7 @@
             <div href="#" class="r_back" @click="back()"><img src="../../../static/images/h_return.png" alt=""></div>
             {{mgs}}
         </div>
-        <div class="top">
+        <div class="top" v-if="shows1">
             <img :src="src" alt="" class="top_img_png">
         </div>
         <div class="mine_text">{{ title }}</div>
@@ -25,7 +25,7 @@
 
       <!--获取答题的统计窗口-->
       <div class="mine1" v-show="staticShow">
-        <div class="top1">
+        <div class="top1" v-if="shows1">
             <img :src="src" alt="" class="top_img_png">
         </div>
         <p class="mine_text1">{{ title }}</p>
@@ -49,6 +49,7 @@ export default{
         // backGroundImg:"",
         mgs: '',
         title: '',
+        shows1:true,
         page:1,
         list1:[],
         subjectReviewId:'',
@@ -65,7 +66,8 @@ export default{
     },
   methods: {
       back () {
-        this.$router.go(-1);
+        // this.$router.go(-1);
+        this.$router.push({path:'/test'});
       },
        getTimu() {
 
@@ -100,7 +102,7 @@ export default{
           }
         }).then((res)=>{
           console.log(res.data);
-         // 做出正确跳转
+         
 //          that.page++;
           if(that.myAnswer==that.answer){
             this.$Toast("获得积分")
@@ -130,6 +132,7 @@ export default{
               message: '登录已经过期',
               position: 'bottom'
             });
+            localStorage.setItem('token' ,'')
             this.$router.push("/login")
           }else if(res.data.code=="402"){
             this.$Toast({
@@ -143,7 +146,10 @@ export default{
             this.subjectId = res.data.data.subjectId;
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
-             this.src=res.data.data.remark;
+            this.src=res.data.data.remark;
+            if(res.data.data.remark == null){
+              this.shows1 = false;
+            }
             // if(sessionStorage.getItem("modeId")==3){
             //   this.src=res.data.data.remark;
             // }else{
@@ -202,6 +208,7 @@ export default{
               message: '登录已经过期',
               position: 'bottom'
             });
+            localStorage.setItem('token' ,'')
             this.$router.push("/login")
           }else if(res.data.code=="402"){
             this.$Toast({
@@ -214,6 +221,9 @@ export default{
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
             this.src=res.data.data.remark;
+            if(res.data.data.remark == null){
+              this.shows1 = false;
+            }
             // if(sessionStorage.getItem("modeId")==3){
             //   this.src=res.data.data.remark;
             // }else{
@@ -268,6 +278,7 @@ export default{
               message: '登录已经过期',
               position: 'bottom'
             });
+            localStorage.setItem('token' ,'')
             this.$router.push("/login")
           }else if(res.data.code=="402"){
             this.$Toast({
@@ -362,12 +373,19 @@ export default{
         }
     }
       .top{
+      width: 100%;
+      height: 3rem;
       padding-left: 0.24rem;
       padding-right: 0.24rem;
       margin-top:1rem;
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
+        img{
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
     }
     .mine_text{
       width: 7.03rem;
@@ -375,9 +393,11 @@ export default{
       line-height: .49rem;
       color: #282828;
       padding-left: 0.24rem;
+      margin-top: 1rem;
+      margin-bottom: .86rem;
     }
     .btn{
-      margin-top: .86rem;
+      // margin-top: .86rem;
        .bth_zhu{
           overflow: hidden;
           width: 1.68rem;
@@ -437,7 +457,6 @@ export default{
   .mine1{
     width: 100%;
     height: 100%;
-    font-size: 16px;
     position: fixed;
     top:0.88rem;
     bottom: 0;
@@ -446,22 +465,32 @@ export default{
     background-color: rgba(255,255,255,1);
       .top1{
       width: 100%;
+      height: 3rem;
       padding-left: 0.24rem;
       padding-right: 0.24rem;
-      margin-top: .2rem;
+      margin-top:1rem;
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
+      img{
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
    
     }
     .mine_text1{
-     text-align: center;
-      width: 7rem;
-      margin: 0.2rem auto;
-      /*margin: 0.2rem 0;*/
+      width: 7.03rem;
+      font-size: .36rem;
+      line-height: .49rem;
+      color: #282828;
+      padding-left: 0.24rem;
+      margin-top: .1rem;
+      margin-bottom: .86rem;
     }
     .daanList{
       width: 7rem;
+      font-size: 16px;
       margin: 0 auto;
       display: flex;
       justify-content: space-around;

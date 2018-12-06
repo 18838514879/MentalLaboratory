@@ -8,7 +8,7 @@
             <img src="../../../static/images/achievement_1.png" alt="">
             <p class="achieve_name">{{ranking.title}}</p>
             <p class="achieve_datil">{{ranking.conditions}}</p>
-            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -24,6 +24,7 @@ export default {
             // {id:4,title:'55555',conditions:'1111111225'}
          ],
          ids:'',
+         
     };
   },
   methods: {
@@ -46,6 +47,7 @@ export default {
                 message: '登录已经过期',
                 position: 'bottom'
               });
+              localStorage.setItem('token' ,'')
               this.$router.push("/login")
             }else if(res.data.code=="402"){
               this.$Toast({

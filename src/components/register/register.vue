@@ -24,7 +24,7 @@
              <li class="read">
             <img class="read_img" v-if="!isTrue" src="../../../static/images/notread.png" alt="" @click="changeImg()">
              <img class="read_img" v-if="isTrue" src="../../../static/images/read.png" alt="" @click="changeImg()">
-            <span class="read_le" >已阅读并且同意<span class="read_ri">《用户服务协议》</span></span>
+            <span class="read_le" >已阅读并且同意<span class="read_ri" @click="xieyi()">《用户服务协议》</span></span>
         </li>
 
         </ul>
@@ -64,7 +64,10 @@ export default {
     },
     methods:{
         back () {
-            history.back();
+           this.$router.push({path: '/login'})
+        },
+        xieyi(){
+           this.$router.push({path: '/xieyi'})
         },
         //获取logo接口
         logoJiekou () {
@@ -167,6 +170,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({

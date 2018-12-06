@@ -34,6 +34,11 @@ export default {
         }
     },
     mounted:function () {
+        if( localStorage.getItem('token') != '' && localStorage.getItem('token') != null){
+            this.$router.push({path: '/test'})
+        }
+
+
             var that=this; //作用域问题
             var isok=0;
             // console.log(this.$route.path);
@@ -181,6 +186,7 @@ export default {
             this.phone=this.phone.replace(/\D/g,'');
         }
     },
+  
 
     methods: {
 
@@ -202,6 +208,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({
@@ -273,6 +280,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({

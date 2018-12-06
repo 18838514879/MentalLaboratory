@@ -35,7 +35,7 @@
                 <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
-        <div class="div_div">
+        <div class="div_div" v-if="showss">
             <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
             <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
         </div>
@@ -46,7 +46,7 @@
             <!-- <li @click="fenxiang()">QQ</li> -->
           </ul>
         </div>
-        <div class="zhezhao" v-if="show"></div>
+        <div class="zhezhao" v-if="show" @click="zhezhao()"></div>
     </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
         mgs: '研究室',
         show:false,
         shows:false,
+        showss:false,
         show3:true,
         title:'',
         author:'',
@@ -78,8 +79,8 @@ export default {
   methods: {
     postCommen () {
         // 跳转
-        this.show = !this.show;
-        document.getElementsByClassName('div_div')[0].style.cssText="opacity: 1;"
+        this.show = true;
+       this.showss = true;
     },
     fenxiang () {
             this.shows = !this.shows;
@@ -90,6 +91,10 @@ export default {
     discuss1 () {
         this.$router.push({path:'/commentss?newsId='+this.$route.query.dataId+'&memberId='+this.$route.query.dataId});
     },
+   zhezhao (){
+       this.show = false;
+       this.showss = false;
+   },
 
     discuss () {
     // 资料评论接口
@@ -110,6 +115,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
         });
+        localStorage.setItem('token' ,'')
         this.$router.push("/login")
         }else if(res.data.code=="402"){
         this.$Toast({
@@ -155,6 +161,7 @@ export default {
                     message: '登录已经过期',
                     position: 'bottom'
                     });
+                    localStorage.setItem('token' ,'')
                     this.$router.push("/login")
                 }else if(res.data.code=="402"){
                     this.$Toast({
@@ -175,6 +182,7 @@ export default {
 
                         this.contentPluss= res.data.info.contentPlus; 
                          this.show3=false;
+                      
                     } else{
                         this.show3=true;
                     } 
@@ -214,6 +222,7 @@ export default {
                         message: '登录已经过期',
                         position: 'bottom'
                         });
+                        localStorage.setItem('token' ,'')
                         this.$router.push("/login")
                     }else if(res.data.code=="402"){
                         this.$Toast({
@@ -268,7 +277,7 @@ export default {
 
 <style scoped lang="scss">
   .div_div{
-        opacity: 0;
+        position: relative;
     }
     .addContent{
         color:#169bd5;
@@ -334,9 +343,9 @@ export default {
         border-radius: 45px;
         text-align: center;
         line-height: .6rem;
-        position: fixed;
-        top: 40%;
-        left: 83%;
+        position: absolute;
+        bottom: 14.5rem;
+        left: 6.2rem;
         z-index: 102;
     }
     .discuss_tex{

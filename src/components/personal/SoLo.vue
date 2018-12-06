@@ -9,17 +9,17 @@
                 <span class="item-icon">
                     <i class="fa fa-folder" aria-hidden="true"></i>
 			    </span>
-				      <p class="solo-p">{{ item.title }}</p>
-                <div class="solo_er">
-                <span class="footer-list-li">
-                    {{ item.paperTypesName }}
-                </span>
-                <span class="footer-list-li">
-                    题数：{{ item.paperNumbers }}
-                </span>
-                <span class="footer-list-li">
-                    奖励：{{ item.points }}
-                </span>
+				<p class="solo-p">{{ item.title }}</p>
+                <div class="solo_er clearfix">
+                    <span class="footer-list-li">
+                        {{ item.paperTypesName }}
+                    </span>
+                    <span class="footer-list-li">
+                        题数：{{ item.paperNumbers }}
+                    </span>
+                    <span class="footer-list-li">
+                        奖励：{{ item.points }}
+                    </span>
                 </div>
             </li>
         </ul>
@@ -67,6 +67,7 @@
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({
@@ -156,7 +157,8 @@
     	/*width: 0.90rem;*/
     	width: 27.1%;
 		height: 0.52rem;
-    	display:inline-block;
+    	display:block;
+        float: left;
         background-color: #ffffff;
         border: solid 1px #2083d1;
         font-size: 13px;

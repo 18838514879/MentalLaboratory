@@ -19,7 +19,7 @@
           </li>
           <li class="clearfix">
               <div class="applice_le">开户行名称</div>
-              <div class="applice_ri"><input type="text" v-model="opening" class="lastinput" placeholder="招商银行杭州市城西支行"></div>
+              <div class="applice_ri"><input type="text" v-model="opening" class="lastinput" placeholder="例如:招商银行杭州市城西支行"></div>
           </li>
         </ul>
         <button @click="immediately()">立即领取</button>
@@ -93,6 +93,7 @@ export default {
                    message: '登录已经过期',
                    position: 'bottom'
                  });
+                 localStorage.setItem('token' ,'')
                  this.$router.push("/login")
                }else if(res.data.code=="402"){
                  this.$Toast({
@@ -201,6 +202,9 @@ export default {
 
       }
       }
+      .applice_ri input::-webkit-input-placeholder{
+        color: #ccc;
+}
 
      }
     }

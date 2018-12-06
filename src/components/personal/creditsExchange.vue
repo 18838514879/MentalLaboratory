@@ -11,7 +11,7 @@
                     <img v-if="src" :src="src" alt="">
                 </div>
                 <div class="text_coupon">
-                        <span class="top">{{ranking.amount}}元优惠券</span><br>
+                        <span class="top">{{ranking.amount}}元现金券</span><br>
                         <span class="btn">满{{ranking.points}}积分使用</span>
                 </div>
                 <div class="Immediately">
@@ -78,6 +78,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({

@@ -14,16 +14,16 @@
             <div class="mid_test">
                 <div class="answer_w" v-for="(list,idx) in lists" :key="list.id" v-show="idx < 3 == show0">
                     <div class="answer clearfix" >
-                        <img class="answer_img" v-if="shows1=list.id==1" src="../../../static/images/test_one.png" alt="" @click="tiaozhuan(idx,list.remark)">
-                        <img class="answer_img" v-if="shows2=list.id==2" src="../../../static/images/test_two.png" alt="" @click="tiaozhuan(idx,list.remark)">
-                        <img class="answer_img" v-if="shows3=list.id==3" src="../../../static/images/test_more.png" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows1=list.id==1" src="../../../static/images/test_one.jpg" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows2=list.id==2" src="../../../static/images/test_two.jpg" alt="" @click="tiaozhuan(idx,list.remark)">
+                        <img class="answer_img" v-if="shows3=list.id==3" src="../../../static/images/test_more.jpg" alt="" @click="tiaozhuan(idx,list.remark)">
                           <!-- <img class="answer_img" :src="list.src" alt="" @click="tiaozhuan(idx,list.remark)"> -->
                         <div class="answer_text">
                             <p class="text_one" @click="tiaozhuan(idx,list.remark)">
                                 {{list.title}}
                                 <!-- <span class="dot"></span><span class="blue">答题</span> -->
                             </p>
-                            <p class="text_two">百科知识单人问答，知识竞赛</p>
+                            <!-- <p class="text_two">百科知识单人问答，知识竞赛</p> -->
                             <button @click="help(idx)">帮助</button>
                         </div>
                     </div>
@@ -136,6 +136,7 @@ export default{
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({
@@ -380,9 +381,9 @@ export default{
 
         .answer_img{
             float: left;
-            width: 2.47rem;
+            width: 3.47rem;
             height: 1.71rem;
-            margin-right: 0.49rem;
+            // margin-right: 0.49rem;
         }
         .answer_text{
             float: left;
@@ -391,6 +392,8 @@ export default{
                 font-size: 0.4rem;
                 font-weight: 700;
                 position: relative;
+                margin-left: .1rem;
+                margin-top: .1rem;
                 .dot{
                     display: inline-block;
                     width: 0.1rem;
@@ -419,6 +422,7 @@ export default{
                 background-color: #ff8043;
                 color:#fff;
                 font-size: 0.3rem;
+                margin-top: .2rem;
             }
 
         }

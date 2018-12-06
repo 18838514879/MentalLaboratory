@@ -19,7 +19,7 @@
                 <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
-        <div class="div_div">
+        <div class="div_div" v-if="showss">
             <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
             <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
         </div>
@@ -30,7 +30,7 @@
             <!-- <li @click="fenxiang()">QQ</li> -->
           </ul>
         </div>
-        <div class="zhezhao" v-if="show"></div>
+        <div class="zhezhao"  v-if="show" @click="zhezhao()"></div>
     </div>
 </template>
 
@@ -44,6 +44,7 @@ export default {
             contents: '',
             show: false,
             shows:false,
+            showss:false,
             content1:'',
         }
     },
@@ -62,6 +63,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({
@@ -95,8 +97,12 @@ export default {
         },
         postCommen () {
             // 跳转
-            this.show = !this.show;
-            document.getElementsByClassName('div_div')[0].style.cssText="opacity: 1;"
+             this.show = true;
+            this.showss = true;
+        },
+        zhezhao (){
+            this.show = false;
+            this.showss = false;
         },
         fenxiang () {
             this.shows = !this.shows;
@@ -126,6 +132,7 @@ export default {
                   message: '登录已经过期',
                   position: 'bottom'
                 });
+                localStorage.setItem('token' ,'')
                 this.$router.push("/login")
               }else if(res.data.code=="402"){
                 this.$Toast({
@@ -158,7 +165,7 @@ export default {
 
 <style scoped lang="scss">
     .div_div{
-        opacity: 0;
+          position: relative;
     }
     // 遮罩
     .zhezhao{
@@ -203,9 +210,10 @@ export default {
         border-radius: 45px;
         text-align: center;
         line-height: .6rem;
-        position: fixed;
-        top: 40%;
-        left: 83%;
+        position: absolute;
+        // bottom: 14.5rem;
+        top:1rem;
+        left: 6.2rem;
         z-index: 102;
     }
     .discuss_tex{

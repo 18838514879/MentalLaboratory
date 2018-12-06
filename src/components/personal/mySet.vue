@@ -188,6 +188,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({
@@ -260,6 +261,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({
@@ -309,6 +311,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({
@@ -367,6 +370,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({
@@ -412,6 +416,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+           localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({
@@ -421,6 +426,8 @@ export default {
           this.$router.push("/login")
         }else if(res.data.code=="0"){
           console.log(res);
+          localStorage.setItem('token' ,'')
+          //  localStorage.clear();
           this.$router.push({path: '/login'})
         }else{
           this.$Toast({
@@ -459,6 +466,7 @@ export default {
             message: '登录已经过期',
             position: 'bottom'
           });
+          localStorage.setItem('token' ,'')
           this.$router.push("/login")
         }else if(res.data.code=="402"){
           this.$Toast({

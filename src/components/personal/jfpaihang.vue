@@ -12,14 +12,16 @@
 				<li class="ranking_list_li speal clearfix"  >
 					<img :src="imgUrl" class="ranking-li-img">
 					<span class="ranking-li-text">{{ nickname }}</span>
-					<span class="paiming1">我的排名{{ ranking }}</span>
+					<span class="paiming1">我的积分:{{ points }}积分</span>
 					<span class="ranking-li-mine">当前排名</span>
 					<span class="ranking-li-num">{{ ranking }}</span>
 				</li>
 
 				<li class="ranking_list_li clearfix"  v-for="ranking in rankings" :key="ranking.id">
 					<img :src="ranking.imgUrl" class="ranking-li-img">
-					<span class="ranking-li-text">{{ ranking.nickname }}</span>
+					<span class="ranking-li-text" v-if="ranking.nickname==null">匿名网友</span>
+					<span class="ranking-li-text" v-if="ranking.nickname!=null">{{ ranking.nickname }}</span>
+					<span class="paiming1">总积分:{{ ranking.points }}积分</span>
 					<span class="ranking-li-num">{{ ranking.ranking }}</span>
 				</li>
 			</ul>
@@ -36,6 +38,7 @@
 				imgUrl:'',
 				nickname:'',
 				ranking:'',
+				points:'',
 				// show:true,
 		      	rankings: [
 		      		// {id:1, text:"丰田宝来", img:"当时", num: 102},
@@ -67,6 +70,7 @@
 							message: '登录已经过期',
 							position: 'bottom'
 						});
+						localStorage.setItem('token' ,'')
                     	this.$router.push("/login")
                     }else if(res.data.code=="402"){
 						this.$Toast({
@@ -90,6 +94,7 @@
 					}
 						this.rankings = res.data.data.list;
 						// this.nickname=res.data.data.member.nickname;
+						this.points=res.data.data.member.points;
 						this.ranking=res.data.data.member.ranking;
                     }else{
 						this.$Toast({
@@ -224,19 +229,24 @@
 		float: left;
 	}
 	.ranking-li-text{
-		width: 1.18rem;
-		height: .29rem;
+		width: 1.5rem;
 		font-family: SourceHanSansCN-Medium;
 		font-size: .30rem;
 		font-weight: normal;
 		font-stretch: normal;
-		line-height: .21rem;
+		line-height: .35rem;
 		letter-spacing: 0px;
 		color: #000000;
 		font-weight: 800;
 		float: left;
 		margin-left: .4rem;
 		margin-top: .45rem;
+		overflow: hidden; 
+		white-space: nowrap; 
+		text-overflow: ellipsis; 
+	}
+	.ranking-li-jifen{
+		font-size: .14rem;
 	}
 	.paiming2{
         display: none;
