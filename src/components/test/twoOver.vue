@@ -1,21 +1,14 @@
 <template>
-    <div class="mine">
+    <div class="mine11">
         <div class="header">
             <div class="head_t">
                <div @click="back()" class="span11"><img class="headImg" src="../../../static/images/h_return.png" alt=""></div>
-                <!-- <span style="margin-right: .45rem;">标题</span> -->
                  {{msg}}
             </div>
             <div class="white clearfix"><img src="../../../static/images/portrait.png" alt=""></div>
-            <!-- <p class="per_one">老鼠爱上猫</p> -->
         </div>
        <div class="btn">
-            <!-- <p class="per_thr">您成为最终9人</p>
-            <p class="per_for">您战胜了2762人（新纪录）</p>
-            <p class="per_five">您获得了3000点积分 </p> -->
             <p class="per_one">
-                <!-- <span><i class="fa fa-user" aria-hidden="true"></i></span>
-                参与人数：{{peopleCount}}人 -->
             </p>
             <p class="per_two">
                 <img src="../../assets/qian.png" alt="">
@@ -37,10 +30,15 @@ export default{
         //  peopleCount:'999',
       }
     },
+
+
+
   mounted () {
       this.getResult();
   },
+
   methods : {
+  
       test () {
           this.$router.push({path:'/test'})
       },
@@ -95,27 +93,8 @@ export default{
 </script>
 <style lang="scss" scoped>
 
-//
-.per_one{
-     font-size: 0.4rem;
-     color:#626262;
-     font-weight: 700;
-     text-align: center;
-    //  margin-top: 1.52rem;
-    }
-  .per_two{
-      font-size: 0.38rem;
-      color:#2083d1;
-       text-align: center;
-       margin-top: 0.38rem;
-      img{
-          width: 0.45rem;
-          height: 0.45rem;
-          vertical-align: middle;
-          margin-left: 0.21rem;
-      }
-  }
-.mine {
+
+.mine11 {
   width: 100%;
   height: 100%;
   background-color: #e9e9e9;
@@ -168,7 +147,13 @@ export default{
         float: left;
       }
     }
-    .per_one{
+   
+  }
+  .btn{
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        position: relative;
+         .per_one{
      font-size: 0.4rem;
      color:#626262;
      font-weight: 700;
@@ -187,11 +172,6 @@ export default{
           margin-left: 0.22rem;
       }
   }
-  }
-  .btn{
-        box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        position: relative;
       .per_thr{
             font-size: .40rem;
             color: #ff8043;

@@ -219,17 +219,17 @@ export default {
     actionSheet: function() {
       this.sheetVisible = true;
     },
-    cameraChoice:function(){
-          plus.nativeUI.actionSheet({cancel:"取消",buttons:[
-            {title:"拍照"},
-            {title:"从相册中选择"}
-          ]}, function(e){//1 是拍照  2 从相册中选择
-            switch(e.index){
-              case 1:clickCamera();break;
-              case 2:clickGallery();break;
-            }
-          });
-    },
+    // cameraChoice:function(){
+    //       plus.nativeUI.actionSheet({cancel:"取消",buttons:[
+    //         {title:"拍照"},
+    //         {title:"从相册中选择"}
+    //       ]}, function(e){//1 是拍照  2 从相册中选择
+    //         switch(e.index){
+    //           case 1:clickCamera();break;
+    //           case 2:clickGallery();break;
+    //         }
+    //       });
+    // },
   
     updateSaveIdx:function (idx) {//修改按钮状态
       this.saveIdx=idx;

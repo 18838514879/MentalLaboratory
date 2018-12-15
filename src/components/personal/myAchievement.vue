@@ -6,7 +6,8 @@
         </div>
         <ul class="achievement clearfix">
             <li class="achieve_fir" v-for="ranking in rankings" :key="ranking.id"  @click="achievementName(ranking.id)" >
-                <img src="../../../static/images/achievement_1.png" alt="">
+                <img v-if="ranking.isGet==false" src="../../../static/images/achievement_1.png" alt="">
+                <img v-if="ranking.isGet==true" src="../../../static/images/achievement_11.png" alt="">
                 <p class="achieve_name">{{ranking.title}}</p>
                 <p class="achieve_datil">{{achieve_datil}}</p>
             </li>

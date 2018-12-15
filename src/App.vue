@@ -14,11 +14,15 @@ export default {
       var that=this;
     //初始化  mui   
      mui.init({
-            swipeBack:false //关闭右滑关闭功能
+            swipeBack:false ,//关闭右滑关闭功能
+            keyEventBind: {
+                  backbutton: true //开启back按键监听（默认就是true）
+            }
         });
         mui.plusReady(function() {
             wainshow();
             var old_back = mui.back;
+            
             plus.key.addEventListener('backbutton', function () {
            
                 if (that.$route.path == "/login" || that.$route.path == "/test" || that.$router.push == "/new" || that.$router.push =="/study" || that.$router.push == "/personal") {

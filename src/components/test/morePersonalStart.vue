@@ -69,9 +69,7 @@ export default{
         // this.$router.go(-1);
         this.$router.push({path:'/test'});
       },
-       getTimu() {
-
-      },
+     
       tank () {
         MessageBox.alert('您被淘汰了').then(action => {
             this.$router.push({path:'/twoOver'});
@@ -468,7 +466,7 @@ export default{
       height: 3rem;
       padding-left: 0.24rem;
       padding-right: 0.24rem;
-      margin-top:1rem;
+      margin-top:0.16rem;
       text-align: center;
       box-sizing:border-box;
       -webkit-box-sizing: border-box;
@@ -485,7 +483,7 @@ export default{
       line-height: .49rem;
       color: #282828;
       padding-left: 0.24rem;
-      margin-top: .1rem;
+      margin-top: 1rem;
       margin-bottom: .86rem;
     }
     .daanList{
