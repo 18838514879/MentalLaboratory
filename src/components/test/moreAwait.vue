@@ -88,6 +88,7 @@ export default{
         title: '',
         shows1:true,
         page:1,
+        numbers: 0,
         list1:[],
         subjectReviewId:'',
         myAnswer:'-1',
@@ -332,11 +333,13 @@ created () {
         })
       },
       next(){
-        this.page++;
+        // this.page++;
+        this.numbers++;
         this.getTopic();
       },
       pre(){
-        this.page--;
+        // this.page--;
+        this.numbers--;
         this.getTopic();
       },
       tijiao(){
@@ -411,6 +414,7 @@ created () {
             this.tileId=res.data.data.id;
             this.isNext=res.data.data.next;
             this.src=res.data.data.remark;
+            this.numbers = res.data.data.numbers;
             if(res.data.data.remark == null){
               this.shows1 = false;
             }
@@ -464,7 +468,7 @@ created () {
           params:{
             token:localStorage.getItem('token'),
             subjectReviewId:this.subjectReviewId,
-            numbers:this.page
+            numbers:this.numbers
           }
         }).then((res)=>{
           if(res.data.code=="401"){
