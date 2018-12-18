@@ -88,7 +88,7 @@ export default{
         title: '',
         shows1:true,
         page:1,
-        numbers: 0,
+        numbers: 1,
         list1:[],
         subjectReviewId:'',
         myAnswer:'-1',
@@ -106,11 +106,9 @@ export default{
       }
     },
 
-created () {
-    this.page=1;
-    this.getTopic1();
- 
-  },
+// created () {
+//     this.page=1;
+//   },
 
     mounted () {
      var that=this;
@@ -121,8 +119,11 @@ created () {
                clearInterval(time)
                this.showd=false;
                this.showt=true;
+               that.getTopic1();
            }
         },1000)
+    that.page=1;
+    that.numbers=1;
     that.getImg();
     that.getPro();    
     },
@@ -430,6 +431,11 @@ created () {
             this.stringToArray1(this.list1,res.data.optionC,"3")
             this.stringToArray1(this.list1,res.data.optionD,"4")
             this.stringToArray1(this.list1,res.data.optionE,"5")
+            console.log(this.title)
+            console.log(this.subjectId)
+            console.log(this.tileId)
+            console.log(this.isNext)
+            console.log(this.numbers)
 
             if(this.page==1){
               this.subjectReviewId=res.data.subjectReviewId;

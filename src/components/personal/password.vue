@@ -29,7 +29,7 @@
            <li class="clearfix ">
           <img class="change" v-if="isOk" src="../../../static/images/select_read.png" alt="" @click="changeImg()">
              <img class="change" v-if="!isOk" src="../../../static/images/select_notread.png" alt="" @click="changeImg()">
-          <span class="read">我已阅读并接受<span class="test">《心理实验室》</span>用户条款</span>
+          <span class="read">我已阅读并接受<span class="test" @click="xieyi()">《心理实验室》</span>用户条款</span>
        </li>
         </ul>
        <button class="sure" @click="sure()">确定</button>
@@ -249,6 +249,10 @@ export default {
             back () {
                 this.$router.go(-1);
             } ,
+
+            xieyi(){
+                this.$router.push({path: '/xieyi'})
+            },
             // 用户协议确认
             changeImg () {
           this.isOk=!this.isOk;

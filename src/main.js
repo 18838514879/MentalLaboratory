@@ -45,8 +45,8 @@ Vue.use(VueRouter);
 
 
 Vue.prototype.$baseimgurl="http://xinlishiyanshi.hg.jergavin.com/sys/oss/upload";
-Vue.prototype.$baseurl="http://xlsys.nansa.nat300.top";
-// Vue.prototype.$baseurl="http://www.asdwsx.com";
+// Vue.prototype.$baseurl="http://xlsys.nansa.nat300.top";
+Vue.prototype.$baseurl="http://www.asdwsx.com";
 
 
 window.Toast= Toast;

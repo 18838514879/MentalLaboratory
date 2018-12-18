@@ -150,7 +150,7 @@ export default{
   },
     methods:{
         back(){
-              this.$router.push({path:'/register'});
+             this.$router.go(-1);
         }
     }
 

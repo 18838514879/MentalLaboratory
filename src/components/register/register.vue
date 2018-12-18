@@ -140,20 +140,7 @@ export default {
 
 
 
-             const TIME_COUNT = 60;
-                if (!this.timer) {
-                this.count = TIME_COUNT;
-                this.show = false;
-                this.timer = setInterval(() => {
-                if (this.count > 0 && this.count <= TIME_COUNT) {
-                    this.count--;
-                    } else {
-                    this.show = true;
-                    clearInterval(this.timer);
-                    this.timer = null;
-                    }
-                }, 1000)
-                };
+           
 
 
 
@@ -180,6 +167,20 @@ export default {
                 this.$router.push("/login")
               }else if(res.data.code=="0"){
                 console.log(res);
+                  const TIME_COUNT = 60;
+                if (!this.timer) {
+                this.count = TIME_COUNT;
+                this.show = false;
+                this.timer = setInterval(() => {
+                if (this.count > 0 && this.count <= TIME_COUNT) {
+                    this.count--;
+                    } else {
+                    this.show = true;
+                    clearInterval(this.timer);
+                    this.timer = null;
+                    }
+                }, 1000)
+                };
                 this.$Toast({
                   message: '发送验证码成功',
                   position: 'bottom'
@@ -210,14 +211,6 @@ export default {
             });
             return false
           }
-//            var img1 = "../../../static/images/read.png"
-//            if(this.src != img1){
-//                 this.$Toast({
-//                    message: '请选中已阅读',
-//                    position: 'bottom'
-//                });
-//                  return false
-//            }
             //注册接口
               console.log('created');
                 this.axios({
@@ -258,13 +251,6 @@ export default {
         },
     changeImg () {
           this.isTrue=!this.isTrue;
-
-//        var img = "../../../static/images/notread.png"
-//        if(this.src == img){
-//          this.src = "../../../static/images/read.png"
-//        }else{
-//           this.src = "../../../static/images/notread.png"
-//        }
       },
 
     }
