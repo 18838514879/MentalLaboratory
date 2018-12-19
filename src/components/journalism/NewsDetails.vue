@@ -19,10 +19,7 @@
                 <img class="img_3" src="../../../static/images/studyDatil_3.png" alt="">
             </div>
         </div>
-        <div class="div_div" v-if="showss">
-            <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
-            <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
-        </div>
+       
         <div class="detai_footer" v-if="shows">
           <ul class="detai_clearfix clearfix">
             <li @click="fenxiang()">微信</li>
@@ -31,6 +28,10 @@
           </ul>
         </div>
         <div class="zhezhao"  v-if="show" @click="zhezhao()"></div>
+         <div class="div_div" v-if="showss">
+            <input type="text" class="discuss_tex" placeholder="请输入内容"  v-model="content1" id="neirong">
+            <div class="discuss_fasong" v-if="show" @click="discuss()">发送</div>
+        </div>
     </div>
 </template>
 
@@ -164,9 +165,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .div_div{
-          position: relative;
-    }
+    // .div_div{
+    //     width: 100%;
+    //     height: 100%;
+    //     position: relative;
+    // }
     // 遮罩
     .zhezhao{
         height: 100%;
@@ -211,8 +214,7 @@ export default {
         text-align: center;
         line-height: .6rem;
         position: absolute;
-        // bottom: 14.5rem;
-        top:1rem;
+        bottom: 7.3rem;
         left: 6.2rem;
         z-index: 102;
     }

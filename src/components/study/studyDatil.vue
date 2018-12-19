@@ -276,9 +276,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .div_div{
-        position: relative;
-    }
+//   .div_div{
+//         position: relative;
+//     }
     .addContent{
         color:#169bd5;
         font-size: .24rem;
@@ -344,7 +344,7 @@ export default {
         text-align: center;
         line-height: .6rem;
         position: absolute;
-        bottom: 14.5rem;
+        bottom: 7.3rem;
         left: 6.2rem;
         z-index: 102;
     }
